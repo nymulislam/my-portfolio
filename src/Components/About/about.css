@@ -1,0 +1,32 @@
+.section_title {
+    text-align: center;
+    margin-left: 2rem;
+}
+
+.section_subtitle {
+    text-align: center;
+    margin-left: 2rem;
+}
+
+.about_box {
+    background-color: var(--container-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem;
+    text-align: center;
+    padding: 1rem 1.25rem;
+}
+
+.about_icon {
+    font-size: 1.5rem;
+    color: var(--title-color);
+    margin-bottom: var(--mb-0-5);
+}
+
+.about_title {
+    font-size: var(--small-font-size);
+    font-weight: var(--font-semi-bold);
+}
+
+.about_subtitle {
+    font-size: var(--smaller-font-size);
+}
