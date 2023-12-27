@@ -13,7 +13,7 @@ const Skills = () => {
         <FrontEnd />
         <BackEnd />
       </div>
-      <a href="#contact">
+      <a href="#projects">
         <ScrollDown />
       </a>
     </section>
