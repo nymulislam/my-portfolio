@@ -1,13 +1,34 @@
+import { useEffect, useState } from "react";
 import "./scrollUp.css";
 
 const ScrollUp = () => {
-  window.addEventListener("scroll", function () {
-    const scrollUp = this.document.querySelector(".scrollup");
-    if (this.scrollY >= 560) scrollUp.classList.add("show-scroll");
-    else scrollUp.classList.remove("show-scroll");
-  });
+  const [showScroll, setShowScroll] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY >= 400) {
+        setShowScroll(true);
+      } else {
+        setShowScroll(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <a href="#" className="scrollup">
+    <a
+      href="#"
+      onClick={scrollToTop}
+      aria-label="Scroll to top"
+      className={`scrollup ${showScroll ? "show-scroll" : ""}`}
+    >
       <i className="uil uil-arrow-up scrollup_icon"></i>
     </a>
   );

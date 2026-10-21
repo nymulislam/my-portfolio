@@ -1,22 +1,23 @@
 /* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap');
 
 /* Variables CSS */
 :root {
-    --header-height: 3rem;
+    --header-height: 3.5rem;
 
     /* Colors */
-    /* Color mode HSL */
     --hue: 0;
     --sat: 0%;
-    --title-color: hsl(var(--hue), var(--sat), 20%);
+    --title-color: hsl(var(--hue), var(--sat), 15%);
     --title-color-dark: hsl(var(--hue), var(--sat), 0%);
-    --text-color: hsl(var(--hue), var(--sat), 46%);
-    --body-color: hsl(var(--hue), var(--sat), 98%);
-    --container-color: #fff;
+    --text-color: hsl(var(--hue), var(--sat), 40%);
+    --body-color: #fafafa;
+    --container-color: #ffffff;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --button-border: #000000;
 
-    /* Font & typo */
-    --body-font: "Poppins", sans-serif;
+    /* Font & typography */
+    --body-font: "Plus Jakarta Sans", "Poppins", sans-serif;
 
     --big-font-size: 3.5rem;
     --h1-font-size: 2.25rem;
@@ -28,10 +29,10 @@
     --tiny-font-size: 0.625rem;
 
     /* Font weight */
-
     --font-normal: 400;
     --font-medium: 500;
     --font-semi-bold: 600;
+    --font-bold: 700;
 
     /* Margins bottom */
     --mb-0-25: 0.25rem;
@@ -47,14 +48,23 @@
     --z-tooltip: 10;
     --z-fixed: 100;
     --z-modal: 1000;
+}
 
+html.dark {
+    --title-color: #f4f4f5;
+    --title-color-dark: #ffffff;
+    --text-color: #a1a1aa;
+    --body-color: #09090b;
+    --container-color: #121215;
+    --border-color: rgba(255, 255, 255, 0.12);
+    --button-border: #ffffff;
 }
 
 /* Responsive typo */
-@media screen and (max-width: 992) {
+@media screen and (max-width: 992px) {
     :root {
         --big-font-size: 2.75rem;
-        --h1-font-size: 1.5rem;
+        --h1-font-size: 1.75rem;
         --h2-font-size: 1.25rem;
         --h3-font-size: 1rem;
         --normal-font-size: 0.938rem;
@@ -64,8 +74,6 @@
 }
 
 /* Base */
-
-
 html {
     scroll-behavior: smooth;
 }
@@ -81,29 +89,82 @@ textarea {
 body {
     background-color: var(--body-color);
     color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
 }
 
+/* Tactile 3D Buttons (Beloved original style with smooth press animation) */
+.btn-tactile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background-color: var(--container-color);
+    color: var(--title-color);
+    border: 1px solid var(--border-color);
+    border-bottom: 4px solid var(--button-border);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
 
+.btn-tactile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
 
+.btn-tactile:active {
+    transform: translateY(2px);
+    border-bottom-width: 2px;
+}
 
-
-
-/* Shared CSS classes */
-
+/* Section titles */
 .section_title {
     font-size: var(--h1-font-size);
     color: var(--title-color);
+    font-weight: var(--font-bold);
+    text-align: center;
+    letter-spacing: -0.02em;
 }
 
 .section_subtitle {
     display: block;
     font-size: var(--small-font-size);
-    margin-bottom: 4rem;
-}
-
-.section_title,
-.section_subtitle {
+    color: var(--text-color);
     text-align: center;
+    margin-bottom: 3.5rem;
 }
 
+/* Racdox subtle ambient glow */
+.ambient-glow {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(80px);
+    pointer-events: none;
+    opacity: 0.45;
+    z-index: 0;
+}
 
+html.dark .ambient-glow {
+    opacity: 0.25;
+}
+
+/* Floating animation */
+@keyframes floatSlow {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.animate-float {
+    animation: floatSlow 4s ease-in-out infinite;
+}

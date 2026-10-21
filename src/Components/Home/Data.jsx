@@ -2,24 +2,36 @@ import { BiMessageSquareDots } from "react-icons/bi";
 
 const Data = () => {
   return (
-    <div className="ml-5">
-      <h1 className="text-3xl lg:text-6xl font-semibold">Naymul Islam </h1>
-      <h3 className="text-xl lg:text-3xl my-5 md:my-10">MERN stack Developer</h3>
+    <div className="ml-0 md:ml-5 max-w-xl">
 
-      <p className="md:text-lg">
-        I&apos;m a MERN stack developer, coding with HTML, CSS, and JavaScript.
-        Passionate about easy-to-love interfaces! Ready to team up for web
-        wonder?
+      <h1 className="text-4xl lg:text-6xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 leading-tight">
+        Naymul Islam
+      </h1>
+
+      <h3 className="text-xl lg:text-2xl font-semibold my-4 text-zinc-700 dark:text-zinc-300">
+        Full Stack Software Engineer
+      </h3>
+
+      <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
+        I engineer fast, scalable web platforms using <strong className="text-zinc-900 dark:text-zinc-200">Next.js</strong>, <strong className="text-zinc-900 dark:text-zinc-200">TypeScript</strong>, and the <strong className="text-zinc-900 dark:text-zinc-200">MERN stack</strong>. I also design intelligent <strong className="text-zinc-900 dark:text-zinc-200">Agentic AI</strong> workflows that automate tasks with speed and precision.
       </p>
 
-      <a
-        href="#contact"
-        className="btn border border-b-4 border-black border-x-neutral-content  border-t-neutral-content uppercase mt-16"
-      >
-        {" "}
-        Say Hi
-        <BiMessageSquareDots className="text-xl animate-pulse" />
-      </a>
+      <div className="mt-8 flex flex-wrap items-center gap-4">
+        <a
+          href="#contact"
+          className="btn-tactile uppercase"
+        >
+          <span>Say Hi</span>
+          <BiMessageSquareDots className="text-xl animate-pulse" />
+        </a>
+
+        <a
+          href="#projects"
+          className="px-6 py-3 rounded-lg text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white transition-colors"
+        >
+          Explore Work ↓
+        </a>
+      </div>
     </div>
   );
 };

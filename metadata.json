@@ -1,0 +1,8 @@
+{
+  "name": "Explore My Portfolio Journey",
+  "description": "Personal developer portfolio of Naymul Islam showcasing MERN stack projects, skills, education, and contact information.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,3 +1,100 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    transition: background-color 0.4s ease, color 0.4s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+  }
+
+  /* Morning Mood */
+  html.mood-morning body {
+    background-color: #FAF5EA;
+    color: #26211C;
+  }
+
+  /* Afternoon Mood */
+  html.mood-afternoon body {
+    background-color: #FBF9F5;
+    color: #1C1917;
+  }
+
+  /* Evening Mood (User reference screenshot) */
+  html.mood-evening body {
+    background-color: #F4EAE0;
+    color: #231C17;
+  }
+
+  /* Night Mood */
+  html.mood-night body,
+  html.dark body {
+    background-color: #151311;
+    color: #ECE7DF;
+  }
+}
+
+/* Steam keyframe animation for hot tea */
+@keyframes steamRise {
+  0% {
+    transform: translateY(0) scaleX(1);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-20px) scaleX(1.4) translateX(4px);
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateY(-45px) scaleX(2) translateX(-6px);
+    opacity: 0;
+  }
+}
+
+.animate-steam-1 {
+  animation: steamRise 3.2s infinite ease-out;
+}
+
+.animate-steam-2 {
+  animation: steamRise 3.6s infinite ease-out 1.2s;
+}
+
+.animate-steam-3 {
+  animation: steamRise 4s infinite ease-out 2.2s;
+}
+
+/* Gentle swinging clock pendulum */
+@keyframes clockSwing {
+  0%, 100% {
+    transform: rotate(0.8deg);
+  }
+  50% {
+    transform: rotate(-0.8deg);
+  }
+}
+
+.animate-clock-swing {
+  transform-origin: top center;
+  animation: clockSwing 5s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(120, 113, 108, 0.25);
+  border-radius: 9999px;
+}

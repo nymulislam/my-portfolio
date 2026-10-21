@@ -1,19 +1,23 @@
 .qualification_container {
     max-width: 768px;
+    margin: 0 auto;
 }
 
 .qualification_tabs {
     display: flex;
     justify-content: center;
     margin-bottom: var(--mb-2);
+    gap: 1.5rem;
 }
 
 .qualification_button {
     font-size: var(--h3-font-size);
     font-weight: var(--font-medium);
-    color: var(--title-color);
-    margin: 0 var(--mb-1);
+    color: var(--text-color);
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.3s ease;
 }
 
 .qualification_button:hover {
@@ -26,12 +30,13 @@
 }
 
 .qualification_active {
-    color: var(--title-color-dark);
+    color: var(--title-color);
+    font-weight: var(--font-bold);
 }
 
 .qualification_sections {
     display: grid;
-    grid-template-columns: 0.5fr;
+    grid-template-columns: 0.7fr;
     justify-content: center;
 }
 
@@ -47,28 +52,35 @@
     display: grid;
     grid-template-columns: 1fr max-content 1fr;
     column-gap: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .qualification_title {
     font-size: var(--normal-font-size);
-    font-weight: var(--font-medium);
+    font-weight: var(--font-semi-bold);
+    color: var(--title-color);
 }
 
 .qualification_subtitle {
     display: inline-block;
     font-size: var(--small-font-size);
-    margin-bottom: 0;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
 }
 
 .qualification_calender {
-    font-size: var(--small-font-size);
+    font-size: var(--smaller-font-size);
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
 }
 
-.qualification_rounder{
+.qualification_rounder {
     display: inline-block;
     width: 13px;
     height: 13px;
-    background-color: var(--text-color);
+    background-color: var(--button-border);
     border-radius: 50%;
 }
 
@@ -76,35 +88,18 @@
     display: block;
     width: 1px;
     height: 100%;
-    background-color: var(--text-color);
+    background-color: var(--border-color);
     transform: translate(6px, -7px);
 }
 
-
-/* For large devices */
-@media screen and (max-width: 992px) {
-    .qualification_container{
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-
-/* For medium devices */
 @media screen and (max-width: 768px) {
-    .qualification_container {
-        margin-left: var(--mb-1-5);
-        margin-right: var(--mb-1-5);
+    .qualification_sections {
+        grid-template-columns: 0.95fr;
     }
 }
 
 @media screen and (max-width: 425px) {
-    .qualification_sections {
-        grid-template-columns: initial;
-    }
-    .qualification_button {
-        margin: 0 var(--mb-0-75);
-    }
     .qualification_data {
-        gap: 0.5rem;
+        column-gap: 0.75rem;
     }
 }
