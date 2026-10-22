@@ -116,3 +116,37 @@
   background: rgba(120, 113, 108, 0.25);
   border-radius: 9999px;
 }
+
+#a4-print-root {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 9mm 11mm;
+  }
+  html,
+  body {
+    background: #ffffff !important;
+    color: #1e1a17 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: auto !important;
+  }
+  body > *:not(#a4-print-root) {
+    display: none !important;
+  }
+  #a4-print-root {
+    display: block !important;
+    width: 100% !important;
+  }
+  .a4-sheet-print {
+    width: 100% !important;
+    background: #ffffff !important;
+    color: #1e1a17 !important;
+  }
+  .a4-sheet-print > * + * {
+    margin-top: 9px !important;
+  }
+}

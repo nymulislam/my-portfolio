@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { FiCopy, FiCheck, FiPlay, FiFileText } from "react-icons/fi";
 import StudioDeskVignette from "../Handcrafted/StudioDeskVignette";
 import { Toast } from "../UI/Toast";
+import Tooltip from "../UI/Tooltip";
 import { useTimeOfDay } from "../../context/TimeOfDayContext";
 import { PROFILE, STACK_PLAYGROUND } from "../../data/portfolioData";
 
@@ -10,6 +11,7 @@ const Hero = ({ onOpenResume }) => {
   const [activeTab, setActiveTab] = useState(0);
   const [copied, setCopied] = useState(false);
   const [verified, setVerified] = useState(false);
+  const [bioExpanded, setBioExpanded] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
   const [dhakaClock, setDhakaClock] = useState("");
 
@@ -71,16 +73,29 @@ const Hero = ({ onOpenResume }) => {
               Hi, I’m {PROFILE.shortName}.
             </h1>
 
-            <p className="text-[15.5px] sm:text-[17px] text-[#332B24] dark:text-stone-200 leading-[1.65] font-normal">
-              {PROFILE.bio}
-            </p>
+            <div className="space-y-2">
+              <p className="text-[15.5px] sm:text-[17px] text-[#332B24] dark:text-stone-200 leading-[1.65] font-normal">
+                {PROFILE.shortBio}{" "}
+                <button
+                  type="button"
+                  onClick={() => setBioExpanded((prev) => !prev)}
+                  className="inline-flex items-center gap-1 text-[13px] font-mono font-medium text-[#9A4E24] dark:text-amber-400 hover:underline cursor-pointer whitespace-nowrap ml-1"
+                >
+                  <span>{bioExpanded ? "Show less ↑" : "Read more ↓"}</span>
+                </button>
+              </p>
+
+              {bioExpanded && (
+                <p className="text-[14.5px] sm:text-[15.5px] text-[#4A3E33] dark:text-stone-300 leading-[1.65] pl-3 border-l-2 border-[#D2C3AE] dark:border-stone-700">
+                  {PROFILE.expandedBio}
+                </p>
+              )}
+            </div>
 
             {/* Quick Hiring Status & Single-Line Executive Action Bar */}
             <div className="pt-1 space-y-3">
               <div className="text-[12.5px] sm:text-[13px] font-mono text-[#4A3E33] dark:text-stone-300 leading-relaxed">
                 <span className="font-medium text-[#231D18] dark:text-stone-100">{PROFILE.role}</span>
-                <span aria-hidden="true"> · </span>
-                <span>{PROFILE.tagline}</span>
                 <span aria-hidden="true"> · </span>
                 <span className="text-[#9A4E24] dark:text-amber-400 font-medium">
                   Remote or Dhaka
@@ -123,9 +138,9 @@ const Hero = ({ onOpenResume }) => {
         </div>
 
         {/* Full-Width Interactive Stack & Code Snippet Playground */}
-        <div className="rounded-2xl border border-[#D2C3AE] dark:border-stone-800 bg-[#E8DEC9]/50 dark:bg-[#1A1816]/95 overflow-hidden shadow-xs">
+        <div className="rounded-2xl border border-[#D2C3AE] dark:border-stone-800 bg-[#E8DEC9]/50 dark:bg-[#1A1816]/95 shadow-xs">
           {/* Playground Header Tabs (Symmetrical 2x2 Grid on Mobile, Single-Line Row on Tablet/Desktop) */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 px-3.5 sm:px-4 py-2.5 border-b border-[#D2C3AE] dark:border-stone-800 bg-[#EFE6D8]/70 dark:bg-stone-900/70">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 px-3.5 sm:px-4 py-2.5 rounded-t-2xl border-b border-[#D2C3AE] dark:border-stone-800 bg-[#EFE6D8]/70 dark:bg-stone-900/70">
             <div className="grid grid-cols-2 sm:flex sm:items-center gap-1.5 shrink-0">
               {STACK_PLAYGROUND.map((item, idx) => (
                 <button
@@ -151,22 +166,24 @@ const Hero = ({ onOpenResume }) => {
                 {currentItem.file}
               </span>
               <div className="flex items-center gap-1.5 shrink-0">
-                <button
-                  onClick={handleRunVerify}
-                  className="inline-flex items-center gap-1 px-2.5 py-1.5 sm:py-1 min-h-[32px] sm:min-h-0 rounded-md text-[11.5px] font-mono border border-[#C5B49E] dark:border-stone-700 text-[#332B24] dark:text-stone-200 hover:bg-[#DDD0BC]/70 dark:hover:bg-stone-800 cursor-pointer transition-colors"
-                  title="Verify architectural invariant"
-                >
-                  <FiPlay className="text-[10px] text-[#9A4E24] dark:text-amber-400" />
-                  <span>Verify</span>
-                </button>
-                <button
-                  onClick={handleCopyCode}
-                  className="inline-flex items-center gap-1 px-2.5 py-1.5 sm:py-1 min-h-[32px] sm:min-h-0 rounded-md text-[11.5px] font-mono border border-[#C5B49E] dark:border-stone-700 text-[#332B24] dark:text-stone-200 hover:bg-[#DDD0BC]/70 dark:hover:bg-stone-800 cursor-pointer transition-colors"
-                  title="Copy snippet"
-                >
-                  {copied ? <FiCheck className="text-emerald-600" /> : <FiCopy />}
-                  <span>{copied ? "Copied" : "Copy"}</span>
-                </button>
+                <Tooltip content="Verify architectural invariant" position="top" align="right">
+                  <button
+                    onClick={handleRunVerify}
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 sm:py-1 min-h-[32px] sm:min-h-0 rounded-md text-[11.5px] font-mono border border-[#C5B49E] dark:border-stone-700 text-[#332B24] dark:text-stone-200 hover:bg-[#DDD0BC]/70 dark:hover:bg-stone-800 cursor-pointer transition-colors"
+                  >
+                    <FiPlay className="text-[10px] text-[#9A4E24] dark:text-amber-400" />
+                    <span>Verify</span>
+                  </button>
+                </Tooltip>
+                <Tooltip content="Copy code snippet" position="top" align="right">
+                  <button
+                    onClick={handleCopyCode}
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 sm:py-1 min-h-[32px] sm:min-h-0 rounded-md text-[11.5px] font-mono border border-[#C5B49E] dark:border-stone-700 text-[#332B24] dark:text-stone-200 hover:bg-[#DDD0BC]/70 dark:hover:bg-stone-800 cursor-pointer transition-colors"
+                  >
+                    {copied ? <FiCheck className="text-emerald-600" /> : <FiCopy />}
+                    <span>{copied ? "Copied" : "Copy"}</span>
+                  </button>
+                </Tooltip>
               </div>
             </div>
           </div>
@@ -179,7 +196,7 @@ const Hero = ({ onOpenResume }) => {
           </div>
 
           {/* Architectural Invariant Footer Bar */}
-          <div className="px-4 py-2.5 border-t border-[#D2C3AE]/80 dark:border-stone-800/80 bg-[#F4ECE0]/60 dark:bg-stone-900/50 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-[12px] font-mono">
+          <div className="px-4 py-2.5 rounded-b-2xl border-t border-[#D2C3AE]/80 dark:border-stone-800/80 bg-[#F4ECE0]/60 dark:bg-stone-900/50 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-[12px] font-mono">
             <span className="text-[#4A3E33] dark:text-stone-300 leading-relaxed">
               Architecture: {currentItem.architectureNote}
             </span>

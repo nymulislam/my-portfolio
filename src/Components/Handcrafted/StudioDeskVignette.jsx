@@ -1,17 +1,35 @@
 import { useState } from "react";
 import { useTimeOfDay } from "../../context/TimeOfDayContext";
+import Tooltip from "../UI/Tooltip";
 
 const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
   const { activePeriod, cycleMood, studioLampOn, toggleStudioLamp, currentDetails } = useTimeOfDay();
   const [hoverZone, setHoverZone] = useState(null);
 
+  const hoverLabel =
+    hoverZone === "window"
+      ? "Click window → Shift studio time of day"
+      : hoverZone === "lamp"
+      ? `Click lamp → Turn ${studioLampOn ? "off" : "on"} desk light`
+      : hoverZone === "keyboard"
+      ? "Click keyboard → Cycle stack code snippet"
+      : null;
+
   return (
     <div className="relative w-full max-w-full md:max-w-[380px] mx-auto select-none">
-      {/* Main Studio Desk & Window Card (Crisp Exterior Border — Zero Outer Bleed) */}
-      <div className="relative rounded-2xl border border-[#D2C3AE] dark:border-stone-800/90 bg-[#E8DEC9]/55 dark:bg-[#1A1816]/90 p-3 sm:p-3.5 shadow-xs overflow-hidden">
+      {/* Main Studio Desk & Window Card */}
+      <div className="relative rounded-2xl border border-[#D2C3AE] dark:border-stone-800/90 bg-[#E8DEC9]/55 dark:bg-[#1A1816]/90 p-3 sm:p-3.5 shadow-xs">
+        {/* Floating Editorial Tooltip Pill when hovering interactive SVG objects */}
+        {hoverLabel && (
+          <div className="pointer-events-none absolute top-2.5 left-1/2 -translate-x-1/2 z-20 px-2.5 py-1 rounded-lg bg-[#231D18] dark:bg-[#2B2520] text-[#F6EFE2] dark:text-stone-100 border border-[#524336] dark:border-stone-700 shadow-lg text-[11px] font-mono flex items-center gap-1.5 whitespace-nowrap">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#D97736] dark:bg-amber-400 shrink-0" />
+            <span>{hoverLabel}</span>
+          </div>
+        )}
+
         <svg
           viewBox="0 0 340 210"
-          className="w-full h-auto max-h-[210px] sm:max-h-none mx-auto block"
+          className="w-full h-auto max-h-[210px] sm:max-h-none mx-auto block overflow-hidden rounded-xl"
           role="img"
           aria-label="Naymul's Studio Desk with Window Light, Articulated Desk Lamp, and Mechanical Keyboard"
         >
@@ -158,7 +176,6 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
           {/* ==================== 1B. INTERIOR WINDOW SUNBEAMS (Soft Rays from Panes onto Desk) ==================== */}
           {activePeriod !== "night" && (
             <g className="pointer-events-none animate-window-rays">
-              {/* Left pane sunbeam slanting down toward mug & keyboard */}
               <polygon
                 points="22,30 88,30 155,168 48,168"
                 fill={
@@ -169,7 +186,6 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
                     : "url(#sunbeamAfternoon)"
                 }
               />
-              {/* Right pane sunbeam slanting down across keyboard */}
               <polygon
                 points="96,30 162,30 238,168 164,168"
                 fill={
@@ -386,36 +402,31 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
         {/* Touch-Friendly Studio Controls Bar at Bottom of Vignette */}
         <div className="mt-2 pt-2.5 border-t border-[#D2C3AE]/80 dark:border-stone-800 flex flex-col gap-2 text-[11.5px] font-mono text-[#4A3E33] dark:text-stone-300">
           <div className="flex items-center justify-between gap-2">
-            <span className="truncate">
-              {hoverZone === "window"
-                ? "Window → Shift time"
-                : hoverZone === "lamp"
-                ? `Lamp → Turn ${studioLampOn ? "off" : "on"}`
-                : hoverZone === "keyboard"
-                ? "Keys → Next snippet"
-                : currentDetails.windowCaption}
-            </span>
+            <span className="truncate">{currentDetails.windowCaption}</span>
           </div>
 
           <div className="grid grid-cols-2 gap-1.5 w-full">
-            <button
-              onClick={toggleStudioLamp}
-              className={`px-2.5 py-1.5 min-h-[32px] rounded-lg text-[11.5px] cursor-pointer transition-colors border whitespace-nowrap text-center ${
-                studioLampOn
-                  ? "bg-amber-500/20 border-amber-600/45 text-[#9A4E24] dark:text-amber-300 font-medium"
-                  : "border-[#C5B49E] dark:border-stone-700 text-[#4A3E33] dark:text-stone-300"
-              }`}
-              title="Toggle studio desk lamp"
-            >
-              Lamp: {studioLampOn ? "ON" : "OFF"}
-            </button>
-            <button
-              onClick={cycleMood}
-              className="px-2.5 py-1.5 min-h-[32px] rounded-lg text-[11.5px] border border-[#C5B49E] dark:border-stone-700 text-[#332B24] dark:text-stone-200 hover:bg-[#DDD0BC]/70 dark:hover:bg-stone-800 cursor-pointer transition-colors whitespace-nowrap text-center"
-              title="Shift studio time of day"
-            >
-              {currentDetails.label} ↻
-            </button>
+            <Tooltip content="Toggle warm studio desk lamp" position="top" align="left" className="w-full">
+              <button
+                onClick={toggleStudioLamp}
+                className={`w-full px-2.5 py-1.5 min-h-[32px] rounded-lg text-[11.5px] cursor-pointer transition-colors border whitespace-nowrap text-center ${
+                  studioLampOn
+                    ? "bg-amber-500/20 border-amber-600/45 text-[#9A4E24] dark:text-amber-300 font-medium"
+                    : "border-[#C5B49E] dark:border-stone-700 text-[#4A3E33] dark:text-stone-300"
+                }`}
+              >
+                Lamp: {studioLampOn ? "ON" : "OFF"}
+              </button>
+            </Tooltip>
+
+            <Tooltip content="Shift studio time of day" position="top" align="right" className="w-full">
+              <button
+                onClick={cycleMood}
+                className="w-full px-2.5 py-1.5 min-h-[32px] rounded-lg text-[11.5px] border border-[#C5B49E] dark:border-stone-700 text-[#332B24] dark:text-stone-200 hover:bg-[#DDD0BC]/70 dark:hover:bg-stone-800 cursor-pointer transition-colors whitespace-nowrap text-center"
+              >
+                {currentDetails.label} ↻
+              </button>
+            </Tooltip>
           </div>
         </div>
       </div>
@@ -424,3 +435,4 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
 };
 
 export default StudioDeskVignette;
+

@@ -1,36 +1,53 @@
 /**
  * ============================================================================
- * MASTER PORTFOLIO DATA STORE (Single Source of Truth)
+ * MASTER PORTFOLIO DATA STORE (Single Source of Truth for Web & ATS Resume)
  * ============================================================================
- * Edit this file to update contact details, hiring status, hero code snippets,
- * case studies, experience timeline, foundations, or writing essays without touching UI code.
+ * Any update made here automatically updates the live portfolio, the interactive
+ * Resume Preview Modal, and the generated A4 ATS-friendly PDF Resume.
  */
 
 export const PROFILE = {
   name: "Naymul Islam",
   shortName: "Naymul",
-  role: "Full-Stack & AI Engineer",
+  role: "Full-Stack & AI Systems Engineer",
   hiringStatus: "Open to Full-Stack & AI Engineer roles (Remote or Dhaka)",
-  tagline: "Solo LMS & Commerce Architect",
+  tagline: "Next.js · TypeScript · Supabase · MERN",
   location: "Dhaka, Bangladesh",
-  bio: "I build fast web applications and practical AI workflows. I care about clean architecture, simple code, and systems that hold up under real load.",
+  shortBio:
+    "I architect fast, reliable web and mobile applications using Next.js, TypeScript, Supabase, BetterAuth, HeroUI, and the MERN stack.",
+  expandedBio:
+    "Across 40 repositories and 2 GitHub organizations—learnhikmah (private LMS monorepo) and balzo-app (solo multi-financial mobile & web suite)—I pair formal analytical logic with practical Agentic AI workflows.",
+  bio: "I architect fast, reliable web and mobile applications using Next.js, TypeScript, Supabase, BetterAuth, HeroUI, and the MERN stack. Across 40 repositories and 2 organizations (learnhikmah & balzo-app), I focus on clean system boundaries and practical AI workflows.",
   email: "naymulislam241@gmail.com",
   phone: "+8801822667737",
   phoneFormatted: "+880 182-2667737",
   whatsappUrl: "https://wa.me/8801822667737",
   githubUrl: "https://github.com/nymulislam",
   linkedinUrl: "https://linkedin.com/in/nymulislam",
-  resumeUrl: "https://t.ly/aR09W",
-  repoCount: "84+",
+  portfolioUrl: "https://github.com/nymulislam",
+  repoCount: "40",
+  orgCount: "2",
+  organizations: [
+    {
+      name: "learnhikmah",
+      url: "https://learnhikmah.com",
+      description: "Private monorepo powering LearnHikmah Platform & LMS",
+    },
+    {
+      name: "balzo-app",
+      url: "https://github.com/nymulislam",
+      description: "Solo-engineered multi-financial mobile & web application suite",
+    },
+  ],
 };
 
 export const STACK_PLAYGROUND = [
   {
     id: "nextjs",
     label: "Next.js",
-    fullLabel: "Next.js SSR",
+    fullLabel: "Next.js · HeroUI",
     file: "app/courses/[slug]/page.tsx",
-    architectureNote: "Streaming SSR with parallel fetching & zero client waterfall",
+    architectureNote: "Streaming SSR with parallel fetching, HeroUI primitives & zero waterfall",
     verifyOutput: "✓ SSR stream ready in 38ms · Cache-Control: s-maxage=3600",
     code: `export default async function CoursePage({ params }: Props) {
   const [course, progress] = await Promise.all([
@@ -41,19 +58,17 @@ export const STACK_PLAYGROUND = [
 }`,
   },
   {
-    id: "typescript",
-    label: "TypeScript",
-    fullLabel: "TypeScript",
-    file: "lib/contracts/result.ts",
-    architectureNote: "Discriminated unions eliminating unhandled runtime errors",
-    verifyOutput: "✓ Strict null & exhaustive switch check passed (0 implicit any)",
-    code: `export type ActionState<T> =
-  | { ok: true; data: T; timestamp: number }
-  | { ok: false; code: "UNAUTHORIZED" | "CONFLICT" };
-
-export function verifySession(user: User | null): ActionState<User> {
-  if (!user) return { ok: false, code: "UNAUTHORIZED" };
-  return { ok: true, data: user, timestamp: Date.now() };
+    id: "auth-supabase",
+    label: "Supabase",
+    fullLabel: "BetterAuth · Supabase",
+    file: "lib/auth/session-guard.ts",
+    architectureNote: "Type-safe BetterAuth session verification backed by Supabase RLS policies",
+    verifyOutput: "✓ BetterAuth session & Supabase RLS policy verified (0 implicit any)",
+    code: `export async function requireOrgSession(headers: Headers) {
+  const session = await auth.api.getSession({ headers });
+  if (!session?.user) return { ok: false as const, code: "UNAUTHORIZED" };
+  const { data } = await supabase.from("profiles").select("*").eq("id", session.user.id).single();
+  return { ok: true as const, user: session.user, profile: data };
 }`,
   },
   {
@@ -96,16 +111,24 @@ export const CASE_STUDIES = [
     id: "learnhikmah-web",
     name: "LearnHikmah Platform",
     url: "https://learnhikmah.com",
+    liveLabel: "Live Site ↗",
     repoUrl: null,
-    repoLabel: "Private Org",
+    repoLabel: "Private Monorepo",
+    repoTooltip: "learnhikmah · Private organization monorepo engineered solo",
     role: "Solo Architect",
-    stack: "Next.js · TS · Tailwind",
+    stack: "Next.js · TS · HeroUI · Tailwind",
+    cvSelected: true,
     defaultArchOpen: false,
+    defaultExpanded: true,
+    shortSummary:
+      "Public education portal engineered solo in the private learnhikmah monorepo with fast SSR course catalogs.",
+    expandedDetails:
+      "Built for global reading performance with server-rendered curriculum pages, shared monorepo UI primitives, and sub-50ms edge caching.",
     summary:
-      "Public education and community portal engineered solo. Built for fast global reading with server-rendered pages and clean typography.",
+      "Public education and community portal engineered solo inside the private learnhikmah monorepo with server-rendered pages and sub-50ms edge caching.",
     impact: "Sub-50ms edge cached course catalog & mobile-first reading layout.",
     architecture: {
-      pipeline: ["Next.js App Router (SSR)", "Edge Content Cache", "Structured Course Schema"],
+      pipeline: ["Next.js App Router (SSR)", "Shared Monorepo UI & Types", "Edge Content Cache"],
       invariant: "Zero layout shift (CLS 0.00) · Server-streamed curriculum modules",
     },
   },
@@ -113,28 +136,94 @@ export const CASE_STUDIES = [
     id: "learnhikmah-lms",
     name: "LearnHikmah LMS",
     url: "https://app.learnhikmah.com",
+    liveLabel: "Live Site ↗",
     repoUrl: null,
-    repoLabel: "Private Org",
+    repoLabel: "Private Monorepo",
+    repoTooltip: "learnhikmah · Private organization monorepo engineered solo",
     role: "Solo Full-Stack",
-    stack: "Next.js · Node · RBAC",
+    stack: "Next.js · BetterAuth · RBAC",
+    cvSelected: true,
     defaultArchOpen: true,
+    defaultExpanded: true,
+    shortSummary:
+      "Dedicated learning management system in the learnhikmah monorepo with student dashboards and role-based permissions.",
+    expandedDetails:
+      "Enforces strict role isolation across students, instructors, and admins using BetterAuth session guards and atomic lesson progression tracking.",
     summary:
-      "Dedicated learning management system in a private organization. Handles student dashboards, lesson progression, and role-based permissions.",
+      "Dedicated learning management system in the learnhikmah private monorepo handling student dashboards, lesson progression, and strict RBAC permissions.",
     impact: "Strict role isolation across students, instructors, and admins.",
     architecture: {
-      pipeline: ["Session Auth Guard", "RBAC Policy Middleware", "Progress State Engine"],
+      pipeline: ["BetterAuth Session Guard", "RBAC Policy Middleware", "Progress State Engine"],
       invariant: "Server-enforced route guards · Atomic lesson completion tracking",
+    },
+  },
+  {
+    id: "annujum-foundation",
+    name: "An-Nujum Foundation",
+    url: "https://an-nujum-foundation.vercel.app/",
+    liveLabel: "Live Site ↗",
+    repoUrl: "https://github.com/nymulislam/an-nujum-foundation",
+    repoLabel: "Source Code ↗",
+    repoTooltip: "View open-source repository on GitHub",
+    role: "Lead Engineer",
+    stack: "Next.js · TS · HeroUI · Supabase",
+    cvSelected: true,
+    defaultArchOpen: false,
+    defaultExpanded: false,
+    shortSummary:
+      "Official web platform for An-Nujum Foundation managing charitable initiatives and transparent donation workflows.",
+    expandedDetails:
+      "Engineered with Next.js, TypeScript, HeroUI, and Supabase to streamline program publishing, donor transparency, and mobile-first community outreach.",
+    summary:
+      "Official web platform for An-Nujum Foundation built to manage charitable initiatives, transparent donation workflows, and community outreach programs.",
+    impact: "Streamlined program publishing, donor transparency & mobile-first performance.",
+    architecture: {
+      pipeline: ["Next.js App Router & HeroUI", "BetterAuth Session Layer", "Supabase Database & RLS"],
+      invariant: "Type-safe donation tracking & accessible bilingual-ready layout",
+    },
+  },
+  {
+    id: "balzo-financial",
+    name: "Balzo Financial App",
+    url: "https://github.com/nymulislam",
+    liveLabel: "GitHub Org ↗",
+    repoUrl: null,
+    repoLabel: "balzo-app (Private)",
+    repoTooltip: "balzo-app · Solo-engineered multi-financial mobile & web suite",
+    role: "Solo Founder & Engineer",
+    stack: "React Native · Supabase · BetterAuth",
+    cvSelected: true,
+    defaultArchOpen: false,
+    defaultExpanded: false,
+    shortSummary:
+      "Multi-financial mobile application engineered solo under the balzo-app organization with an upcoming web suite.",
+    expandedDetails:
+      "Designed for unified multi-account ledger tracking using React Native/Expo, BetterAuth multi-session management, and Supabase Row-Level Security.",
+    summary:
+      "Multi-financial mobile application engineered solo under the balzo-app organization for unified multi-account tracking with an upcoming companion web app.",
+    impact: "Shared TypeScript financial contracts across mobile and upcoming web clients.",
+    architecture: {
+      pipeline: ["React Native / Expo Client", "BetterAuth Multi-Session", "Supabase Ledger & RLS"],
+      invariant: "Strict row-level security isolation per user financial account",
     },
   },
   {
     id: "epage-commerce",
     name: "E-Page Commerce",
     url: "https://e-page.vercel.app",
+    liveLabel: "Live Site ↗",
     repoUrl: "https://github.com/nymulislam/e-page-client",
-    repoLabel: "Source ↗",
-    role: "Top Pinned",
+    repoLabel: "Source Code ↗",
+    repoTooltip: "View MERN bookstore source repository on GitHub",
+    role: "Full-Stack Engineer",
     stack: "React · Node · MongoDB",
+    cvSelected: false,
     defaultArchOpen: false,
+    defaultExpanded: false,
+    shortSummary:
+      "Full-stack MERN bookstore featuring instant catalog filtering, reactive cart persistence, and atomic inventory locks.",
+    expandedDetails:
+      "Prevents double-selling under concurrent checkout requests using conditional MongoDB atomic stock decrements and optimistic UI updates.",
     summary:
       "Full-stack MERN bookstore featuring instant catalog filtering, reactive cart persistence, and a friction-free checkout pipeline.",
     impact: "Race-condition-free inventory mutations & instant search filtering.",
@@ -147,13 +236,21 @@ export const CASE_STUDIES = [
     id: "ilmmed-suite",
     name: "IlmMed & Web Suite",
     url: "https://ilm-med-solution.vercel.app/",
+    liveLabel: "Live Site ↗",
     repoUrl: "https://github.com/nymulislam",
-    repoLabel: "Source ↗",
+    repoLabel: "All 40 Repos ↗",
+    repoTooltip: "Explore all 40 repositories & 2 organizations on GitHub",
     role: "Web Suite",
-    stack: "React · Express · REST",
+    stack: "React · Express · Tailwind",
+    cvSelected: false,
     defaultArchOpen: false,
+    defaultExpanded: false,
+    shortSummary:
+      "Production web suite spanning healthcare services (IlmMed), recruitment workflows (Job Heaven), and 40 GitHub repositories.",
+    expandedDetails:
+      "Architected with modular React views, normalized REST API clients, and resilient fallback states for low-bandwidth mobile networks.",
     summary:
-      "Production web suite spanning healthcare services (IlmMed), recruitment workflows (Job Heaven), and interactive catalog apps.",
+      "Production web suite spanning healthcare services (IlmMed), recruitment workflows (Job Heaven), and interactive catalog apps across 40 GitHub repositories.",
     impact: "Clean component boundaries & resilient API error handling.",
     architecture: {
       pipeline: ["Modular React Views", "Normalized API Client", "Schema Validation"],
@@ -163,6 +260,7 @@ export const CASE_STUDIES = [
 ];
 
 export const EARLIER_BUILDS = [
+  { name: "An-Nujum Foundation", url: "https://an-nujum-foundation.vercel.app/" },
   { name: "Job Heaven", url: "https://job-heaven.vercel.app/" },
   { name: "Car Universe", url: "https://car-universe.vercel.app/" },
   { name: "Training Ninja", url: "https://training-ninja.vercel.app/" },
@@ -172,63 +270,112 @@ export const EXPERIENCE_TIMELINE = [
   {
     id: "exp-learnhikmah",
     period: "2024 — Present",
-    role: "Solo Full-Stack & LMS Architect",
-    organization: "LearnHikmah (Production EdTech)",
-    location: "Dhaka · Remote",
-    stack: "Next.js · TypeScript · Node.js · RBAC",
+    role: "Solo Full-Stack & Monorepo Architect",
+    organization: "LearnHikmah (learnhikmah org)",
+    location: "Remote · Dhaka",
+    stack: "Next.js · TypeScript · BetterAuth · HeroUI · RBAC",
+    shortSummary:
+      "Architected the private learnhikmah monorepo powering both the public education portal and the RBAC learning management system.",
+    summary:
+      "Architected the private learnhikmah monorepo powering both the public education portal (learnhikmah.com) and the RBAC learning management system (app.learnhikmah.com).",
     highlights: [
-      "Architected and shipped both the public education portal (learnhikmah.com) and the private organization LMS (app.learnhikmah.com) solo from scratch.",
-      "Engineered role-based access control (RBAC) across student, instructor, and admin views with atomic lesson progression tracking.",
+      "Engineered a private monorepo architecture powering learnhikmah.com (SSR course portal) and app.learnhikmah.com (interactive LMS) solo from scratch.",
+      "Implemented strict role-based access control (RBAC) across student, instructor, and admin views with BetterAuth, HeroUI, and atomic lesson progression tracking.",
+    ],
+  },
+  {
+    id: "exp-balzo",
+    period: "2024 — Present",
+    role: "Founder & Solo Mobile/Web Engineer",
+    organization: "Balzo (balzo-app org)",
+    location: "Dhaka",
+    stack: "React Native · Expo · Next.js · Supabase · BetterAuth",
+    shortSummary:
+      "Building a multi-financial mobile application solo inside the balzo-app organization with Supabase, BetterAuth, and an upcoming web suite.",
+    summary:
+      "Building a multi-financial mobile application solo inside the balzo-app organization with Supabase, BetterAuth, and an upcoming companion web platform.",
+    highlights: [
+      "Architecting a multi-financial mobile application solo under the balzo-app organization using React Native/Expo, TypeScript, Supabase, and BetterAuth.",
+      "Designing unified multi-account ledger schemas, row-level security (RLS) policies, and shared TypeScript contracts for the upcoming companion web app.",
     ],
   },
   {
     id: "exp-fullstack",
     period: "2023 — Present",
     role: "Full-Stack & AI Systems Engineer",
-    organization: "Independent Product & Open-Source Builds",
-    location: "Dhaka, Bangladesh",
-    stack: "React · Next.js · Express · MongoDB · Agentic AI",
+    organization: "An-Nujum Foundation & Open Source",
+    location: "Dhaka",
+    stack: "Next.js · Supabase · HeroUI · MERN · Agentic AI",
+    shortSummary:
+      "Delivered 40 repositories including the An-Nujum Foundation platform, E-Page MERN bookstore, and deterministic LLM tool-calling workflows.",
+    summary:
+      "Delivered 40 repositories including the An-Nujum Foundation platform, E-Page MERN bookstore, IlmMed web suite, and deterministic LLM tool-calling workflows.",
     highlights: [
-      "Built and deployed 84+ repositories spanning full-stack MERN commerce (E-Page), healthcare & recruitment platforms (IlmMed, Job Heaven), and developer tools.",
-      "Designed deterministic LLM tool-calling workflows using structured JSON schemas and low-latency API orchestration.",
+      "Developed the An-Nujum Foundation platform for managing charitable initiatives, transparent donation workflows, and community outreach programs.",
+      "Shipped 40 repositories spanning full-stack MERN commerce (E-Page with atomic inventory locks), healthcare/recruitment web suites (IlmMed, Job Heaven), and Agentic AI tools.",
     ],
   },
   {
     id: "exp-education",
-    period: "Foundational Training",
-    role: "Classical Arabic Logic (Mantiq) & Jurisprudence",
-    organization: "Jamia Rahmania Arabia, Dhaka",
-    location: "Dhaka, Bangladesh",
-    stack: "Formal Logic · Nahw/Sarf · Analytical Systems",
+    period: "Graduated 2025",
+    role: "Takmil (Master's) & Hafiz-ul-Quran",
+    organization: "Jamia Arabia Imdadul Uloom, Faridabad",
+    location: "Dhaka",
+    stack: "Haiyatul Ulya Board · Classical Logic (Mantiq) · Jurisprudence",
+    shortSummary:
+      "Completed Takmil (Master's in Islamic Studies & Arabic) in 2025 under the Al-Haiatul Ulya board alongside being Hafiz-ul-Quran.",
+    summary:
+      "Completed Takmil (Master's in Islamic Studies & Arabic) in 2025 under the Al-Haiatul Ulya board from Jamia Arabia Imdadul Uloom, Faridabad, alongside being Hafiz-ul-Quran and trained in formal logic at Jamia Rahmania.",
     highlights: [
-      "Completed rigorous training in classical Arabic grammar (Nahw/Sarf), formal syllogistic logic (Mantiq), and close textual analysis.",
-      "Translated classical rule-based reasoning directly into strict TypeScript contracts, state machines, and clean software boundaries.",
+      "Completed Takmil (Master's Equivalent in Islamic Studies & Arabic) in 2025 under Al-Haiatul Ulya Lil-Jamiatil Qawmia Bangladesh at Jamia Arabia Imdadul Uloom, Faridabad, Dhaka.",
+      "Hafiz-ul-Quran with rigorous training in classical Arabic grammar (Nahw/Sarf) and formal syllogistic logic (Mantiq) at Jamia Rahmania Arabia, Dhaka.",
     ],
+  },
+];
+
+export const EDUCATION_CREDENTIALS = [
+  {
+    id: "edu-takmil",
+    degree: "Takmil (Master's in Islamic Studies & Classical Arabic) & Hafiz-ul-Quran",
+    institution: "Jamia Arabia Imdadul Uloom, Faridabad, Dhaka",
+    board: "Al-Haiatul Ulya Lil-Jamiatil Qawmia Bangladesh",
+    year: "2025",
+    details:
+      "Post-graduate specialization in Hadith, Jurisprudence (Fiqh), and Arabic Literature; Certified Hafiz-ul-Quran.",
+  },
+  {
+    id: "edu-rahmania",
+    degree: "Higher Classical Arabic Grammar (Nahw/Sarf) & Formal Logic (Mantiq)",
+    institution: "Jamia Rahmania Arabia, Dhaka",
+    board: "Befaqul Madarisil Arabia Bangladesh",
+    year: "2022",
+    details:
+      "Intensive training in formal syllogistic logic, classical deductive systems, and close textual analysis.",
   },
 ];
 
 export const RESUME_SNAPSHOT = {
   executiveSummary:
-    "Full-Stack Software Engineer & Solo LMS Architect based in Dhaka, Bangladesh. Experienced in designing, building, and operating end-to-end web systems using Next.js (App Router), TypeScript, the MERN stack, and deterministic Agentic AI workflows.",
+    "Full-Stack Software Engineer across 40 repositories and 2 GitHub organizations (learnhikmah & balzo-app). Experienced in architecting fast, reliable web and mobile systems solo using Next.js (App Router), TypeScript, Supabase, BetterAuth, HeroUI, React Native, the MERN stack, and deterministic Agentic AI workflows.",
   skillGroups: [
     {
-      category: "Frontend & SSR",
-      items: "Next.js (App Router), TypeScript, React 18, Tailwind CSS, State Architecture, Accessible UI",
+      category: "Frontend & UI",
+      items: "Next.js (App Router, SSR), TypeScript, React 18, HeroUI, Tailwind CSS, Accessible UI",
     },
     {
       category: "Backend & Data",
-      items: "Node.js, Express.js, MongoDB (Atomic Concurrency), REST APIs, Session & RBAC Auth",
+      items: "Supabase (PostgreSQL, RLS), BetterAuth, Node.js, Express.js, MongoDB, REST APIs, RBAC",
     },
     {
-      category: "AI & Tooling",
-      items: "Agentic AI Workflows, Gemini API Function Calling, Structured JSON Schemas, Git, Vercel, Linux",
+      category: "Mobile, AI & Ops",
+      items: "React Native / Expo (Balzo App), Monorepos, Agentic AI Tool Calling, Git, Vercel, Linux",
     },
   ],
 };
 
 export const FOUNDATION_CATEGORIES = [
   { id: "all", label: "All", shortLabel: "All" },
-  { id: "logic", label: "Logic & Studies", shortLabel: "Logic" },
+  { id: "logic", label: "Education & Logic", shortLabel: "Education" },
   { id: "architecture", label: "Systems & Stack", shortLabel: "Systems" },
   { id: "ai", label: "Agentic AI", shortLabel: "AI" },
   { id: "craft", label: "Engineering Craft", shortLabel: "Craft" },
@@ -238,58 +385,58 @@ export const FOUNDATIONS_INITIAL_LIMIT = 4;
 
 export const FOUNDATIONS = [
   {
-    id: "classical-logic",
+    id: "takmil-master",
     category: "logic",
-    index: "01. Classical Logic",
-    title: "Islamic Studies & Classical Arabic",
-    meta: "Jamia Rahmania, Dhaka",
+    index: "01. Master's & Hifz",
+    title: "Takmil (2025) & Hafiz-ul-Quran",
+    meta: "Faridabad, Dhaka · Haiyatul Ulya",
     description:
-      "Years of training in classical Arabic grammar (Nahw/Sarf), formal logic (Mantiq), and close textual analysis—the foundation of how I model strict software rules today.",
+      "Completed Takmil (Master's) in 2025 from Jamia Arabia Imdadul Uloom, Faridabad under Haiyatul Ulya board, alongside being Hafiz-ul-Quran.",
   },
   {
     id: "systems-craft",
     category: "architecture",
-    index: "02. Systems Craft",
-    title: "Modern Full-Stack Architecture",
-    meta: "Next.js · TypeScript · MERN",
+    index: "02. Modern Stack",
+    title: "Next.js, Supabase & BetterAuth",
+    meta: "HeroUI · TypeScript · MERN",
     description:
-      "Designing end-to-end web systems with clear data models, predictable server-client boundaries, and zero unnecessary complexity.",
+      "Engineering full-stack web & mobile apps across 40 repos and 2 orgs (learnhikmah & balzo-app) with Supabase, BetterAuth, and HeroUI.",
+  },
+  {
+    id: "classical-logic",
+    category: "logic",
+    index: "03. Classical Logic",
+    title: "Mantiq & Rule-Based Systems",
+    meta: "Jamia Rahmania, Dhaka",
+    description:
+      "Trained in classical Arabic grammar (Nahw/Sarf) and formal logic (Mantiq)—the foundation of how I model strict TypeScript contracts.",
   },
   {
     id: "autonomous-workflows",
     category: "ai",
-    index: "03. Agentic Workflows",
+    index: "04. Agentic Workflows",
     title: "Practical Agentic AI",
     meta: "Tool Calling · JSON Schemas",
     description:
-      "Connecting language models to deterministic tools, strict JSON schemas, and real application actions instead of generic chat wrappers.",
-  },
-  {
-    id: "first-principles",
-    category: "craft",
-    index: "04. First Principles",
-    title: "Paper Before Keyboard",
-    meta: "Architecture Discipline",
-    description:
-      "Mapping entity relationships, state machines, and edge cases in a physical notebook before writing the first line of production code.",
+      "Connecting language models to deterministic tools, strict JSON schemas, and real application actions instead of chat wrappers.",
   },
   {
     id: "atomic-concurrency",
     category: "architecture",
     index: "05. Data Integrity",
-    title: "Concurrency & Atomic State",
-    meta: "MongoDB · REST · Idempotency",
+    title: "Concurrency & RLS Security",
+    meta: "Supabase RLS · MongoDB Locks",
     description:
-      "Guarding critical state mutations—like inventory holds, course enrollments, and role transitions—with single-step atomic database conditions.",
+      "Guarding financial ledgers, donations, and inventory holds with Supabase Row-Level Security and atomic database conditions.",
   },
   {
     id: "editorial-ux",
     category: "craft",
     index: "06. Human Interface",
     title: "Calm & Accessible Web Craft",
-    meta: "Responsive · Zero-Bloat UI",
+    meta: "HeroUI · Tailwind · Zero-Bloat",
     description:
-      "Building interfaces that respect reader attention across every screen size—prioritizing crisp typography, fast initial paint, and keyboard accessibility.",
+      "Prioritizing crisp typography, fast initial server paint, and keyboard-first accessibility across desktop and mobile viewports.",
   },
 ];
 
@@ -347,7 +494,11 @@ export const ARTICLES = [
 export const DEV_COMMANDS = {
   stack: {
     cmd: "naymul --stack",
-    output: "Next.js · TypeScript · React · Node.js · MongoDB · Agentic AI",
+    output: "Next.js · TypeScript · Supabase · BetterAuth · HeroUI · React Native · MERN · Agentic AI",
+  },
+  orgs: {
+    cmd: "naymul --orgs",
+    output: "learnhikmah (Private LMS Monorepo) · balzo-app (Multi-Financial Mobile & Web App) · 40 Repos",
   },
   status: {
     cmd: "naymul --status",

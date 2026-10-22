@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FiX, FiSend, FiCopy, FiTerminal, FiCheck } from "react-icons/fi";
 import emailjs from "@emailjs/browser";
 import { Toast } from "../UI/Toast";
+import Tooltip from "../UI/Tooltip";
 import { useTimeOfDay } from "../../context/TimeOfDayContext";
 import { PROFILE, DEV_COMMANDS } from "../../data/portfolioData";
 
@@ -72,14 +73,15 @@ const Footer = ({ onOpenCommand, onOpenResume }) => {
 
             {/* Right: Clean Dev & Social Links */}
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 sm:gap-6 text-[13.5px] sm:text-[14px] text-[#3B3128] dark:text-stone-300">
-              <button
-                onClick={() => setShowDevConsole(!showDevConsole)}
-                className="hover:text-[#9A4E24] dark:hover:text-amber-400 inline-flex items-center gap-1.5 transition-colors cursor-pointer py-1 font-medium"
-                title="Toggle interactive developer console"
-              >
-                <FiTerminal className="text-xs text-[#9A4E24] dark:text-amber-400" />
-                <span>Console</span>
-              </button>
+              <Tooltip content="Toggle developer console" position="top" align="center">
+                <button
+                  onClick={() => setShowDevConsole(!showDevConsole)}
+                  className="hover:text-[#9A4E24] dark:hover:text-amber-400 inline-flex items-center gap-1.5 transition-colors cursor-pointer py-1 font-medium"
+                >
+                  <FiTerminal className="text-xs text-[#9A4E24] dark:text-amber-400" />
+                  <span>Console</span>
+                </button>
+              </Tooltip>
               <a
                 href={PROFILE.githubUrl}
                 target="_blank"
@@ -104,22 +106,13 @@ const Footer = ({ onOpenCommand, onOpenResume }) => {
               >
                 GitHub
               </a>
-              {onOpenResume ? (
+              {onOpenResume && (
                 <button
                   onClick={onOpenResume}
                   className="hover:text-[#9A4E24] dark:hover:text-amber-400 transition-colors py-1 cursor-pointer"
                 >
                   Resume
                 </button>
-              ) : (
-                <a
-                  href={PROFILE.resumeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#9A4E24] dark:hover:text-amber-400 transition-colors py-1"
-                >
-                  Resume
-                </a>
               )}
             </div>
           </div>
@@ -148,13 +141,14 @@ const Footer = ({ onOpenCommand, onOpenResume }) => {
                       --{key}
                     </button>
                   ))}
-                  <button
-                    onClick={cycleMood}
-                    className="px-2.5 py-1 sm:py-0.5 rounded text-[11.5px] text-[#9A4E24] dark:text-amber-400 font-medium hover:bg-[#DDD0BC]/80 dark:hover:bg-stone-800 cursor-pointer transition-colors whitespace-nowrap"
-                    title="Cycle ambient time of day"
-                  >
-                    --mood={activePeriod}
-                  </button>
+                  <Tooltip content="Cycle ambient time of day" position="top" align="right">
+                    <button
+                      onClick={cycleMood}
+                      className="px-2.5 py-1 sm:py-0.5 rounded text-[11.5px] text-[#9A4E24] dark:text-amber-400 font-medium hover:bg-[#DDD0BC]/80 dark:hover:bg-stone-800 cursor-pointer transition-colors whitespace-nowrap"
+                    >
+                      --mood={activePeriod}
+                    </button>
+                  </Tooltip>
                 </div>
               </div>
 
@@ -178,13 +172,14 @@ const Footer = ({ onOpenCommand, onOpenResume }) => {
                     <span>{copiedEmail ? "Copied" : "Copy email"}</span>
                   </button>
                   {onOpenCommand && (
-                    <button
-                      onClick={onOpenCommand}
-                      className="inline-flex items-center gap-1 px-2.5 py-1.5 sm:py-1 min-h-[32px] sm:min-h-0 rounded border border-[#C5B49E] dark:border-stone-700 text-[11.5px] text-[#332B24] dark:text-stone-200 hover:bg-[#DFD3C0] dark:hover:bg-stone-800 cursor-pointer transition-colors whitespace-nowrap"
-                      title="Open Command Palette (⌘K)"
-                    >
-                      <span>⌘K</span>
-                    </button>
+                    <Tooltip content="Open Command Palette (⌘K)" position="top" align="right">
+                      <button
+                        onClick={onOpenCommand}
+                        className="inline-flex items-center gap-1 px-2.5 py-1.5 sm:py-1 min-h-[32px] sm:min-h-0 rounded border border-[#C5B49E] dark:border-stone-700 text-[11.5px] text-[#332B24] dark:text-stone-200 hover:bg-[#DFD3C0] dark:hover:bg-stone-800 cursor-pointer transition-colors whitespace-nowrap"
+                      >
+                        <span>⌘K</span>
+                      </button>
+                    </Tooltip>
                   )}
                 </div>
               </div>
@@ -237,13 +232,14 @@ const Footer = ({ onOpenCommand, onOpenResume }) => {
                   >
                     {email}
                   </a>
-                  <button
-                    onClick={() => handleCopy(email, "Email")}
-                    className="p-1 cursor-pointer shrink-0"
-                    title="Copy email"
-                  >
-                    <FiCopy className="text-xs text-[#5C4E41] hover:text-[#231D18] dark:hover:text-stone-200" />
-                  </button>
+                  <Tooltip content="Copy email address" position="top" align="right">
+                    <button
+                      onClick={() => handleCopy(email, "Email")}
+                      className="p-1 cursor-pointer shrink-0"
+                    >
+                      <FiCopy className="text-xs text-[#5C4E41] hover:text-[#231D18] dark:hover:text-stone-200" />
+                    </button>
+                  </Tooltip>
                 </div>
               </div>
 
@@ -258,13 +254,14 @@ const Footer = ({ onOpenCommand, onOpenResume }) => {
                   >
                     {phoneFormatted}
                   </a>
-                  <button
-                    onClick={() => handleCopy(whatsapp, "WhatsApp number")}
-                    className="p-1 cursor-pointer shrink-0"
-                    title="Copy WhatsApp number"
-                  >
-                    <FiCopy className="text-xs text-[#5C4E41] hover:text-[#231D18] dark:hover:text-stone-200" />
-                  </button>
+                  <Tooltip content="Copy WhatsApp number" position="top" align="right">
+                    <button
+                      onClick={() => handleCopy(whatsapp, "WhatsApp number")}
+                      className="p-1 cursor-pointer shrink-0"
+                    >
+                      <FiCopy className="text-xs text-[#5C4E41] hover:text-[#231D18] dark:hover:text-stone-200" />
+                    </button>
+                  </Tooltip>
                 </div>
               </div>
             </div>

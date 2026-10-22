@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FiX } from "react-icons/fi";
+import Tooltip from "../UI/Tooltip";
 import { ARTICLES } from "../../data/portfolioData";
 
 const Writing = () => {
@@ -91,15 +92,16 @@ const Writing = () => {
               </div>
 
               <div className="flex items-center gap-1.5 shrink-0">
-                <button
-                  onClick={() =>
-                    setFontScale(fontScale === "normal" ? "lg" : fontScale === "lg" ? "sm" : "normal")
-                  }
-                  className="px-2.5 py-1.5 min-h-[36px] rounded-lg border border-[#D5C7B4] dark:border-stone-700 text-xs font-mono text-[#332B24] dark:text-stone-300 hover:bg-[#E6DAC8] dark:hover:bg-stone-800 cursor-pointer"
-                  title="Adjust reading text size"
-                >
-                  {fontScale === "lg" ? "A+" : fontScale === "sm" ? "A-" : "Aa"}
-                </button>
+                <Tooltip content="Adjust reading text size" position="bottom" align="right">
+                  <button
+                    onClick={() =>
+                      setFontScale(fontScale === "normal" ? "lg" : fontScale === "lg" ? "sm" : "normal")
+                    }
+                    className="px-2.5 py-1.5 min-h-[36px] rounded-lg border border-[#D5C7B4] dark:border-stone-700 text-xs font-mono text-[#332B24] dark:text-stone-300 hover:bg-[#E6DAC8] dark:hover:bg-stone-800 cursor-pointer"
+                  >
+                    {fontScale === "lg" ? "A+" : fontScale === "sm" ? "A-" : "Aa"}
+                  </button>
+                </Tooltip>
                 <button
                   onClick={() => setActiveArticle(null)}
                   className="p-2 min-h-[36px] min-w-[36px] flex items-center justify-center rounded-lg text-[#5C4E41] hover:text-[#231D18] dark:hover:text-stone-100 cursor-pointer"

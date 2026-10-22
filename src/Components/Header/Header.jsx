@@ -2,11 +2,22 @@ import { useState, useRef, useEffect } from "react";
 import { FiChevronDown, FiSun, FiMoon } from "react-icons/fi";
 import { WiSunset, WiSunrise, WiDaySunny } from "react-icons/wi";
 import { useTimeOfDay } from "../../context/TimeOfDayContext";
+import Tooltip from "../UI/Tooltip";
 
 const Header = () => {
   const { selectedMood, setSelectedMood, activePeriod } = useTimeOfDay();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const dropdownRef = useRef();
+
+  const navLinks = [
+    { id: "projects", label: "Systems", href: "#projects" },
+    { id: "experience", label: "Experience", href: "#experience" },
+    { id: "about", label: "Craft", href: "#about" },
+    { id: "writing", label: "Writing", href: "#writing" },
+    { id: "contact", label: "Contact", href: "#contact" },
+  ];
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -16,6 +27,42 @@ const Header = () => {
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 16);
+
+      if (scrollY < 160) {
+        setActiveSection("");
+        return;
+      }
+
+      const sectionIds = ["projects", "experience", "about", "writing", "contact"];
+      let current = "";
+      const viewportOffset = scrollY + 220;
+
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= viewportOffset) {
+          current = id;
+        }
+      }
+
+      if (
+        window.innerHeight + scrollY >=
+        document.documentElement.scrollHeight - 60
+      ) {
+        current = "contact";
+      }
+
+      setActiveSection(current);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const moodOptions = [
@@ -28,45 +75,79 @@ const Header = () => {
 
   const currentMoodObj = moodOptions.find((m) => m.key === selectedMood) || moodOptions[2];
 
-  const navLinks = [
-    { label: "Systems", href: "#projects" },
-    { label: "Experience", href: "#experience" },
-    { label: "Craft", href: "#about" },
-    { label: "Writing", href: "#writing" },
-    { label: "Contact", href: "#contact" },
-  ];
-
   return (
-    <header className="w-full pt-5 sm:pt-8 pb-3 relative z-30">
+    <header
+      className={`sticky top-0 z-40 w-full transition-all duration-200 ${
+        isScrolled
+          ? "py-2.5 sm:py-3 bg-[#F6EFE2]/88 dark:bg-[#141210]/88 backdrop-blur-md border-b border-[#D8CBB8]/85 dark:border-stone-800/85 shadow-2xs"
+          : "pt-4 sm:pt-7 pb-2.5 bg-transparent border-b border-transparent"
+      }`}
+    >
       <div className="max-w-[880px] mx-auto px-4 sm:px-6">
-        {/* Desktop & Tablet 3-Zone Row / Mobile Top Row */}
-        <div className="flex items-center justify-between gap-4 sm:gap-8 text-[14px] sm:text-[15px] text-[#3B3128] dark:text-stone-200">
-          {/* Zone 1: Brand Wordmark */}
-          <a
-            href="#home"
-            className="font-serif text-[19px] sm:text-[21px] font-normal text-[#231D18] dark:text-stone-50 tracking-tight whitespace-nowrap shrink-0 py-1"
-          >
-            Naymul Islam
-          </a>
-
-          {/* Zone 2: Desktop & Tablet Single-Line Navigation Links */}
-          <nav className="hidden sm:flex items-center gap-6 md:gap-8">
-            {navLinks.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="py-1 font-medium text-[#3B3128] dark:text-stone-200 hover:text-[#9A4E24] dark:hover:text-amber-400 transition-colors whitespace-nowrap shrink-0"
+        {/* 3-Zone Editorial Top Bar */}
+        <div className="flex items-center justify-between gap-4 sm:gap-8 text-[14px] sm:text-[14.5px] text-[#3B3128] dark:text-stone-200">
+          {/* Zone 1: Minimal Serif N Monogram Badge matching the Favicon */}
+          <Tooltip content="Naymul Islam · Home" position="bottom" align="left">
+            <a
+              href="#home"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                setActiveSection("");
+              }}
+              aria-label="Naymul Islam — Home"
+              className="group relative inline-flex items-center justify-center w-9 h-9 sm:w-9.5 sm:h-9.5 rounded-[10px] bg-[#1C1917] dark:bg-[#221E1B] border border-[#362F2A] dark:border-stone-700/90 shadow-2xs hover:border-[#9A4E24] dark:hover:border-amber-500/70 transition-all shrink-0"
+            >
+              <svg
+                viewBox="0 0 64 64"
+                fill="none"
+                className="w-6 h-6 transition-transform duration-150 group-hover:scale-105"
+                aria-hidden="true"
               >
-                {item.label}
-              </a>
-            ))}
+                <path
+                  d="M18 46V18H24.2L40.5 38.2V18H45.5V46H39.6L23 25.4V46H18Z"
+                  fill="#F6EFE2"
+                />
+                <circle cx="50.5" cy="42.5" r="3.8" fill="#C85A32" />
+              </svg>
+            </a>
+          </Tooltip>
+
+          {/* Zone 2: Desktop & Tablet Single-Line Navigation Links with Active Section Highlight */}
+          <nav
+            aria-label="Primary navigation"
+            className="hidden sm:flex items-center gap-6 md:gap-7"
+          >
+            {navLinks.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setActiveSection(item.id)}
+                  className={`relative py-1 font-medium transition-colors whitespace-nowrap shrink-0 ${
+                    isActive
+                      ? "text-[#9A4E24] dark:text-amber-400"
+                      : "text-[#3B3128] dark:text-stone-300 hover:text-[#9A4E24] dark:hover:text-amber-400"
+                  }`}
+                >
+                  <span>{item.label}</span>
+                  <span
+                    aria-hidden="true"
+                    className={`absolute left-0 right-0 -bottom-0.5 h-[2px] rounded-full bg-[#9A4E24] dark:bg-amber-400 transition-all duration-200 ${
+                      isActive ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+                    }`}
+                  />
+                </a>
+              );
+            })}
           </nav>
 
-          {/* Zone 3: Ambient Time-of-Day Selector Pill */}
+          {/* Zone 3: Ambient Time-of-Day Selector */}
           <div className="relative shrink-0" ref={dropdownRef}>
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="flex items-center gap-2 px-3.5 py-2 sm:py-1.5 min-h-[38px] sm:min-h-0 rounded-full border border-[#CBBBA4] dark:border-stone-700 bg-[#F4ECE0]/85 dark:bg-stone-900/90 text-[12.5px] sm:text-[13px] font-medium text-[#3B3128] dark:text-stone-200 hover:border-[#9A4E24] dark:hover:border-stone-500 transition-all cursor-pointer whitespace-nowrap shrink-0"
+              className="flex items-center gap-2 px-3 py-1.5 min-h-[36px] sm:min-h-0 rounded-lg border border-[#CBBBA4] dark:border-stone-700 bg-[#F4ECE0]/90 dark:bg-stone-900/90 text-[12.5px] font-mono font-medium text-[#3B3128] dark:text-stone-200 hover:border-[#9A4E24] dark:hover:border-amber-400/70 transition-all cursor-pointer whitespace-nowrap shrink-0"
               aria-label="Select ambient time of day"
             >
               {activePeriod === "morning" && <WiSunrise className="text-base text-amber-700 dark:text-amber-400 shrink-0" />}
@@ -94,7 +175,7 @@ const Header = () => {
                       setSelectedMood(opt.key);
                       setDropdownOpen(false);
                     }}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 sm:py-2 rounded-lg text-left transition-colors cursor-pointer ${
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-colors cursor-pointer ${
                       selectedMood === opt.key
                         ? "bg-[#E5D9C5] dark:bg-stone-800 text-[#231D18] dark:text-stone-50 font-medium"
                         : "text-[#3B3128] dark:text-stone-300 hover:bg-[#EAE0CE]/60 dark:hover:bg-stone-800/50"
@@ -115,17 +196,25 @@ const Header = () => {
         {/* Mobile Touch-Friendly Navigation Bar (< 640px) */}
         <nav
           aria-label="Mobile navigation"
-          className="flex sm:hidden items-center justify-between gap-1.5 mt-3 pt-2.5 border-t border-[#DCD0C0]/70 dark:border-stone-800/80 text-[12.5px] text-[#3B3128] dark:text-stone-200"
+          className="flex sm:hidden items-center justify-between gap-1 mt-2 pt-2 border-t border-[#DCD0C0]/60 dark:border-stone-800/75 text-[12px] text-[#3B3128] dark:text-stone-200"
         >
-          {navLinks.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="py-1.5 px-2 rounded-md hover:bg-[#E5D9C5]/50 dark:hover:bg-stone-800/60 hover:text-[#9A4E24] dark:hover:text-amber-400 transition-colors whitespace-nowrap shrink-0 font-medium"
-            >
-              {item.label}
-            </a>
-          ))}
+          {navLinks.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setActiveSection(item.id)}
+                className={`py-1 px-2 rounded-md transition-colors whitespace-nowrap shrink-0 font-medium ${
+                  isActive
+                    ? "text-[#9A4E24] dark:text-amber-400 bg-[#E8DEC9]/65 dark:bg-stone-800/80"
+                    : "hover:bg-[#E5D9C5]/50 dark:hover:bg-stone-800/60 hover:text-[#9A4E24] dark:hover:text-amber-400"
+                }`}
+              >
+                {item.label}
+              </a>
+            );
+          })}
         </nav>
       </div>
     </header>

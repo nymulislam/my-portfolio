@@ -1,64 +1,81 @@
-# Senior Recruiter, CTO & CEO Hiring Readiness Upgrade
+# Navbar Monogram Upgrade, Sticky Scroll Polish & Playground Tooltip Fix
 
-This plan implements all four high-impact hiring and engineering proof features to elevate the portfolio from a strong showcase to an instant-shortlist executive & technical monograph for **Full-Stack & AI Engineering roles (Remote & Dhaka teams)**.
-
----
+This update resolves the clipped `Verify` and `Copy` tooltips in the code playground, simplifies the Hero role status line, replaces the full name in the top navigation bar with the minimal serif `N` monogram badge, and upgrades the navigation bar into a sticky editorial header with active section tracking.
 
 ## User Review & Critical Decisions
 
 > [!IMPORTANT]
-> **Confirmed Choices from Phase 1:**
-> - **Confirmed Decision 1 — Positioning**: Position Naymul Islam as **"Full-Stack & AI Engineer · Open to Remote & Dhaka Teams"**.
-> - **Confirmed Decision 2 — Hero Quick Hiring Bar & CV Trigger**: Add a dedicated, high-clarity hiring strip in the Hero with instant **Preview CV / Resume** and **Inspect Systems ↓** actions so recruiters and CEOs find your credentials within 5 seconds.
-> - **Confirmed Decision 3 — Case Study Source Provenance**: Add direct **GitHub Source (`Source ↗`)** links on public case studies (*E-Page Commerce*, *IlmMed & Web Suite*) and explicit **`Private Org · Solo Production`** provenance tags on private organization builds (*LearnHikmah Platform*, *LearnHikmah LMS*).
-> - **Confirmed Decision 4 — In-Page Experience & Career Timeline**: Add a structured **Career & Experience Timeline** section detailing your progression from classical logic (*Jamia Rahmania Arabia*) to Full-Stack MERN builds and Solo Production LMS/AI architecture.
-> - **Confirmed Decision 5 — Interactive In-App Resume / CV Modal**: Build an executive in-page **Resume Monograph Modal** (with `Print / Save PDF` + direct external CV link `↗`) so corporate firewalls that block URL shorteners (`t.ly`) never prevent HR from reviewing your CV.
+> All design preferences have been confirmed from your answers and screenshot feedback:
+
+- **Confirmed Decision 1 (Brand Mark in Navbar)**: Replace the full `"Naymul Islam"` text in the navbar with the **Minimal serif `N` monogram badge** matching the favicon (dark espresso badge `#1C1917`, warm cream serif `N` `#F6EFE2`, and terracotta dot `#C85A32`), paired with a clean hover tooltip (`"Naymul Islam · Home"`).
+- **Confirmed Decision 2 (Sticky Editorial Navbar & Active Highlight)**: Upgrade the navbar into a **sticky editorial header** with warm paper / dark espresso backdrop blur on scroll and automatic **active section highlighting** (`Systems`, `Experience`, `Craft`, `Writing`, `Contact`) as the user scrolls through the page.
+- **Confirmed Decision 3 (Hero Role Line Simplification)**: Remove `· Next.js · TypeScript · Supabase · MERN` from the Hero status line so it reads concisely as:
+  `Full-Stack & AI Systems Engineer · Remote or Dhaka`
+- **Confirmed Decision 4 (Verify & Copy Tooltip Clipping Fix)**: Remove `overflow-hidden` from the outer Stack Playground container (applying `rounded-t-2xl` and `rounded-b-2xl` directly to its header and footer bars) so the `Verify` and `Copy` tooltips render above the buttons with zero clipping.
 
 ---
 
 ## 1. Overview & Core Concept
 
-- **Why These 4 Upgrades Matter for Hiring**:
-  1. **For Senior HR (5-Second Rule)**: Immediate access to an in-app, firewall-proof Resume Preview and chronological Career Timeline without hunting in the footer.
-  2. **For Senior Engineers / CTOs (Code Proof)**: Direct repository links on open-source case studies and transparent `Private Org · Solo Production` indicators on proprietary builds, paired with measurable architectural outcomes.
-  3. **For Startup CEOs (Ownership Signal)**: Clear positioning around shipping complete production systems solo (`LearnHikmah`, `E-Page`) and availability for **Remote or Dhaka-based engineering teams**.
+- **What It Does**:
+  1. **Unclipped Playground Tooltips**: Ensures the `Verify` and `Copy` buttons in the Hero Stack Playground display their full tooltip bubbles above the card without being cut off by the card's top border.
+  2. **Concise Hero Role Line**: Eliminates repetitive stack keywords from the Hero role line (`Full-Stack & AI Systems Engineer · Remote or Dhaka`), reducing visual noise.
+  3. **Monogram Brand Mark**: Uses the bespoke `N` monogram emblem in the navbar instead of repeating the full name right above the Hero headline.
+  4. **Sticky Editorial Navigation**: Keeps navigation effortlessly accessible while scrolling with a refined translucent paper/espresso blur, compact vertical profile, and real-time active section indicator.
+- **Target Audience / Persona**: Technical recruiters, engineering leads, and founders reviewing Naymul Islam's portfolio.
+- **Key Value**: Cleaner visual hierarchy at the top of the page, unobstructed micro-interactions, and effortless section navigation throughout the portfolio.
 
 ---
 
 ## 2. User Experience & Visual Design
 
-- **1. Hero Quick Hiring & Resume Bar (`Hero`)**:
-  - Below the lead paragraph, a refined editorial hiring bar displays:
-    - Positioning: `Full-Stack & AI Engineer · Remote or Dhaka (UTC+6)`
-    - Primary Action: **`Preview CV / Resume`** button (opens the Interactive Resume Modal) + **`Inspect systems ↓`** link.
-- **2. Case Study Source & Provenance Footer (`TwoColumnSection`)**:
-  - Each Case Study card footer now shows:
-    - Left: `Visit live system ↗` + either `Source ↗` (for public GitHub repos) or `Private Org` (for proprietary production systems).
-    - Right: `Blueprint →` / `← Story` toggle.
-- **3. In-Page Experience & Career Timeline (`TwoColumnSection`)**:
-  - Positioned cleanly between **Selected Systems** and **Foundations & Engineering Craft**, presenting chronological roles with period, title, organization, key deliverables, and stack in unboxed editorial typography.
-- **4. Interactive Resume / CV Preview Modal (`ResumeModal`)**:
-  - Opens from the Hero (`Preview CV`), Header/Footer (`Resume`), or Command Palette (`⌘K`).
-  - Displays a clean, printable 1-page executive CV summary (Header + Contact `+880 182-2667737` + Experience + Flagship Systems + Technical Stack + Education) with **`Print / Save PDF`** and **`External CV Link ↗`** buttons.
+- **Key User Flows**:
+  1. **Playground Tooltip Inspection**: Hovering over `▷ Verify` or `Copy` in the Stack Playground smoothly reveals the full editorial tooltip above the button with no top-edge clipping.
+  2. **Brand Monogram Interaction**: Clicking the `N` monogram badge in the top-left smoothly scrolls back to `#home` (`window.scrollTo({ top: 0, behavior: "smooth" })`).
+  3. **Sticky Scroll & Section Spy**: As the user scrolls down the page, the header stays pinned at the top with a subtle bottom hairline border and backdrop blur, while the active section link (`Systems`, `Experience`, `Craft`, `Writing`, or `Contact`) highlights with a terracotta underline indicator.
+- **Visual Identity & Theme**:
+  - *Aesthetic Direction*: Warm architectural monograph & handcrafted studio aesthetic.
+  - *Color Palette & Mood*: Warm paper (`#F6EFE2` / `#EFE6D8`) in daytime modes and deep espresso (`#161412` / `#1E1C1A`) in night mode, accented with terracotta (`#9A4E24` / `#C85A32`) and warm amber (`#F59E0B`).
+  - *Typography & Hierarchy*: Classic serif monogram mark, clean medium sans navigation links with single-line discipline (`whitespace-nowrap`), and tabular monospace metadata.
 
 ---
 
-## 3. Technical Architecture & Data Flow *(Technical Reference)*
+## 3. Key Product Decisions & Trade-Offs
 
-```text
-┌────────────────────────────────────────────────────────────────────────────┐
-│                  Master Portfolio Data Store (portfolioData)               │
-│  • PROFILE: { hiringStatus: "Full-Stack & AI Engineer (Remote / Dhaka)" }  │
-│  • CASE_STUDIES: [ ... + repoUrl / repoVisibility ("Private Org") ]        │
-│  • EXPERIENCE_TIMELINE: [ LearnHikmah Solo Architect, Independent, Jamia ] │
-│  • RESUME_SNAPSHOT: { summary, coreSkills, highlights }                    │
-└──────────┬───────────────────────┬────────────────────────┬────────────────┘
-           │                       │                        │
-           ▼                       ▼                        ▼
-┌─────────────────────┐ ┌────────────────────────┐ ┌─────────────────────────┐
-│ Hero Hiring Bar     │ │ Case Studies & Career  │ │ Interactive ResumeModal │
-│ • Positioning text  │ │ • Live ↗ + Source ↗ /  │ │ • Triggered from Hero,  │
-│ • "Preview CV" btn  │ │   "Private Org" label  │ │   Footer & ⌘K Palette   │
-│ • "Inspect systems" │ │ • Experience Timeline  │ │ • Print PDF & Full Link │
-└─────────────────────┘ └────────────────────────┘ └─────────────────────────┘
+- **Decision 1: Removing Container `overflow-hidden` vs Changing Tooltip Direction**
+  - *Chosen Approach*: Remove `overflow-hidden` from the outer Stack Playground wrapper and apply explicit `rounded-t-2xl` / `rounded-b-2xl` to the header and footer sections.
+  - *Why*: Allows tooltips on `Verify` and `Copy` to pop cleanly above the top bar (`position="top"`) without covering the code block below or getting sliced off by CSS overflow clipping.
+- **Decision 2: Scroll-Spy Active Section Highlighting**
+  - *Chosen Approach*: Lightweight scroll listener / `IntersectionObserver` tracking `#projects`, `#experience`, `#about`, `#writing`, and `#contact`.
+  - *Why*: Gives immediate visual orientation as the reader moves through the long-form portfolio while respecting the 15% mobile sticky height cap.
+
+---
+
+## 4. Technical Architecture & Data Strategy
+
 ```
+┌──────────────────────────────────────────────────────────────────────────┐
+│                         STICKY EDITORIAL HEADER                          │
+│  ┌────────────────┐   ┌──────────────────────────────────┐   ┌────────┐  │
+│  │  [N.] Monogram │   │ Systems · Experience · Craft ... │   │  Mood  │  │
+│  │  (Home Anchor) │   │ (Scroll-Spy Active Underline)    │   │ Picker │  │
+│  └────────────────┘   └──────────────────────────────────┘   └────────┘  │
+└──────────────────────────────────────────────────────────────────────────┘
+                                     │
+                                     ▼
+┌──────────────────────────────────────────────────────────────────────────┐
+│                              HERO SECTION                                │
+│  • Concise Role Line: "Full-Stack & AI Systems Engineer · Remote/Dhaka"  │
+│  • Stack Playground Card (overflow-visible outer shell, rounded inner    │
+│    header/footer so "Verify" & "Copy" tooltips never clip at top edge)   │
+└──────────────────────────────────────────────────────────────────────────┘
+```
+
+- **Interactive Component & State Mapping**:
+  - **Header Component**:
+    - Tracks `isScrolled` (`window.scrollY > 16`) to toggle compact sticky padding, backdrop blur, and subtle bottom border.
+    - Tracks `activeSection` (`projects`, `experience`, `about`, `writing`, `contact`) based on viewport scroll position and highlights the matching link with a terracotta active state and bottom indicator bar.
+    - Renders the SVG `N` monogram badge with terracotta dot inside the brand anchor link.
+  - **Hero Component**:
+    - Simplifies the role & location status line by removing `PROFILE.tagline`.
+    - Updates the Stack Playground card container classes so top-aligned tooltips on `Verify` and `Copy` are never clipped.

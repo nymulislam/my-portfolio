@@ -1,0 +1,192 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R /Annots [7 0 R 8 0 R 9 0 R 10 0 R 11 0 R 12 0 R 13 0 R 14 0 R 15 0 R 16 0 R 17 0 R 18 0 R] >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Length 11973 >>
+stream
+0.60 0.27 0.14 rg 42 812 511 2.2 re f
+BT /F2 18.5 Tf 0.12 0.1 0.08 rg 1 0 0 1 42.00 796.00 Tm (NAYMUL ISLAM) Tj ET
+BT /F1 8.6 Tf 0.34 0.29 0.24 rg 1 0 0 1 444.43 800.00 Tm (Dhaka, Bangladesh \(UTC+6\)) Tj ET
+BT /F2 9.6 Tf 0.6 0.27 0.14 rg 1 0 0 1 42.00 781.50 Tm (Full-Stack & AI Systems Engineer  |  Next.js  |  TypeScript  |  Supabase  |  MERN) Tj ET
+BT /F1 8.5 Tf 0.26 0.22 0.18 rg 1 0 0 1 441.39 782.50 Tm (WhatsApp: +880 182-2667737) Tj ET
+BT /F1 8.4 Tf 0.18 0.15 0.13 rg 1 0 0 1 42.00 768.00 Tm (naymulislam241@gmail.com) Tj ET
+0.35 w 0.18 0.15 0.13 RG 42.00 766.50 m 143.81 766.50 l S
+BT /F1 8.4 Tf 0.55 0.48 0.42 rg 1 0 0 1 150.81 768.00 Tm (|) Tj ET
+BT /F1 8.4 Tf 0.18 0.15 0.13 rg 1 0 0 1 159.81 768.00 Tm (github.com/nymulislam \(40 Repos | 2 Orgs\)) Tj ET
+0.35 w 0.18 0.15 0.13 RG 159.81 766.50 m 333.73 766.50 l S
+BT /F1 8.4 Tf 0.55 0.48 0.42 rg 1 0 0 1 340.73 768.00 Tm (|) Tj ET
+BT /F1 8.4 Tf 0.18 0.15 0.13 rg 1 0 0 1 349.73 768.00 Tm (linkedin.com/in/nymulislam) Tj ET
+0.35 w 0.18 0.15 0.13 RG 349.73 766.50 m 460.02 766.50 l S
+BT /F1 8.4 Tf 0.55 0.48 0.42 rg 1 0 0 1 467.02 768.00 Tm (|) Tj ET
+BT /F1 8.4 Tf 0.58 0.25 0.12 rg 1 0 0 1 476.02 768.00 Tm (learnhikmah.com) Tj ET
+0.35 w 0.58 0.25 0.12 RG 476.02 766.50 m 539.65 766.50 l S
+BT /F2 9.2 Tf 0.6 0.27 0.14 rg 1 0 0 1 42.00 764.76 Tm (PROFESSIONAL SUMMARY) Tj ET
+0.6 w 0.82 0.76 0.68 RG 42 760.56 m 553 760.56 l S
+BT /F1 8.9 Tf 0.18 0.15 0.13 rg 1 0 0 1 42.00 749.26 Tm (Full-Stack Software Engineer with 40 repositories and 2 GitHub organizations \(learnhikmah &) Tj ET
+BT /F1 8.9 Tf 0.18 0.15 0.13 rg 1 0 0 1 42.00 737.26 Tm (balzo-app\). Experienced in architecting fast, reliable web and mobile systems solo using Next.js) Tj ET
+BT /F1 8.9 Tf 0.18 0.15 0.13 rg 1 0 0 1 42.00 725.26 Tm (\(App Router\), TypeScript, Supabase, BetterAuth, HeroUI, React Native, the MERN stack, and) Tj ET
+BT /F1 8.9 Tf 0.18 0.15 0.13 rg 1 0 0 1 42.00 713.26 Tm (deterministic Agentic AI workflows.) Tj ET
+BT /F2 9.2 Tf 0.6 0.27 0.14 rg 1 0 0 1 42.00 698.49 Tm (TECHNICAL SKILLS & MODERN STACK) Tj ET
+0.6 w 0.82 0.76 0.68 RG 42 694.29 m 553 694.29 l S
+BT /F2 8.7 Tf 0.13 0.11 0.09 rg 1 0 0 1 42.00 682.99 Tm (Frontend & UI Systems:) Tj ET
+BT /F1 8.6 Tf 0.22 0.19 0.16 rg 1 0 0 1 154.00 682.99 Tm (Next.js \(App Router, SSR\), TypeScript, React 18, HeroUI, Tailwind CSS, State) Tj ET
+BT /F1 8.6 Tf 0.22 0.19 0.16 rg 1 0 0 1 154.00 671.19 Tm (Architecture, Accessible UI) Tj ET
+BT /F2 8.7 Tf 0.13 0.11 0.09 rg 1 0 0 1 42.00 657.89 Tm (Backend, Auth & Data:) Tj ET
+BT /F1 8.6 Tf 0.22 0.19 0.16 rg 1 0 0 1 154.00 657.89 Tm (Supabase \(PostgreSQL, RLS\), BetterAuth, Node.js, Express.js, MongoDB \(Atomic) Tj ET
+BT /F1 8.6 Tf 0.22 0.19 0.16 rg 1 0 0 1 154.00 646.09 Tm (Concurrency\), REST APIs, RBAC) Tj ET
+BT /F2 8.7 Tf 0.13 0.11 0.09 rg 1 0 0 1 42.00 632.79 Tm (Mobile, AI & Tooling:) Tj ET
+BT /F1 8.6 Tf 0.22 0.19 0.16 rg 1 0 0 1 154.00 632.79 Tm (React Native / Expo \(Balzo App\), Monorepo Architecture, Agentic AI Workflows,) Tj ET
+BT /F1 8.6 Tf 0.22 0.19 0.16 rg 1 0 0 1 154.00 620.99 Tm (Gemini API, Git, Vercel, Linux) Tj ET
+BT /F2 9.2 Tf 0.6 0.27 0.14 rg 1 0 0 1 42.00 604.93 Tm (PROFESSIONAL EXPERIENCE & LEADERSHIP) Tj ET
+0.6 w 0.82 0.76 0.68 RG 42 600.73 m 553 600.73 l S
+BT /F2 9.1 Tf 0.12 0.1 0.08 rg 1 0 0 1 42.00 589.43 Tm (Solo Full-Stack & Monorepo Architect  -  LearnHikmah \(learnhikmah org\) \(Remote  |  Dhaka\)) Tj ET
+BT /F2 8.4 Tf 0.6 0.27 0.14 rg 1 0 0 1 485.13 589.43 Tm (2024  -  Present) Tj ET
+BT /F1 8.1 Tf 0.38 0.32 0.27 rg 1 0 0 1 42.00 578.23 Tm (Stack: Next.js  |  TypeScript  |  BetterAuth  |  HeroUI  |  RBAC) Tj ET
+BT /F1 8.5 Tf 0.2 0.17 0.14 rg 1 0 0 1 46.00 567.23 Tm (- Engineered a private monorepo architecture powering learnhikmah.com \(SSR course portal\) and) Tj ET
+BT /F1 8.5 Tf 0.2 0.17 0.14 rg 1 0 0 1 53.00 556.23 Tm (app.learnhikmah.com \(interactive LMS\) solo from scratch.) Tj ET
+BT /F1 8.5 Tf 0.2 0.17 0.14 rg 1 0 0 1 46.00 545.23 Tm (- Implemented strict role-based access control \(RBAC\) across student, instructor, and admin views) Tj ET
+BT /F1 8.5 Tf 0.2 0.17 0.14 rg 1 0 0 1 53.00 534.23 Tm (with BetterAuth, HeroUI, and atomic lesson progression tracking.) Tj ET
+BT /F2 9.1 Tf 0.12 0.1 0.08 rg 1 0 0 1 42.00 521.91 Tm (Founder & Solo Mobile/Web Engineer  -  Balzo \(balzo-app org\) \(Dhaka\)) Tj ET
+BT /F2 8.4 Tf 0.6 0.27 0.14 rg 1 0 0 1 485.13 521.91 Tm (2024  -  Present) Tj ET
+BT /F1 8.1 Tf 0.38 0.32 0.27 rg 1 0 0 1 42.00 510.71 Tm (Stack: React Native  |  Expo  |  Next.js  |  Supabase  |  BetterAuth) Tj ET
+BT /F1 8.5 Tf 0.2 0.17 0.14 rg 1 0 0 1 46.00 499.71 Tm (- Architecting a multi-financial mobile application solo under the balzo-app organization using) Tj ET
+BT /F1 8.5 Tf 0.2 0.17 0.14 rg 1 0 0 1 53.00 488.71 Tm (React Native/Expo, TypeScript, Supabase, and BetterAuth.) Tj ET
+BT /F1 8.5 Tf 0.2 0.17 0.14 rg 1 0 0 1 46.00 477.71 Tm (- Designing unified multi-account ledger schemas, row-level security \(RLS\) policies, and shared) Tj ET
+BT /F1 8.5 Tf 0.2 0.17 0.14 rg 1 0 0 1 53.00 466.71 Tm (TypeScript contracts for the upcoming companion web app.) Tj ET
+BT /F2 9.1 Tf 0.12 0.1 0.08 rg 1 0 0 1 42.00 454.39 Tm (Full-Stack & AI Systems Engineer  -  An-Nujum Foundation & Open Source \(Dhaka\)) Tj ET
+BT /F2 8.4 Tf 0.6 0.27 0.14 rg 1 0 0 1 485.13 454.39 Tm (2023  -  Present) Tj ET
+BT /F1 8.1 Tf 0.38 0.32 0.27 rg 1 0 0 1 42.00 443.19 Tm (Stack: Next.js  |  Supabase  |  HeroUI  |  MERN  |  Agentic AI) Tj ET
+BT /F1 8.5 Tf 0.2 0.17 0.14 rg 1 0 0 1 46.00 432.19 Tm (- Developed the An-Nujum Foundation platform \(github.com/nymulislam/an-nujum-foundation\) for) Tj ET
+BT /F1 8.5 Tf 0.2 0.17 0.14 rg 1 0 0 1 53.00 421.19 Tm (managing foundation activities, donation workflows, and community initiatives.) Tj ET
+BT /F1 8.5 Tf 0.2 0.17 0.14 rg 1 0 0 1 46.00 410.19 Tm (- Shipped 40 repositories spanning full-stack MERN commerce \(E-Page with atomic inventory locks\),) Tj ET
+BT /F1 8.5 Tf 0.2 0.17 0.14 rg 1 0 0 1 53.00 399.19 Tm (healthcare/recruitment web suites \(IlmMed, Job Heaven\), and Agentic AI tools.) Tj ET
+BT /F2 9.2 Tf 0.6 0.27 0.14 rg 1 0 0 1 42.00 385.43 Tm (SELECTED PRODUCTION PROJECTS & SYSTEMS) Tj ET
+0.6 w 0.82 0.76 0.68 RG 42 381.23 m 553 381.23 l S
+BT /F2 8.7 Tf 0.13 0.11 0.09 rg 1 0 0 1 42.00 369.93 Tm (LearnHikmah Platform  |  Solo Architect  |  Next.js  |  TS  |  HeroUI  |  Tailwind) Tj ET
+BT /F1 8.1 Tf 0.58 0.25 0.12 rg 1 0 0 1 479.37 369.93 Tm (learnhikmah.com ->) Tj ET
+0.35 w 0.58 0.25 0.12 RG 479.37 368.43 m 553.00 368.43 l S
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 358.93 Tm (Public education and community portal engineered solo inside the private learnhikmah monorepo.) Tj ET
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 348.43 Tm (Built for fast global reading with server-rendered pages and clean typography. Outcome: Sub-50ms) Tj ET
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 337.93 Tm (edge cached course catalog & mobile-first reading layout.) Tj ET
+BT /F2 8.7 Tf 0.13 0.11 0.09 rg 1 0 0 1 42.00 326.42 Tm (LearnHikmah LMS  |  Solo Full-Stack  |  Next.js  |  BetterAuth  |  RBAC) Tj ET
+BT /F1 8.1 Tf 0.58 0.25 0.12 rg 1 0 0 1 463.01 326.42 Tm (app.learnhikmah.com ->) Tj ET
+0.35 w 0.58 0.25 0.12 RG 463.01 324.92 m 553.00 324.92 l S
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 315.42 Tm (Dedicated learning management system in the learnhikmah private monorepo. Handles student) Tj ET
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 304.92 Tm (dashboards, lesson progression, and role-based permissions. Outcome: Strict role isolation across) Tj ET
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 294.42 Tm (students, instructors, and admins.) Tj ET
+BT /F2 8.7 Tf 0.13 0.11 0.09 rg 1 0 0 1 42.00 282.91 Tm (E-Page Commerce  |  Top Pinned  |  React  |  Node  |  MongoDB) Tj ET
+BT /F1 8.1 Tf 0.58 0.25 0.12 rg 1 0 0 1 471.19 282.91 Tm (e-page.vercel.app ->) Tj ET
+0.35 w 0.58 0.25 0.12 RG 471.19 281.41 m 553.00 281.41 l S
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 271.91 Tm (Full-stack MERN bookstore featuring instant catalog filtering, reactive cart persistence, and a) Tj ET
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 261.41 Tm (friction-free checkout pipeline. Outcome: Race-condition-free inventory mutations & instant search) Tj ET
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 250.91 Tm (filtering.) Tj ET
+BT /F2 8.7 Tf 0.13 0.11 0.09 rg 1 0 0 1 42.00 239.40 Tm (An-Nujum Foundation  |  Lead Engineer  |  Next.js  |  TS  |  HeroUI  |  Supabase) Tj ET
+BT /F1 8.1 Tf 0.58 0.25 0.12 rg 1 0 0 1 373.02 239.40 Tm (github.com/nymulislam/an-nujum-foundation ->) Tj ET
+0.35 w 0.58 0.25 0.12 RG 373.02 237.90 m 553.00 237.90 l S
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 228.40 Tm (Web platform built for An-Nujum Foundation to manage charitable initiatives, transparent donation) Tj ET
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 217.90 Tm (workflows, and community outreach programs. Outcome: Streamlined program publishing, donor) Tj ET
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 207.40 Tm (transparency & mobile-first performance.) Tj ET
+BT /F2 8.7 Tf 0.13 0.11 0.09 rg 1 0 0 1 42.00 195.89 Tm (Balzo Financial App  |  Solo Founder & Engineer  |  React Native  |  Supabase  |  BetterAuth) Tj ET
+BT /F1 8.1 Tf 0.58 0.25 0.12 rg 1 0 0 1 487.55 195.89 Tm (balzo-app org ->) Tj ET
+0.35 w 0.58 0.25 0.12 RG 487.55 194.39 m 553.00 194.39 l S
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 184.89 Tm (Multi-financial mobile application engineered solo under the balzo-app organization, designed for) Tj ET
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 174.39 Tm (unified multi-account tracking with an upcoming web suite. Outcome: Shared TypeScript financial) Tj ET
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 163.89 Tm (contracts across mobile and upcoming web clients.) Tj ET
+BT /F2 8.7 Tf 0.13 0.11 0.09 rg 1 0 0 1 42.00 152.38 Tm (IlmMed & Web Suite  |  Web Suite  |  React  |  Express  |  Tailwind) Tj ET
+BT /F1 8.1 Tf 0.58 0.25 0.12 rg 1 0 0 1 430.28 152.38 Tm (ilm-med-solution.vercel.app ->) Tj ET
+0.35 w 0.58 0.25 0.12 RG 430.28 150.88 m 553.00 150.88 l S
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 141.38 Tm (Production web suite spanning healthcare services \(IlmMed\), recruitment workflows \(Job Heaven\), and) Tj ET
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 130.88 Tm (interactive catalog apps across 40 GitHub repositories. Outcome: Clean component boundaries &) Tj ET
+BT /F1 8.35 Tf 0.23 0.2 0.17 rg 1 0 0 1 46.00 120.38 Tm (resilient API error handling.) Tj ET
+BT /F2 9.2 Tf 0.6 0.27 0.14 rg 1 0 0 1 42.00 107.12 Tm (EDUCATION & CREDENTIALS) Tj ET
+0.6 w 0.82 0.76 0.68 RG 42 102.92 m 553 102.92 l S
+BT /F2 8.75 Tf 0.13 0.11 0.09 rg 1 0 0 1 42.00 91.62 Tm (Takmil \(Master's Equivalent in Islamic Studies & Classical Arabic\)) Tj ET
+BT /F2 8.3 Tf 0.6 0.27 0.14 rg 1 0 0 1 536.23 91.62 Tm (2025) Tj ET
+BT /F1 8.25 Tf 0.26 0.22 0.18 rg 1 0 0 1 46.00 80.62 Tm (Jamia Arabia Imdadul Uloom, Faridabad, Dhaka  |  Al-Haiatul Ulya Lil-Jamiatil Qawmia Bangladesh) Tj ET
+BT /F2 8.75 Tf 0.13 0.11 0.09 rg 1 0 0 1 42.00 68.81 Tm (Higher Classical Arabic Grammar \(Nahw/Sarf\) & Formal Logic \(Mantiq\)) Tj ET
+BT /F2 8.3 Tf 0.6 0.27 0.14 rg 1 0 0 1 536.23 68.81 Tm (2022) Tj ET
+BT /F1 8.25 Tf 0.26 0.22 0.18 rg 1 0 0 1 46.00 57.81 Tm (Jamia Rahmania Arabia, Dhaka  |  Befaqul Madarisil Arabia Bangladesh) Tj ET
+BT /F2 8.75 Tf 0.13 0.11 0.09 rg 1 0 0 1 42.00 46.00 Tm (Hafiz-ul-Quran \(Complete Memorization of the Holy Quran\)) Tj ET
+BT /F2 8.3 Tf 0.6 0.27 0.14 rg 1 0 0 1 515.28 46.00 Tm (Completed) Tj ET
+BT /F1 8.25 Tf 0.26 0.22 0.18 rg 1 0 0 1 46.00 35.00 Tm (Hifzul Quran Department, Dhaka  |  Certified Hafiz-ul-Quran) Tj ET
+0.5 w 0.83 0.78 0.71 RG 42 49.00 m 553 49.00 l S
+BT /F1 8 Tf 0.36 0.3 0.25 rg 1 0 0 1 42.00 38.00 Tm (Open to Full-Stack & AI Engineer roles \(Remote or Dhaka\)  |  100% ATS-Compliant Executive CV) Tj ET
+BT /F1 8 Tf 0.58 0.25 0.12 rg 1 0 0 1 468.16 38.00 Tm (github.com/nymulislam) Tj ET
+0.35 w 0.58 0.25 0.12 RG 468.16 36.50 m 553.00 36.50 l S
+endstream
+endobj
+7 0 obj
+<< /Type /Annot /Subtype /Link /Rect [440.39 780.50 555.00 792.00] /Border [0 0 0] /A << /Type /Action /S /URI /URI (https://wa.me/8801822667737) >> >>
+endobj
+8 0 obj
+<< /Type /Annot /Subtype /Link /Rect [41.00 766.00 145.81 777.40] /Border [0 0 0] /A << /Type /Action /S /URI /URI (mailto:naymulislam241@gmail.com) >> >>
+endobj
+9 0 obj
+<< /Type /Annot /Subtype /Link /Rect [158.81 766.00 335.73 777.40] /Border [0 0 0] /A << /Type /Action /S /URI /URI (https://github.com/nymulislam) >> >>
+endobj
+10 0 obj
+<< /Type /Annot /Subtype /Link /Rect [348.73 766.00 462.02 777.40] /Border [0 0 0] /A << /Type /Action /S /URI /URI (https://linkedin.com/in/nymulislam) >> >>
+endobj
+11 0 obj
+<< /Type /Annot /Subtype /Link /Rect [475.02 766.00 541.65 777.40] /Border [0 0 0] /A << /Type /Action /S /URI /URI (https://learnhikmah.com) >> >>
+endobj
+12 0 obj
+<< /Type /Annot /Subtype /Link /Rect [478.37 367.93 555.00 379.03] /Border [0 0 0] /A << /Type /Action /S /URI /URI (https://learnhikmah.com) >> >>
+endobj
+13 0 obj
+<< /Type /Annot /Subtype /Link /Rect [462.01 324.42 555.00 335.52] /Border [0 0 0] /A << /Type /Action /S /URI /URI (https://app.learnhikmah.com) >> >>
+endobj
+14 0 obj
+<< /Type /Annot /Subtype /Link /Rect [470.19 280.91 555.00 292.01] /Border [0 0 0] /A << /Type /Action /S /URI /URI (https://e-page.vercel.app) >> >>
+endobj
+15 0 obj
+<< /Type /Annot /Subtype /Link /Rect [372.02 237.40 555.00 248.50] /Border [0 0 0] /A << /Type /Action /S /URI /URI (https://github.com/nymulislam/an-nujum-foundation) >> >>
+endobj
+16 0 obj
+<< /Type /Annot /Subtype /Link /Rect [486.55 193.89 555.00 204.99] /Border [0 0 0] /A << /Type /Action /S /URI /URI (https://github.com/nymulislam) >> >>
+endobj
+17 0 obj
+<< /Type /Annot /Subtype /Link /Rect [429.28 150.38 555.00 161.48] /Border [0 0 0] /A << /Type /Action /S /URI /URI (https://ilm-med-solution.vercel.app/) >> >>
+endobj
+18 0 obj
+<< /Type /Annot /Subtype /Link /Rect [467.16 36.00 555.00 47.00] /Border [0 0 0] /A << /Type /Action /S /URI /URI (https://github.com/nymulislam) >> >>
+endobj
+xref
+0 19
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000348 00000 n 
+0000000445 00000 n 
+0000000547 00000 n 
+0000012573 00000 n 
+0000012740 00000 n 
+0000012910 00000 n 
+0000013079 00000 n 
+0000013254 00000 n 
+0000013418 00000 n 
+0000013582 00000 n 
+0000013750 00000 n 
+0000013916 00000 n 
+0000014106 00000 n 
+0000014276 00000 n 
+0000014453 00000 n 
+trailer
+<< /Size 19 /Root 1 0 R >>
+startxref
+14621
+%%EOF

@@ -38,9 +38,14 @@ function App() {
     setTimeout(() => setToastMsg(""), 2500);
   };
 
+  const handleDownloadPdf = () => {
+    setToastMsg("Resume PDF downloaded (Naymul_Islam_Resume.pdf)");
+    setTimeout(() => setToastMsg(""), 2800);
+  };
+
   return (
     <TimeOfDayProvider>
-      <div className="relative min-h-screen overflow-x-hidden transition-colors duration-500">
+      <div className="relative min-h-screen overflow-x-clip transition-colors duration-500">
         {/* 3-Zone Editorial Top Bar with Studio Light Switcher */}
         <Header />
 
@@ -76,6 +81,7 @@ function App() {
           isOpen={resumeOpen}
           onClose={() => setResumeOpen(false)}
           onCopyEmail={handleCopyEmail}
+          onDownloadPdf={handleDownloadPdf}
         />
 
         <Toast

@@ -1,0 +1,95 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Length 7113 >>
+stream
+BT /F2 18 Tf 0.14 0.11 0.09 rg 1 0 0 1 44.0 794.0 Tm (NAYMUL ISLAM) Tj ET
+BT /F1 8.5 Tf 0.36 0.3 0.25 rg 1 0 0 1 418.0 798.0 Tm (Dhaka, Bangladesh \(UTC+6\)) Tj ET
+BT /F2 10 Tf 0.6 0.31 0.14 rg 1 0 0 1 44.0 779.0 Tm (Full-Stack & AI Engineer  |  Solo LMS & Commerce Architect) Tj ET
+BT /F1 8.5 Tf 0.36 0.3 0.25 rg 1 0 0 1 418.0 781.0 Tm (+880 182-2667737) Tj ET
+BT /F1 8.5 Tf 0.28 0.24 0.2 rg 1 0 0 1 44.0 765.0 Tm (naymulislam241@gmail.com  |  github.com/nymulislam \(84+ repos\)  |  linkedin.com/in/nymulislam) Tj ET
+0.6 w 0.82 0.76 0.68 RG 44 755.0 m 551 755.0 l S
+BT /F1 9.2 Tf 0.2 0.17 0.14 rg 1 0 0 1 44.0 741.0 Tm (Full-Stack Software Engineer & Solo LMS Architect based in Dhaka, Bangladesh. Experienced in) Tj ET
+BT /F1 9.2 Tf 0.2 0.17 0.14 rg 1 0 0 1 44.0 728.5 Tm (designing, building, and operating end-to-end web systems using Next.js \(App Router\),) Tj ET
+BT /F1 9.2 Tf 0.2 0.17 0.14 rg 1 0 0 1 44.0 716.0 Tm (TypeScript, the MERN stack, and deterministic Agentic AI workflows.) Tj ET
+0.6 w 0.82 0.76 0.68 RG 44 699.5 m 551 699.5 l S
+BT /F2 9.5 Tf 0.6 0.31 0.14 rg 1 0 0 1 44.0 684.5 Tm (CORE TECHNICAL ARCHITECTURE & STACK) Tj ET
+BT /F2 9 Tf 0.14 0.11 0.09 rg 1 0 0 1 44.0 671.5 Tm (Frontend & SSR:) Tj ET
+BT /F1 8.8 Tf 0.24 0.2 0.17 rg 1 0 0 1 139.0 671.5 Tm (Next.js \(App Router\), TypeScript, React 18, Tailwind CSS, State Architecture, Accessible UI) Tj ET
+BT /F2 9 Tf 0.14 0.11 0.09 rg 1 0 0 1 44.0 659.0 Tm (Backend & Data:) Tj ET
+BT /F1 8.8 Tf 0.24 0.2 0.17 rg 1 0 0 1 139.0 659.0 Tm (Node.js, Express.js, MongoDB \(Atomic Concurrency\), REST APIs, Session & RBAC Auth) Tj ET
+BT /F2 9 Tf 0.14 0.11 0.09 rg 1 0 0 1 44.0 646.5 Tm (AI & Tooling:) Tj ET
+BT /F1 8.8 Tf 0.24 0.2 0.17 rg 1 0 0 1 139.0 646.5 Tm (Agentic AI Workflows, Gemini API Function Calling, Structured JSON Schemas, Git, Vercel, Linux) Tj ET
+0.6 w 0.82 0.76 0.68 RG 44 631.0 m 551 631.0 l S
+BT /F2 9.5 Tf 0.6 0.31 0.14 rg 1 0 0 1 44.0 616.0 Tm (EXPERIENCE & CAREER TRAJECTORY) Tj ET
+BT /F2 9.6 Tf 0.14 0.11 0.09 rg 1 0 0 1 44.0 602.0 Tm (Solo Full-Stack & LMS Architect  -  LearnHikmah \(Remote  |  Dhaka\)) Tj ET
+BT /F2 8.5 Tf 0.6 0.31 0.14 rg 1 0 0 1 440.0 602.0 Tm (2024  -  Present) Tj ET
+BT /F1 8.2 Tf 0.38 0.32 0.27 rg 1 0 0 1 44.0 590.5 Tm (Stack: Next.js  |  TypeScript  |  Node.js  |  RBAC) Tj ET
+BT /F1 8.7 Tf 0.22 0.18 0.15 rg 1 0 0 1 48.0 579.0 Tm (- Architected and shipped both the public education portal \(learnhikmah.com\) and the private) Tj ET
+BT /F1 8.7 Tf 0.22 0.18 0.15 rg 1 0 0 1 56.0 567.8 Tm (organization LMS \(app.learnhikmah.com\) solo from scratch.) Tj ET
+BT /F1 8.7 Tf 0.22 0.18 0.15 rg 1 0 0 1 48.0 556.6 Tm (- Engineered role-based access control \(RBAC\) across student, instructor, and admin views with) Tj ET
+BT /F1 8.7 Tf 0.22 0.18 0.15 rg 1 0 0 1 56.0 545.4 Tm (atomic lesson progression tracking.) Tj ET
+BT /F2 9.6 Tf 0.14 0.11 0.09 rg 1 0 0 1 44.0 529.2 Tm (Full-Stack & AI Systems Engineer  -  Independent & Open Source \(Dhaka\)) Tj ET
+BT /F2 8.5 Tf 0.6 0.31 0.14 rg 1 0 0 1 440.0 529.2 Tm (2023  -  Present) Tj ET
+BT /F1 8.2 Tf 0.38 0.32 0.27 rg 1 0 0 1 44.0 517.7 Tm (Stack: React  |  Next.js  |  Express  |  MongoDB  |  Agentic AI) Tj ET
+BT /F1 8.7 Tf 0.22 0.18 0.15 rg 1 0 0 1 48.0 506.2 Tm (- Built and deployed 84+ repositories spanning full-stack MERN commerce \(E-Page\), healthcare &) Tj ET
+BT /F1 8.7 Tf 0.22 0.18 0.15 rg 1 0 0 1 56.0 495.0 Tm (recruitment platforms \(IlmMed, Job Heaven\), and developer tools.) Tj ET
+BT /F1 8.7 Tf 0.22 0.18 0.15 rg 1 0 0 1 48.0 483.8 Tm (- Designed deterministic LLM tool-calling workflows using structured JSON schemas and) Tj ET
+BT /F1 8.7 Tf 0.22 0.18 0.15 rg 1 0 0 1 56.0 472.6 Tm (low-latency API orchestration.) Tj ET
+BT /F2 9.6 Tf 0.14 0.11 0.09 rg 1 0 0 1 44.0 456.4 Tm (Classical Arabic Logic \(Mantiq\) & Jurisprudence  -  Jamia Rahmania Arabia \(Dhaka\)) Tj ET
+BT /F2 8.5 Tf 0.6 0.31 0.14 rg 1 0 0 1 440.0 456.4 Tm (Foundational Training) Tj ET
+BT /F1 8.2 Tf 0.38 0.32 0.27 rg 1 0 0 1 44.0 444.9 Tm (Stack: Formal Logic  |  Nahw/Sarf  |  Analytical Systems) Tj ET
+BT /F1 8.7 Tf 0.22 0.18 0.15 rg 1 0 0 1 48.0 433.4 Tm (- Completed rigorous training in classical Arabic grammar \(Nahw/Sarf\), formal syllogistic) Tj ET
+BT /F1 8.7 Tf 0.22 0.18 0.15 rg 1 0 0 1 56.0 422.2 Tm (logic \(Mantiq\), and close textual analysis.) Tj ET
+BT /F1 8.7 Tf 0.22 0.18 0.15 rg 1 0 0 1 48.0 411.0 Tm (- Translated classical rule-based reasoning directly into strict TypeScript contracts, state) Tj ET
+BT /F1 8.7 Tf 0.22 0.18 0.15 rg 1 0 0 1 56.0 399.8 Tm (machines, and clean software boundaries.) Tj ET
+0.6 w 0.82 0.76 0.68 RG 44 383.6 m 551 383.6 l S
+BT /F2 9.5 Tf 0.6 0.31 0.14 rg 1 0 0 1 44.0 368.6 Tm (SELECTED PRODUCTION SYSTEMS & ARCHITECTURE) Tj ET
+BT /F2 8.9 Tf 0.14 0.11 0.09 rg 1 0 0 1 44.0 355.6 Tm (LearnHikmah Platform \(learnhikmah.com\)  |  Solo Architect  |  Next.js  |  TS  |  Tailwind) Tj ET
+BT /F1 8.5 Tf 0.25 0.21 0.18 rg 1 0 0 1 48.0 344.6 Tm (Public education and community portal engineered solo. Built for fast global reading with) Tj ET
+BT /F1 8.5 Tf 0.25 0.21 0.18 rg 1 0 0 1 48.0 333.8 Tm (server-rendered pages and clean typography. Outcome: Sub-50ms edge cached course catalog &) Tj ET
+BT /F1 8.5 Tf 0.25 0.21 0.18 rg 1 0 0 1 48.0 323.0 Tm (mobile-first reading layout.) Tj ET
+BT /F2 8.9 Tf 0.14 0.11 0.09 rg 1 0 0 1 44.0 308.2 Tm (LearnHikmah LMS \(app.learnhikmah.com\)  |  Solo Full-Stack  |  Next.js  |  Node  |  RBAC) Tj ET
+BT /F1 8.5 Tf 0.25 0.21 0.18 rg 1 0 0 1 48.0 297.2 Tm (Dedicated learning management system in a private organization. Handles student dashboards,) Tj ET
+BT /F1 8.5 Tf 0.25 0.21 0.18 rg 1 0 0 1 48.0 286.4 Tm (lesson progression, and role-based permissions. Outcome: Strict role isolation across students,) Tj ET
+BT /F1 8.5 Tf 0.25 0.21 0.18 rg 1 0 0 1 48.0 275.6 Tm (instructors, and admins.) Tj ET
+BT /F2 8.9 Tf 0.14 0.11 0.09 rg 1 0 0 1 44.0 260.8 Tm (E-Page Commerce \(e-page.vercel.app\)  |  Top Pinned  |  React  |  Node  |  MongoDB) Tj ET
+BT /F1 8.5 Tf 0.25 0.21 0.18 rg 1 0 0 1 48.0 249.8 Tm (Full-stack MERN bookstore featuring instant catalog filtering, reactive cart persistence, and a) Tj ET
+BT /F1 8.5 Tf 0.25 0.21 0.18 rg 1 0 0 1 48.0 239.0 Tm (friction-free checkout pipeline. Outcome: Race-condition-free inventory mutations & instant) Tj ET
+BT /F1 8.5 Tf 0.25 0.21 0.18 rg 1 0 0 1 48.0 228.2 Tm (search filtering.) Tj ET
+BT /F2 8.9 Tf 0.14 0.11 0.09 rg 1 0 0 1 44.0 213.4 Tm (IlmMed & Web Suite \(ilm-med-solution.vercel.app/\)  |  Web Suite  |  React  |  Express  |  REST) Tj ET
+BT /F1 8.5 Tf 0.25 0.21 0.18 rg 1 0 0 1 48.0 202.4 Tm (Production web suite spanning healthcare services \(IlmMed\), recruitment workflows \(Job Heaven\),) Tj ET
+BT /F1 8.5 Tf 0.25 0.21 0.18 rg 1 0 0 1 48.0 191.6 Tm (and interactive catalog apps. Outcome: Clean component boundaries & resilient API error) Tj ET
+BT /F1 8.5 Tf 0.25 0.21 0.18 rg 1 0 0 1 48.0 180.8 Tm (handling.) Tj ET
+0.6 w 0.82 0.76 0.68 RG 44 164.0 m 551 164.0 l S
+BT /F1 8.3 Tf 0.36 0.3 0.25 rg 1 0 0 1 44.0 152.0 Tm (Open to Full-Stack & AI Engineer roles \(Remote or Dhaka\)  |  Full CV Online: https://t.ly/aR09W) Tj ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000257 00000 n 
+0000000354 00000 n 
+0000000456 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+7621
+%%EOF
