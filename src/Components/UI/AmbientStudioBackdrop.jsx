@@ -44,36 +44,49 @@ const AmbientStudioBackdrop = () => {
     },
   };
 
-  const current = atmosphereByMood[activePeriod] || atmosphereByMood.evening;
+  const moods = Object.keys(atmosphereByMood);
 
   return (
     <div
       aria-hidden="true"
       className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none print:hidden"
     >
-      {/* Top Editorial Skylight Wash — Seamless, ultra-soft top illumination */}
-      <div
-        className="absolute inset-0 transition-opacity duration-1000 ease-out"
-        style={{
-          background: current.skylight,
-        }}
-      />
+      {moods.map((moodKey) => {
+        const isActive = activePeriod === moodKey;
+        const layer = atmosphereByMood[moodKey];
+        return (
+          <div
+            key={moodKey}
+            className={`absolute inset-0 transition-opacity duration-700 ease-out ${
+              isActive ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            {/* Top Editorial Skylight Wash */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background: layer.skylight,
+              }}
+            />
 
-      {/* Slow-Breathing Studio Window Light Diffusion */}
-      <div
-        className="absolute -inset-[8%] animate-studio-aura transition-opacity duration-1000 ease-out"
-        style={{
-          background: current.windowAura,
-        }}
-      />
+            {/* Slow-Breathing Studio Window Light Diffusion */}
+            <div
+              className="absolute -inset-[8%] animate-studio-aura"
+              style={{
+                background: layer.windowAura,
+              }}
+            />
 
-      {/* Subtle Counter-Balance Warmth in Lower Viewport */}
-      <div
-        className="absolute inset-0 transition-opacity duration-1000 ease-out"
-        style={{
-          background: current.lowerWash,
-        }}
-      />
+            {/* Subtle Counter-Balance Warmth in Lower Viewport */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background: layer.lowerWash,
+              }}
+            />
+          </div>
+        );
+      })}
 
       {/* Interactive Desk Lamp Silk Halo */}
       <div

@@ -1,4 +1,14 @@
-import { createContext, useContext, useEffect, useState, useMemo, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
+import { flushSync } from "react-dom";
 
 const TimeOfDayContext = createContext();
 
@@ -51,11 +61,30 @@ const getSystemPeriod = () => {
   return "night";
 };
 
+const resolvePeriod = (mood, sysPeriod) => {
+  if (mood === "auto") return sysPeriod;
+  return MOOD_ORDER.includes(mood) ? mood : sysPeriod;
+};
+
+const applyRootMoodClasses = (period, moodToStore) => {
+  if (typeof document === "undefined") return;
+  const root = document.documentElement;
+  root.classList.remove("mood-morning", "mood-afternoon", "mood-evening", "mood-night", "dark");
+  root.classList.add(`mood-${period}`);
+  if (period === "night") {
+    root.classList.add("dark");
+  }
+  try {
+    localStorage.setItem(STORAGE_KEY, moodToStore);
+  } catch {
+    // ignore in sandboxed environments
+  }
+};
+
 export const TimeOfDayProvider = ({ children }) => {
-  const [selectedMood, setSelectedMood] = useState(() => {
+  const [selectedMood, setSelectedMoodState] = useState(() => {
     if (typeof window !== "undefined") {
       try {
-        // Clear legacy key that previously wrote "evening" by default on first visit
         localStorage.removeItem(LEGACY_STORAGE_KEY);
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored && VALID_MOODS.includes(stored)) {
@@ -69,6 +98,7 @@ export const TimeOfDayProvider = ({ children }) => {
   });
 
   const [systemPeriod, setSystemPeriod] = useState(() => getSystemPeriod());
+  const transitionTimerRef = useRef(null);
 
   // Keep system period updated every 60s when in "auto" mode
   useEffect(() => {
@@ -80,21 +110,87 @@ export const TimeOfDayProvider = ({ children }) => {
     return () => clearInterval(interval);
   }, [selectedMood]);
 
-  const activePeriod = useMemo(() => {
-    if (selectedMood === "auto") {
-      return systemPeriod;
-    }
-    return MOOD_ORDER.includes(selectedMood) ? selectedMood : systemPeriod;
-  }, [selectedMood, systemPeriod]);
+  const activePeriod = useMemo(
+    () => resolvePeriod(selectedMood, systemPeriod),
+    [selectedMood, systemPeriod]
+  );
 
   const currentDetails = MOOD_DETAILS[activePeriod] || MOOD_DETAILS.evening;
 
   // Interactive desk lamp state (syncs with period default when period changes, but user can toggle anytime)
   const [studioLampOn, setStudioLampOn] = useState(() => currentDetails.defaultLamp);
 
-  useEffect(() => {
+  // Ensure initial mount and auto-clock updates apply root classes
+  useLayoutEffect(() => {
+    applyRootMoodClasses(activePeriod, selectedMood);
     setStudioLampOn(MOOD_DETAILS[activePeriod]?.defaultLamp ?? true);
-  }, [activePeriod]);
+  }, [activePeriod, selectedMood]);
+
+  // Smooth GPU View-Transition wrapper for all mood changes (Morning <-> Night, etc.)
+  const setSelectedMood = useCallback(
+    (nextMood) => {
+      const currentSys = getSystemPeriod();
+      const nextPeriod = resolvePeriod(nextMood, currentSys);
+      const isSamePeriod = nextPeriod === activePeriod;
+
+      if (typeof document === "undefined") {
+        setSelectedMoodState(nextMood);
+        return;
+      }
+
+      const root = document.documentElement;
+      const prefersReducedMotion =
+        typeof window !== "undefined" &&
+        window.matchMedia &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      // If only switching between "auto" and the current matching period (no visual change), update immediately
+      if (isSamePeriod || prefersReducedMotion) {
+        setSelectedMoodState(nextMood);
+        applyRootMoodClasses(nextPeriod, nextMood);
+        return;
+      }
+
+      // Path 1: Modern GPU View Transitions API — captures old & new scenes and cross-fades every pixel in unison
+      if (typeof document.startViewTransition === "function") {
+        try {
+          const vt = document.startViewTransition(() => {
+            root.classList.add("vt-mood-switching");
+            flushSync(() => {
+              setSelectedMoodState(nextMood);
+              setSystemPeriod(currentSys);
+              setStudioLampOn(MOOD_DETAILS[nextPeriod]?.defaultLamp ?? true);
+            });
+            applyRootMoodClasses(nextPeriod, nextMood);
+            // Force synchronous style computation so the new ViewTransition snapshot is 100% in its final state
+            void root.offsetHeight;
+          });
+
+          vt.finished.finally(() => {
+            root.classList.remove("vt-mood-switching");
+          });
+          return;
+        } catch {
+          root.classList.remove("vt-mood-switching");
+        }
+      }
+
+      // Path 2: Fallback synchronized CSS S-curve transition for browsers without startViewTransition
+      root.classList.add("mood-transitioning");
+      if (transitionTimerRef.current) {
+        clearTimeout(transitionTimerRef.current);
+      }
+      setSelectedMoodState(nextMood);
+      setSystemPeriod(currentSys);
+      setStudioLampOn(MOOD_DETAILS[nextPeriod]?.defaultLamp ?? true);
+      applyRootMoodClasses(nextPeriod, nextMood);
+
+      transitionTimerRef.current = setTimeout(() => {
+        root.classList.remove("mood-transitioning");
+      }, 900);
+    },
+    [activePeriod]
+  );
 
   const toggleStudioLamp = useCallback(() => {
     setStudioLampOn((prev) => !prev);
@@ -104,23 +200,15 @@ export const TimeOfDayProvider = ({ children }) => {
     const currentIndex = MOOD_ORDER.indexOf(activePeriod);
     const nextIndex = (currentIndex + 1) % MOOD_ORDER.length;
     setSelectedMood(MOOD_ORDER[nextIndex]);
-  }, [activePeriod]);
+  }, [activePeriod, setSelectedMood]);
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.classList.remove("mood-morning", "mood-afternoon", "mood-evening", "mood-night", "dark");
-    root.classList.add(`mood-${activePeriod}`);
-
-    if (activePeriod === "night") {
-      root.classList.add("dark");
-    }
-
-    try {
-      localStorage.setItem(STORAGE_KEY, selectedMood);
-    } catch {
-      // ignore in sandboxed environments
-    }
-  }, [activePeriod, selectedMood]);
+    return () => {
+      if (transitionTimerRef.current) {
+        clearTimeout(transitionTimerRef.current);
+      }
+    };
+  }, []);
 
   return (
     <TimeOfDayContext.Provider

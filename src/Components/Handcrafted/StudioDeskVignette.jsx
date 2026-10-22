@@ -83,9 +83,9 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
 
             {/* Walnut Desk Surface */}
             <linearGradient id="walnutDesk" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor={activePeriod === "night" ? "#261E18" : "#6E4F35"} />
-              <stop offset="50%" stopColor={activePeriod === "night" ? "#332820" : "#825E40"} />
-              <stop offset="100%" stopColor={activePeriod === "night" ? "#1F1813" : "#5A3F29"} />
+              <stop offset="0%" style={{ stopColor: activePeriod === "night" ? "#261E18" : "#6E4F35" }} />
+              <stop offset="50%" style={{ stopColor: activePeriod === "night" ? "#332820" : "#825E40" }} />
+              <stop offset="100%" style={{ stopColor: activePeriod === "night" ? "#1F1813" : "#5A3F29" }} />
             </linearGradient>
           </defs>
 
@@ -96,54 +96,54 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
             onMouseEnter={() => setHoverZone("window")}
             onMouseLeave={() => setHoverZone(null)}
           >
+            {/* Morning Sky & Rising Sun (Smooth Opacity Cross-Fade) */}
+            <g className={`transition-opacity duration-700 ease-out ${activePeriod === "morning" ? "opacity-100" : "opacity-0"}`}>
+              <rect x="18" y="10" width="148" height="104" rx="4" fill="url(#skyMorning)" />
+              <circle cx="62" cy="76" r="14" fill="#F59E0B" opacity="0.85" />
+            </g>
+
+            {/* Afternoon Sky, High Sun & Cloud (Smooth Opacity Cross-Fade) */}
+            <g className={`transition-opacity duration-700 ease-out ${activePeriod === "afternoon" ? "opacity-100" : "opacity-0"}`}>
+              <rect x="18" y="10" width="148" height="104" rx="4" fill="url(#skyAfternoon)" />
+              <circle cx="122" cy="36" r="11" fill="#FACC15" opacity="0.9" />
+              <rect x="44" y="42" width="38" height="9" rx="4.5" fill="#FFFFFF" opacity="0.75" />
+            </g>
+
+            {/* Evening Golden Sunset (Smooth Opacity Cross-Fade) */}
+            <g className={`transition-opacity duration-700 ease-out ${activePeriod === "evening" ? "opacity-100" : "opacity-0"}`}>
+              <rect x="18" y="10" width="148" height="104" rx="4" fill="url(#skyEvening)" />
+              <circle cx="88" cy="82" r="17" fill="#FEF08A" opacity="0.85" />
+            </g>
+
+            {/* Night Starlit Sky & Crescent Moon (Smooth Opacity Cross-Fade) */}
+            <g className={`transition-opacity duration-700 ease-out ${activePeriod === "night" ? "opacity-100" : "opacity-0"}`}>
+              <rect x="18" y="10" width="148" height="104" rx="4" fill="url(#skyNight)" />
+              <circle cx="56" cy="40" r="8" fill="#FDE68A" />
+              <circle cx="60" cy="38" r="7" fill="#121520" />
+              <circle cx="105" cy="32" r="1.2" fill="#FFFFFF" opacity="0.9" />
+              <circle cx="132" cy="48" r="1.4" fill="#FDE68A" opacity="0.85" />
+              <circle cx="88" cy="62" r="1" fill="#FFFFFF" opacity="0.75" />
+              <circle cx="122" cy="72" r="1.1" fill="#FFFFFF" opacity="0.8" />
+            </g>
+
+            {/* Window Frame Border */}
             <rect
               x="18"
               y="10"
               width="148"
               height="104"
               rx="4"
-              fill={
-                activePeriod === "morning"
-                  ? "url(#skyMorning)"
-                  : activePeriod === "afternoon"
-                  ? "url(#skyAfternoon)"
-                  : activePeriod === "evening"
-                  ? "url(#skyEvening)"
-                  : "url(#skyNight)"
-              }
-              stroke={activePeriod === "night" ? "#3A332C" : "#8C7660"}
+              fill="none"
+              style={{ stroke: activePeriod === "night" ? "#3A332C" : "#8C7660" }}
               strokeWidth="3.5"
             />
-
-            {activePeriod === "morning" && (
-              <circle cx="62" cy="76" r="14" fill="#F59E0B" opacity="0.85" />
-            )}
-            {activePeriod === "afternoon" && (
-              <g>
-                <circle cx="122" cy="36" r="11" fill="#FACC15" opacity="0.9" />
-                <rect x="44" y="42" width="38" height="9" rx="4.5" fill="#FFFFFF" opacity="0.75" />
-              </g>
-            )}
-            {activePeriod === "evening" && (
-              <circle cx="88" cy="82" r="17" fill="#FEF08A" opacity="0.85" />
-            )}
-            {activePeriod === "night" && (
-              <g>
-                <circle cx="56" cy="40" r="8" fill="#FDE68A" />
-                <circle cx="60" cy="38" r="7" fill="#121520" />
-                <circle cx="105" cy="32" r="1.2" fill="#FFFFFF" opacity="0.9" />
-                <circle cx="132" cy="48" r="1.4" fill="#FDE68A" opacity="0.85" />
-                <circle cx="88" cy="62" r="1" fill="#FFFFFF" opacity="0.75" />
-                <circle cx="122" cy="72" r="1.1" fill="#FFFFFF" opacity="0.8" />
-              </g>
-            )}
 
             <line
               x1="92"
               y1="10"
               x2="92"
               y2="114"
-              stroke={activePeriod === "night" ? "#3A332C" : "#8C7660"}
+              style={{ stroke: activePeriod === "night" ? "#3A332C" : "#8C7660" }}
               strokeWidth="2.5"
             />
             <line
@@ -151,11 +151,11 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
               y1="62"
               x2="166"
               y2="62"
-              stroke={activePeriod === "night" ? "#3A332C" : "#8C7660"}
+              style={{ stroke: activePeriod === "night" ? "#3A332C" : "#8C7660" }}
               strokeWidth="2.5"
             />
 
-            <g stroke={activePeriod === "night" ? "#2B2622" : "#B5A28C"} strokeWidth="2">
+            <g style={{ stroke: activePeriod === "night" ? "#2B2622" : "#B5A28C" }} strokeWidth="2">
               <line x1="20" y1="16" x2="164" y2="16" />
               <line x1="20" y1="22" x2="164" y2="22" />
               <line x1="20" y1="28" x2="164" y2="28" />
@@ -169,35 +169,31 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
               width="160"
               height="5"
               rx="1.5"
-              fill={activePeriod === "night" ? "#2E2823" : "#7D6752"}
+              style={{ fill: activePeriod === "night" ? "#2E2823" : "#7D6752" }}
             />
           </g>
 
           {/* ==================== 1B. INTERIOR WINDOW SUNBEAMS (Soft Rays from Panes onto Desk) ==================== */}
-          {activePeriod !== "night" && (
-            <g className="pointer-events-none animate-window-rays">
-              <polygon
-                points="22,30 88,30 155,168 48,168"
-                fill={
-                  activePeriod === "morning"
-                    ? "url(#sunbeamMorning)"
-                    : activePeriod === "evening"
-                    ? "url(#sunbeamEvening)"
-                    : "url(#sunbeamAfternoon)"
-                }
-              />
-              <polygon
-                points="96,30 162,30 238,168 164,168"
-                fill={
-                  activePeriod === "morning"
-                    ? "url(#sunbeamMorning)"
-                    : activePeriod === "evening"
-                    ? "url(#sunbeamEvening)"
-                    : "url(#sunbeamAfternoon)"
-                }
-              />
+          <g className="pointer-events-none">
+            <g className={`transition-opacity duration-700 ease-out ${activePeriod === "morning" ? "opacity-100" : "opacity-0"}`}>
+              <g className="animate-window-rays">
+                <polygon points="22,30 88,30 155,168 48,168" fill="url(#sunbeamMorning)" />
+                <polygon points="96,30 162,30 238,168 164,168" fill="url(#sunbeamMorning)" />
+              </g>
             </g>
-          )}
+            <g className={`transition-opacity duration-700 ease-out ${activePeriod === "afternoon" ? "opacity-100" : "opacity-0"}`}>
+              <g className="animate-window-rays">
+                <polygon points="22,30 88,30 155,168 48,168" fill="url(#sunbeamAfternoon)" />
+                <polygon points="96,30 162,30 238,168 164,168" fill="url(#sunbeamAfternoon)" />
+              </g>
+            </g>
+            <g className={`transition-opacity duration-700 ease-out ${activePeriod === "evening" ? "opacity-100" : "opacity-0"}`}>
+              <g className="animate-window-rays">
+                <polygon points="22,30 88,30 155,168 48,168" fill="url(#sunbeamEvening)" />
+                <polygon points="96,30 162,30 238,168 164,168" fill="url(#sunbeamEvening)" />
+              </g>
+            </g>
+          </g>
 
           {/* ==================== 2. ARTICULATED ARCHITECT DESK LAMP (Right - Tap/Click to Toggle Light) ==================== */}
           <g
@@ -206,19 +202,21 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
             onMouseEnter={() => setHoverZone("lamp")}
             onMouseLeave={() => setHoverZone(null)}
           >
-            {studioLampOn && (
-              <g className="pointer-events-none">
-                <polygon points="214,62 95,180 315,180" fill="url(#lampGlowCone)" />
-                <ellipse
-                  cx="205"
-                  cy="176"
-                  rx="95"
-                  ry="10"
-                  fill="#F59E0B"
-                  opacity={activePeriod === "night" ? "0.28" : "0.16"}
-                />
-              </g>
-            )}
+            <g
+              className={`pointer-events-none transition-opacity duration-500 ease-out ${
+                studioLampOn ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <polygon points="214,62 95,180 315,180" fill="url(#lampGlowCone)" />
+              <ellipse
+                cx="205"
+                cy="176"
+                rx="95"
+                ry="10"
+                fill="#F59E0B"
+                style={{ opacity: activePeriod === "night" ? 0.28 : 0.16 }}
+              />
+            </g>
 
             <ellipse cx="292" cy="168" rx="22" ry="4.5" fill="#292524" stroke="#57534E" strokeWidth="1.2" />
             <rect x="282" y="160" width="20" height="7" rx="2" fill="#44403C" />
@@ -237,13 +235,13 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
               cx="214"
               cy="60"
               r="7.5"
-              fill={studioLampOn ? "#FEF08A" : "#78716C"}
+              style={{ fill: studioLampOn ? "#FEF08A" : "#78716C" }}
               className={studioLampOn ? "drop-shadow-[0_0_12px_rgba(254,240,138,0.95)]" : ""}
             />
 
             <path
               d="M 234,42 L 242,48 L 230,68 L 196,54 L 222,38 Z"
-              fill={activePeriod === "night" ? "#B45309" : "#292524"}
+              style={{ fill: activePeriod === "night" ? "#B45309" : "#292524" }}
               stroke="#1C1917"
               strokeWidth="1.5"
               strokeLinejoin="round"
@@ -256,7 +254,7 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
             <polygon
               points="6,164 334,164 340,186 0,186"
               fill="url(#walnutDesk)"
-              stroke={activePeriod === "night" ? "#3A2E25" : "#4A3320"}
+              style={{ stroke: activePeriod === "night" ? "#3A2E25" : "#4A3320" }}
               strokeWidth="1.2"
             />
             <rect
@@ -265,13 +263,15 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
               width="340"
               height="8"
               rx="1.5"
-              fill={activePeriod === "night" ? "#17120E" : "#3D2919"}
+              style={{ fill: activePeriod === "night" ? "#17120E" : "#3D2919" }}
             />
 
             <polygon
               points="72,167 268,167 274,183 66,183"
-              fill={activePeriod === "night" ? "#1C1917" : "#44403C"}
-              stroke={activePeriod === "night" ? "#292524" : "#57534E"}
+              style={{
+                fill: activePeriod === "night" ? "#1C1917" : "#44403C",
+                stroke: activePeriod === "night" ? "#292524" : "#57534E",
+              }}
               strokeWidth="0.8"
             />
           </g>
@@ -282,7 +282,7 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
               <path
                 d="M 42,134 Q 39,124 44,116"
                 fill="none"
-                stroke={activePeriod === "night" ? "#A8A29E" : "#78716C"}
+                style={{ stroke: activePeriod === "night" ? "#A8A29E" : "#78716C" }}
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 className="animate-mug-steam-1"
@@ -290,7 +290,7 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
               <path
                 d="M 49,132 Q 52,122 47,113"
                 fill="none"
-                stroke={activePeriod === "night" ? "#A8A29E" : "#78716C"}
+                style={{ stroke: activePeriod === "night" ? "#A8A29E" : "#78716C" }}
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 className="animate-mug-steam-2"
@@ -310,14 +310,21 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
             onMouseEnter={() => setHoverZone("keyboard")}
             onMouseLeave={() => setHoverZone(null)}
           >
-            {(studioLampOn || activePeriod === "night") && (
-              <ellipse cx="172" cy="176" rx="68" ry="5" fill="#F59E0B" opacity="0.35" />
-            )}
+            <ellipse
+              cx="172"
+              cy="176"
+              rx="68"
+              ry="5"
+              fill="#F59E0B"
+              style={{ opacity: studioLampOn || activePeriod === "night" ? 0.35 : 0 }}
+            />
 
             <polygon
               points="96,154 246,154 252,176 90,176"
-              fill={activePeriod === "night" ? "#27272A" : "#D6CFC5"}
-              stroke={activePeriod === "night" ? "#52525B" : "#78716C"}
+              style={{
+                fill: activePeriod === "night" ? "#27272A" : "#D6CFC5",
+                stroke: activePeriod === "night" ? "#52525B" : "#78716C",
+              }}
               strokeWidth="1.4"
               strokeLinejoin="round"
             />
@@ -327,7 +334,7 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
               width="162"
               height="4"
               rx="1"
-              fill={activePeriod === "night" ? "#18181B" : "#8C8275"}
+              style={{ fill: activePeriod === "night" ? "#18181B" : "#8C8275" }}
             />
 
             <g>
@@ -342,21 +349,35 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
                     width="9"
                     height="5"
                     rx="1"
-                    fill={
-                      isHighlighted
+                    style={{
+                      fill: isHighlighted
                         ? "#D97706"
                         : activePeriod === "night"
                         ? "#3F3F46"
-                        : "#F5F2EB"
-                    }
+                        : "#F5F2EB",
+                    }}
                   />
                 );
               })}
-              <rect x="232" y="156.5" width="11" height="5" rx="1" fill={activePeriod === "night" ? "#52525B" : "#BFB6A8"} />
+              <rect
+                x="232"
+                y="156.5"
+                width="11"
+                height="5"
+                rx="1"
+                style={{ fill: activePeriod === "night" ? "#52525B" : "#BFB6A8" }}
+              />
             </g>
 
             <g>
-              <rect x="98" y="162.5" width="11" height="5" rx="1" fill={activePeriod === "night" ? "#52525B" : "#BFB6A8"} />
+              <rect
+                x="98"
+                y="162.5"
+                width="11"
+                height="5"
+                rx="1"
+                style={{ fill: activePeriod === "night" ? "#52525B" : "#BFB6A8" }}
+              />
               {[...Array(10)].map((_, i) => (
                 <rect
                   key={`r2-${i}`}
@@ -365,15 +386,15 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
                   width="9"
                   height="5"
                   rx="1"
-                  fill={activePeriod === "night" ? "#3F3F46" : "#F5F2EB"}
+                  style={{ fill: activePeriod === "night" ? "#3F3F46" : "#F5F2EB" }}
                 />
               ))}
               <rect x="221" y="162.5" width="23" height="5" rx="1" fill="#D97706" />
             </g>
 
             <g>
-              <rect x="96" y="168.5" width="10" height="4.5" rx="1" fill={activePeriod === "night" ? "#52525B" : "#BFB6A8"} />
-              <rect x="108" y="168.5" width="10" height="4.5" rx="1" fill={activePeriod === "night" ? "#52525B" : "#BFB6A8"} />
+              <rect x="96" y="168.5" width="10" height="4.5" rx="1" style={{ fill: activePeriod === "night" ? "#52525B" : "#BFB6A8" }} />
+              <rect x="108" y="168.5" width="10" height="4.5" rx="1" style={{ fill: activePeriod === "night" ? "#52525B" : "#BFB6A8" }} />
               <rect x="120" y="168.5" width="12" height="4.5" rx="1" fill="#9A4E24" />
               <rect
                 x="134"
@@ -381,12 +402,12 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
                 width="64"
                 height="4.5"
                 rx="1"
-                fill={activePeriod === "night" ? "#52525B" : "#EAE3D7"}
+                style={{ fill: activePeriod === "night" ? "#52525B" : "#EAE3D7" }}
               />
-              <rect x="200" y="168.5" width="10" height="4.5" rx="1" fill={activePeriod === "night" ? "#52525B" : "#BFB6A8"} />
-              <rect x="212" y="168.5" width="10" height="4.5" rx="1" fill={activePeriod === "night" ? "#3F3F46" : "#F5F2EB"} />
-              <rect x="224" y="168.5" width="10" height="4.5" rx="1" fill={activePeriod === "night" ? "#3F3F46" : "#F5F2EB"} />
-              <rect x="236" y="168.5" width="10" height="4.5" rx="1" fill={activePeriod === "night" ? "#3F3F46" : "#F5F2EB"} />
+              <rect x="200" y="168.5" width="10" height="4.5" rx="1" style={{ fill: activePeriod === "night" ? "#52525B" : "#BFB6A8" }} />
+              <rect x="212" y="168.5" width="10" height="4.5" rx="1" style={{ fill: activePeriod === "night" ? "#3F3F46" : "#F5F2EB" }} />
+              <rect x="224" y="168.5" width="10" height="4.5" rx="1" style={{ fill: activePeriod === "night" ? "#3F3F46" : "#F5F2EB" }} />
+              <rect x="236" y="168.5" width="10" height="4.5" rx="1" style={{ fill: activePeriod === "night" ? "#3F3F46" : "#F5F2EB" }} />
             </g>
 
             <path

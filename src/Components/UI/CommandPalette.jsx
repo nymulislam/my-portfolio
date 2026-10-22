@@ -37,15 +37,15 @@ const CommandPalette = ({ isOpen, onClose, onCopyEmail, onCopyPhone, onOpenResum
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-stone-950/50 dark:bg-black/75 backdrop-blur-xs flex items-end sm:items-start justify-center sm:pt-20 p-0 sm:p-4"
+      className="animate-modal-backdrop fixed inset-0 z-[80] bg-stone-950/60 dark:bg-black/80 backdrop-blur-xs flex items-end sm:items-start justify-center sm:pt-20 p-0 sm:p-4"
       onClick={onClose}
     >
       <div
-        className="max-w-md w-full rounded-t-2xl sm:rounded-2xl bg-[#F6EFE2] dark:bg-[#1B1917] border-t sm:border border-[#D5C7B4] dark:border-stone-800 shadow-2xl overflow-hidden"
+        className="animate-modal-sheet studio-modal-surface max-w-md w-full rounded-t-2xl sm:rounded-2xl border-t sm:border shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-4 py-3.5 border-b border-[#DCD0C0] dark:border-stone-800">
-          <span className="text-xs font-mono text-[#7A6E62] dark:text-stone-400">
+        <div className="studio-modal-header flex items-center justify-between px-4 py-3.5 border-b">
+          <span className="text-xs font-mono text-[#7A6E62] dark:text-stone-300">
             Studio Command Palette (⌘K)
           </span>
           <button

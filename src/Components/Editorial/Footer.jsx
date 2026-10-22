@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { FiX, FiSend, FiCopy, FiTerminal, FiCheck } from "react-icons/fi";
 import emailjs from "@emailjs/browser";
 import { Toast } from "../UI/Toast";
@@ -15,6 +16,20 @@ const Footer = ({ onOpenCommand, onOpenResume }) => {
   const [toastMessage, setToastMessage] = useState("");
   const { activePeriod, cycleMood } = useTimeOfDay();
   const currentYear = new Date().getFullYear();
+
+  useEffect(() => {
+    if (!modalOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setModalOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [modalOpen]);
 
   const { email, phone: whatsapp, phoneFormatted, whatsappUrl } = PROFILE;
 
@@ -193,115 +208,118 @@ const Footer = ({ onOpenCommand, onOpenResume }) => {
         </div>
       </div>
 
-      {/* Say Hello Contact Modal */}
-      {modalOpen && (
-        <div
-          className="fixed inset-0 z-50 bg-stone-950/50 dark:bg-black/75 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4"
-          onClick={() => setModalOpen(false)}
-        >
+      {/* Say Hello Contact Modal Portal */}
+      {modalOpen &&
+        typeof document !== "undefined" &&
+        createPortal(
           <div
-            className="max-w-md w-full max-h-[90vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl bg-[#F6EFE2] dark:bg-[#1B1917] border-t sm:border border-[#D5C7B4] dark:border-stone-800 p-5 sm:p-7 shadow-2xl space-y-5"
-            onClick={(e) => e.stopPropagation()}
+            className="animate-modal-backdrop fixed inset-0 z-[80] bg-stone-950/60 dark:bg-black/80 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4"
+            onClick={() => setModalOpen(false)}
           >
-            <div className="flex items-start justify-between gap-4 border-b border-[#DCD0C0] dark:border-stone-800 pb-3">
-              <div>
-                <h3 className="font-serif text-xl font-normal text-[#231D18] dark:text-stone-50">
-                  Say hello
-                </h3>
-                <p className="text-xs text-[#5C4E41] dark:text-stone-400 mt-0.5">
-                  Send a direct message or copy my contact details.
-                </p>
+            <div
+              className="animate-modal-sheet studio-modal-surface max-w-md w-full max-h-[90vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl border-t sm:border p-5 sm:p-7 shadow-2xl space-y-5"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-start justify-between gap-4 border-b border-[#DCD0C0] dark:border-amber-500/15 pb-3">
+                <div>
+                  <h3 className="font-serif text-xl font-normal text-[#231D18] dark:text-stone-50">
+                    Say hello
+                  </h3>
+                  <p className="text-xs text-[#5C4E41] dark:text-stone-400 mt-0.5">
+                    Send a direct message or copy my contact details.
+                  </p>
+                </div>
+                <button
+                  onClick={() => setModalOpen(false)}
+                  className="p-1.5 rounded-lg text-[#5C4E41] hover:text-[#231D18] dark:hover:text-white hover:bg-[#EAE0CE]/60 dark:hover:bg-stone-800/60 active:scale-[0.96] transition-all cursor-pointer"
+                  aria-label="Close modal"
+                >
+                  <FiX className="text-xl" />
+                </button>
               </div>
-              <button
-                onClick={() => setModalOpen(false)}
-                className="p-1.5 text-[#5C4E41] hover:text-[#231D18] dark:hover:text-white cursor-pointer"
-                aria-label="Close modal"
-              >
-                <FiX className="text-xl" />
-              </button>
-            </div>
 
-            {/* Quick copy contacts */}
-            <div className="space-y-2.5 text-xs font-mono bg-[#EAE0CE]/70 dark:bg-stone-900/70 p-3.5 rounded-lg border border-[#DCD0C0] dark:border-stone-800">
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-[#5C4E41] shrink-0">Email:</span>
-                <div className="flex items-center gap-2 min-w-0">
-                  <a
-                    href={`mailto:${email}`}
-                    className="text-[#231D18] dark:text-stone-200 hover:underline truncate"
-                  >
-                    {email}
-                  </a>
-                  <Tooltip content="Copy email address" position="top" align="right">
-                    <button
-                      onClick={() => handleCopy(email, "Email")}
-                      className="p-1 cursor-pointer shrink-0"
+              {/* Quick copy contacts */}
+              <div className="studio-modal-subcard space-y-2.5 text-xs font-mono p-3.5 rounded-lg border">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-[#5C4E41] dark:text-stone-400 shrink-0">Email:</span>
+                  <div className="flex items-center gap-2 min-w-0">
+                    <a
+                      href={`mailto:${email}`}
+                      className="text-[#231D18] dark:text-stone-200 hover:underline truncate"
                     >
-                      <FiCopy className="text-xs text-[#5C4E41] hover:text-[#231D18] dark:hover:text-stone-200" />
-                    </button>
-                  </Tooltip>
+                      {email}
+                    </a>
+                    <Tooltip content="Copy email address" position="top" align="right">
+                      <button
+                        onClick={() => handleCopy(email, "Email")}
+                        className="p-1 cursor-pointer shrink-0 active:scale-[0.95] transition-transform"
+                      >
+                        <FiCopy className="text-xs text-[#5C4E41] dark:text-stone-400 hover:text-[#231D18] dark:hover:text-amber-400" />
+                      </button>
+                    </Tooltip>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between gap-2 pt-2 border-t border-[#DCD0C0]/60 dark:border-amber-500/10">
+                  <span className="text-[#5C4E41] dark:text-stone-400 shrink-0">WhatsApp:</span>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#231D18] dark:text-stone-200 hover:underline"
+                    >
+                      {phoneFormatted}
+                    </a>
+                    <Tooltip content="Copy WhatsApp number" position="top" align="right">
+                      <button
+                        onClick={() => handleCopy(whatsapp, "WhatsApp number")}
+                        className="p-1 cursor-pointer shrink-0 active:scale-[0.95] transition-transform"
+                      >
+                        <FiCopy className="text-xs text-[#5C4E41] dark:text-stone-400 hover:text-[#231D18] dark:hover:text-amber-400" />
+                      </button>
+                    </Tooltip>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between gap-2 pt-2 border-t border-[#DCD0C0]/60 dark:border-stone-800">
-                <span className="text-[#5C4E41] shrink-0">WhatsApp:</span>
-                <div className="flex items-center gap-2">
-                  <a
-                    href={whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#231D18] dark:text-stone-200 hover:underline"
-                  >
-                    {phoneFormatted}
-                  </a>
-                  <Tooltip content="Copy WhatsApp number" position="top" align="right">
-                    <button
-                      onClick={() => handleCopy(whatsapp, "WhatsApp number")}
-                      className="p-1 cursor-pointer shrink-0"
-                    >
-                      <FiCopy className="text-xs text-[#5C4E41] hover:text-[#231D18] dark:hover:text-stone-200" />
-                    </button>
-                  </Tooltip>
-                </div>
-              </div>
+              {/* Direct Form */}
+              <form onSubmit={sendEmail} className="space-y-3 pt-1">
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  placeholder="Your name"
+                  className="w-full px-3.5 py-2.5 min-h-[42px] rounded-lg border border-[#D5C7B4] dark:border-amber-500/20 bg-[#EFE6D5]/35 dark:bg-[#141210]/70 text-xs sm:text-sm text-[#231D18] dark:text-stone-100 focus:outline-none focus:border-[#9A4E24] dark:focus:border-amber-400/70 placeholder:text-[#6E5E4F] dark:placeholder:text-stone-500"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="Your email address"
+                  className="w-full px-3.5 py-2.5 min-h-[42px] rounded-lg border border-[#D5C7B4] dark:border-amber-500/20 bg-[#EFE6D5]/35 dark:bg-[#141210]/70 text-xs sm:text-sm text-[#231D18] dark:text-stone-100 focus:outline-none focus:border-[#9A4E24] dark:focus:border-amber-400/70 placeholder:text-[#6E5E4F] dark:placeholder:text-stone-500"
+                />
+                <textarea
+                  name="message"
+                  required
+                  rows="3"
+                  placeholder="Your message..."
+                  className="w-full px-3.5 py-2.5 rounded-lg border border-[#D5C7B4] dark:border-amber-500/20 bg-[#EFE6D5]/35 dark:bg-[#141210]/70 text-xs sm:text-sm text-[#231D18] dark:text-stone-100 focus:outline-none focus:border-[#9A4E24] dark:focus:border-amber-400/70 placeholder:text-[#6E5E4F] dark:placeholder:text-stone-500 resize-none"
+                ></textarea>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="group w-full py-2.5 min-h-[42px] rounded-lg text-xs font-mono font-medium bg-[#231D18] text-[#F6EFE2] hover:opacity-90 dark:bg-stone-100 dark:text-stone-900 active:scale-[0.99] transition-all flex items-center justify-center gap-1.5 disabled:opacity-50 cursor-pointer"
+                >
+                  <span>{loading ? "Sending..." : "Send message"}</span>
+                  <FiSend className="text-xs transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </button>
+              </form>
             </div>
-
-            {/* Direct Form */}
-            <form onSubmit={sendEmail} className="space-y-3 pt-1">
-              <input
-                type="text"
-                name="name"
-                required
-                placeholder="Your name"
-                className="w-full px-3.5 py-2.5 min-h-[42px] rounded-lg border border-[#D5C7B4] dark:border-stone-700 bg-transparent text-xs sm:text-sm text-[#231D18] dark:text-stone-100 focus:outline-none focus:border-[#9A4E24] dark:focus:border-stone-300 placeholder:text-[#6E5E4F]"
-              />
-              <input
-                type="email"
-                name="email"
-                required
-                placeholder="Your email address"
-                className="w-full px-3.5 py-2.5 min-h-[42px] rounded-lg border border-[#D5C7B4] dark:border-stone-700 bg-transparent text-xs sm:text-sm text-[#231D18] dark:text-stone-100 focus:outline-none focus:border-[#9A4E24] dark:focus:border-stone-300 placeholder:text-[#6E5E4F]"
-              />
-              <textarea
-                name="message"
-                required
-                rows="3"
-                placeholder="Your message..."
-                className="w-full px-3.5 py-2.5 rounded-lg border border-[#D5C7B4] dark:border-stone-700 bg-transparent text-xs sm:text-sm text-[#231D18] dark:text-stone-100 focus:outline-none focus:border-[#9A4E24] dark:focus:border-stone-300 placeholder:text-[#6E5E4F] resize-none"
-              ></textarea>
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-2.5 min-h-[42px] rounded-lg text-xs font-mono font-medium bg-[#231D18] text-[#F6EFE2] hover:opacity-90 dark:bg-stone-100 dark:text-stone-900 transition-opacity flex items-center justify-center gap-1.5 disabled:opacity-50 cursor-pointer"
-              >
-                <span>{loading ? "Sending..." : "Send message"}</span>
-                <FiSend className="text-xs" />
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
 
       <Toast
         message={toastMessage}

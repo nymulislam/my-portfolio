@@ -10,7 +10,6 @@
   }
 
   body {
-    transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
@@ -46,6 +45,110 @@
     color: #E7E0D6;
     letter-spacing: 0.005em;
   }
+}
+
+/* Smooth GPU View Transitions API for Time-of-Day Mood Shifts (Night <-> Morning, etc.) */
+@keyframes studioViewCrossfade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+::view-transition-group(root) {
+  animation-duration: 850ms;
+  animation-timing-function: cubic-bezier(0.45, 0.05, 0.25, 1);
+}
+
+::view-transition-old(root) {
+  animation: none;
+  opacity: 1;
+  mix-blend-mode: normal;
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  animation: studioViewCrossfade 850ms cubic-bezier(0.45, 0.05, 0.25, 1) forwards;
+  mix-blend-mode: normal;
+  z-index: 2;
+}
+
+/* Ensure the new View Transition snapshot captures 100% completed target styles immediately */
+html.vt-mood-switching *,
+html.vt-mood-switching *::before,
+html.vt-mood-switching *::after {
+  transition: none !important;
+}
+
+html.vt-mood-switching .animate-mood-icon,
+html.vt-mood-switching .animate-editorial-fade {
+  animation: none !important;
+}
+
+/* Fallback lockstep S-curve transition (850ms) for browsers without View Transitions API */
+html.mood-transitioning,
+html.mood-transitioning body,
+html.mood-transitioning *,
+html.mood-transitioning *::before,
+html.mood-transitioning *::after {
+  transition-property: background-color, border-color, color, fill, stroke, stop-color, opacity, box-shadow !important;
+  transition-duration: 850ms !important;
+  transition-timing-function: cubic-bezier(0.45, 0.05, 0.25, 1) !important;
+  transition-delay: 0ms !important;
+}
+
+/* Rich Atmospheric Studio Modal Surfaces (Daylight Paper & Nocturnal Lamp-Lit Espresso) */
+.studio-modal-surface {
+  background-color: #F6EFE2;
+  background-image:
+    radial-gradient(ellipse 75% 55% at 92% 4%, rgba(251, 191, 36, 0.16) 0%, transparent 65%),
+    linear-gradient(175deg, #F8F2E6 0%, #F4ECDD 55%, #EFE5D4 100%);
+  border-color: #D5C7B4;
+}
+
+html.dark .studio-modal-surface {
+  background-color: #181512;
+  background-image:
+    radial-gradient(ellipse 80% 55% at 92% 4%, rgba(251, 191, 36, 0.15) 0%, rgba(217, 119, 6, 0.065) 45%, transparent 75%),
+    radial-gradient(ellipse 70% 50% at 8% 96%, rgba(180, 83, 9, 0.09) 0%, transparent 70%),
+    linear-gradient(168deg, #221C17 0%, #181512 48%, #13110E 100%);
+  border-color: rgba(251, 191, 36, 0.18);
+  box-shadow:
+    inset 0 1px 0 0 rgba(251, 191, 36, 0.18),
+    inset 0 0 40px rgba(245, 158, 11, 0.03),
+    0 25px 60px -12px rgba(0, 0, 0, 0.85);
+}
+
+.studio-modal-header {
+  background-color: rgba(246, 239, 226, 0.92);
+  border-bottom-color: #DCD0C0;
+  backdrop-filter: blur(12px);
+}
+
+html.dark .studio-modal-header {
+  background-color: rgba(26, 22, 18, 0.92);
+  background-image: linear-gradient(90deg, rgba(28, 24, 20, 0.95) 0%, rgba(39, 31, 23, 0.93) 100%);
+  border-bottom-color: rgba(251, 191, 36, 0.15);
+  backdrop-filter: blur(12px);
+}
+
+.studio-modal-subcard {
+  background-color: rgba(234, 224, 206, 0.58);
+  border-color: #DCD0C0;
+}
+
+html.dark .studio-modal-subcard {
+  background-color: #1F1B17;
+  background-image: linear-gradient(145deg, rgba(38, 32, 26, 0.9) 0%, rgba(25, 22, 19, 0.92) 100%);
+  border-color: rgba(251, 191, 36, 0.14);
+  box-shadow: inset 0 1px 0 0 rgba(251, 191, 36, 0.07);
+}
+
+html.dark .studio-modal-subcard:hover {
+  border-color: rgba(251, 191, 36, 0.32);
+  background-image: linear-gradient(145deg, rgba(45, 37, 29, 0.95) 0%, rgba(30, 26, 22, 0.95) 100%);
 }
 
 /* Soft rising vapor from studio mug */
@@ -109,7 +212,7 @@
 @keyframes editorialMicroFade {
   0% {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(5px);
   }
   100% {
     opacity: 1;
@@ -118,7 +221,53 @@
 }
 
 .animate-editorial-fade {
-  animation: editorialMicroFade 180ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: editorialMicroFade 220ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Smooth modal backdrop fade-in */
+@keyframes modalBackdropFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-modal-backdrop {
+  animation: modalBackdropFade 220ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Smooth modal dialog / sheet entrance */
+@keyframes modalSheetPop {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-modal-sheet {
+  animation: modalSheetPop 260ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Smooth mood icon transition when period changes */
+@keyframes moodIconSpin {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) rotate(-20deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.animate-mood-icon {
+  animation: moodIconSpin 320ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Slow ambient studio light breathing on GPU compositor */
@@ -139,9 +288,10 @@
 
 /* Subtle tactile card elevation on hover */
 .editorial-card-lift {
-  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 180ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .editorial-card-lift:hover {
@@ -152,11 +302,19 @@
   html {
     scroll-behavior: auto;
   }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
   .animate-mug-steam-1,
   .animate-mug-steam-2,
   .animate-window-rays,
   .animate-studio-aura,
-  .animate-editorial-fade {
+  .animate-editorial-fade,
+  .animate-modal-backdrop,
+  .animate-modal-sheet,
+  .animate-mood-icon {
     animation: none !important;
   }
   .editorial-card-lift,

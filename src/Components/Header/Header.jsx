@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { flushSync } from "react-dom";
 import { FiChevronDown, FiSun, FiMoon } from "react-icons/fi";
 import { WiSunset, WiSunrise, WiDaySunny } from "react-icons/wi";
 import { useTimeOfDay } from "../../context/TimeOfDayContext";
@@ -213,14 +214,19 @@ const Header = () => {
           <div className="relative shrink-0" ref={dropdownRef}>
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="flex items-center gap-2 px-3 py-1.5 min-h-[36px] sm:min-h-0 rounded-lg border border-[#CBBBA4] dark:border-[#332E29] bg-[#F4ECE0]/90 dark:bg-[#201D1A]/95 text-[12.5px] font-mono font-medium text-[#3B3128] dark:text-[#E2D9CE] hover:border-[#9A4E24] dark:hover:border-amber-400/70 transition-all cursor-pointer whitespace-nowrap shrink-0"
+              aria-expanded={dropdownOpen}
+              className="flex items-center gap-2 px-3 py-1.5 min-h-[36px] sm:min-h-0 rounded-lg border border-[#CBBBA4] dark:border-[#332E29] bg-[#F4ECE0]/90 dark:bg-[#201D1A]/95 text-[12.5px] font-mono font-medium text-[#3B3128] dark:text-[#E2D9CE] hover:border-[#9A4E24] dark:hover:border-amber-400/70 active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap shrink-0"
               aria-label="Select ambient time of day"
             >
-              {activePeriod === "morning" && <WiSunrise className="text-base text-amber-700 dark:text-amber-400 shrink-0" />}
-              {activePeriod === "afternoon" && <WiDaySunny className="text-base text-orange-600 dark:text-orange-400 shrink-0" />}
-              {activePeriod === "evening" && <WiSunset className="text-base text-[#6E5644] dark:text-amber-400 shrink-0" />}
-              {activePeriod === "night" && <FiMoon className="text-xs text-indigo-400 shrink-0" />}
-              <span>{buttonMoodLabel}</span>
+              <span key={activePeriod} className="inline-flex items-center animate-mood-icon">
+                {activePeriod === "morning" && <WiSunrise className="text-base text-amber-700 dark:text-amber-400 shrink-0" />}
+                {activePeriod === "afternoon" && <WiDaySunny className="text-base text-orange-600 dark:text-orange-400 shrink-0" />}
+                {activePeriod === "evening" && <WiSunset className="text-base text-[#6E5644] dark:text-amber-400 shrink-0" />}
+                {activePeriod === "night" && <FiMoon className="text-xs text-indigo-400 shrink-0" />}
+              </span>
+              <span key={buttonMoodLabel} className="animate-editorial-fade">
+                {buttonMoodLabel}
+              </span>
               <FiChevronDown
                 className={`text-xs text-[#5C4E41] dark:text-[#A89E93] transition-transform duration-200 ${
                   dropdownOpen ? "rotate-180" : ""
@@ -228,34 +234,61 @@ const Header = () => {
               />
             </button>
 
-            {/* Dropdown Menu */}
-            {dropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 rounded-xl border border-[#D2C3AE] dark:border-[#332E29] bg-[#F6EFE2] dark:bg-[#1E1B18] shadow-xl p-1.5 z-50 text-xs">
-                <div className="px-2.5 py-1.5 text-[11px] font-mono text-[#6E5E4F] dark:text-[#A89E93]">
-                  Studio Light
-                </div>
-                {moodOptions.map((opt) => (
-                  <button
-                    key={opt.key}
-                    onClick={() => {
-                      setSelectedMood(opt.key);
-                      setDropdownOpen(false);
-                    }}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-colors cursor-pointer ${
-                      selectedMood === opt.key
-                        ? "bg-[#E5D9C5] dark:bg-[#2B2622] text-[#231D18] dark:text-[#F3ECE2] font-medium"
-                        : "text-[#3B3128] dark:text-[#D5CCC0] hover:bg-[#EAE0CE]/60 dark:hover:bg-[#26221E]"
-                    }`}
-                  >
-                    <div className="flex items-center gap-2">
-                      {opt.icon}
-                      <span>{opt.label}</span>
-                    </div>
-                    <span className="text-[11px] text-[#6E5E4F] dark:text-[#A89E93]">{opt.sublabel}</span>
-                  </button>
-                ))}
+            {/* Dropdown Menu with Smooth Scale + Slide Popover Motion */}
+            <div
+              aria-hidden={!dropdownOpen}
+              className={`absolute right-0 mt-2 w-52 rounded-xl border border-[#D2C3AE] dark:border-[#332E29] bg-[#F6EFE2] dark:bg-[#1E1B18] shadow-xl p-1.5 z-50 text-xs origin-top-right transition-[opacity,transform,visibility] duration-180 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                dropdownOpen
+                  ? " visible opacity-100 scale-100 translate-y-0 pointer-events-auto"
+                  : "invisible opacity-0 scale-95 -translate-y-1.5 pointer-events-none"
+              }`}
+            >
+              <div className="px-2.5 py-1.5 text-[11px] font-mono text-[#6E5E4F] dark:text-[#A89E93] flex items-center justify-between">
+                <span>Studio Light</span>
+                <span className="text-[10px] opacity-75">{currentDetails.label}</span>
               </div>
-            )}
+              <div className="space-y-0.5">
+                {moodOptions.map((opt) => {
+                  const isSelected = selectedMood === opt.key;
+                  return (
+                    <button
+                      key={opt.key}
+                      tabIndex={dropdownOpen ? 0 : -1}
+                      onClick={() => {
+                        const root = document.documentElement;
+                        root.classList.add("vt-mood-switching");
+                        flushSync(() => {
+                          setDropdownOpen(false);
+                        });
+                        void root.offsetHeight;
+                        root.classList.remove("vt-mood-switching");
+                        setSelectedMood(opt.key);
+                      }}
+                      className={`group/mood w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-all duration-150 cursor-pointer active:scale-[0.98] ${
+                        isSelected
+                          ? "bg-[#E5D9C5] dark:bg-[#2B2622] text-[#231D18] dark:text-[#F3ECE2] font-medium shadow-2xs"
+                          : "text-[#3B3128] dark:text-[#D5CCC0] hover:bg-[#EAE0CE]/70 dark:hover:bg-[#26221E] hover:translate-x-0.5"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <span className="inline-flex items-center transition-transform duration-200 group-hover/mood:scale-110 group-hover/mood:rotate-6">
+                          {opt.icon}
+                        </span>
+                        <span>{opt.label}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[11px] text-[#6E5E4F] dark:text-[#A89E93]">
+                          {opt.sublabel}
+                        </span>
+                        {isSelected && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#9A4E24] dark:bg-amber-400 shrink-0" />
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
 
