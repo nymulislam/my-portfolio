@@ -1,14 +1,55 @@
-import { createContext, useContext, useEffect, useState, useMemo } from "react";
+import { createContext, useContext, useEffect, useState, useMemo, useCallback } from "react";
 
 const TimeOfDayContext = createContext();
+
+const MOOD_DETAILS = {
+  morning: {
+    label: "Morning",
+    bangla: "সকাল",
+    windowCaption: "Morning sunbeams · Espresso & keys",
+    devAtmosphere: "Morning sun · System design & fresh coffee",
+    skyNote: "Morning studio light",
+    defaultLamp: false,
+  },
+  afternoon: {
+    label: "Afternoon",
+    bangla: "দুপুর",
+    windowCaption: "Daylight studio · Clean architecture",
+    devAtmosphere: "Bright daylight · Deep work & shipping features",
+    skyNote: "Clear afternoon light",
+    defaultLamp: false,
+  },
+  evening: {
+    label: "Evening",
+    bangla: "সন্ধ্যা",
+    windowCaption: "Golden sunset · Warm desk lamp",
+    devAtmosphere: "Warm sunset · Architecture review & evening tea",
+    skyNote: "Golden hour studio",
+    defaultLamp: true,
+  },
+  night: {
+    label: "Night",
+    bangla: "রাত",
+    windowCaption: "Starlit window · Backlit keys",
+    devAtmosphere: "Quiet night · Warm desk lamp & late-night builds",
+    skyNote: "Late-night studio focus",
+    defaultLamp: true,
+  },
+};
+
+const MOOD_ORDER = ["morning", "afternoon", "evening", "night"];
 
 export const TimeOfDayProvider = ({ children }) => {
   const [selectedMood, setSelectedMood] = useState(() => {
     if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("portfolio_time_mood");
-      if (stored) return stored;
+      try {
+        const stored = localStorage.getItem("portfolio_time_mood");
+        if (stored) return stored;
+      } catch {
+        // ignore storage errors
+      }
     }
-    return "evening"; // Matching user screenshot default
+    return "evening";
   });
 
   const getSystemPeriod = () => {
@@ -23,8 +64,27 @@ export const TimeOfDayProvider = ({ children }) => {
     if (selectedMood === "auto") {
       return getSystemPeriod();
     }
-    return selectedMood;
+    return MOOD_ORDER.includes(selectedMood) ? selectedMood : "evening";
   }, [selectedMood]);
+
+  const currentDetails = MOOD_DETAILS[activePeriod] || MOOD_DETAILS.evening;
+
+  // Interactive desk lamp state (syncs with period default when period changes, but user can toggle anytime)
+  const [studioLampOn, setStudioLampOn] = useState(() => currentDetails.defaultLamp);
+
+  useEffect(() => {
+    setStudioLampOn(MOOD_DETAILS[activePeriod]?.defaultLamp ?? true);
+  }, [activePeriod]);
+
+  const toggleStudioLamp = useCallback(() => {
+    setStudioLampOn((prev) => !prev);
+  }, []);
+
+  const cycleMood = useCallback(() => {
+    const currentIndex = MOOD_ORDER.indexOf(activePeriod);
+    const nextIndex = (currentIndex + 1) % MOOD_ORDER.length;
+    setSelectedMood(MOOD_ORDER[nextIndex]);
+  }, [activePeriod]);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -48,6 +108,10 @@ export const TimeOfDayProvider = ({ children }) => {
         selectedMood,
         setSelectedMood,
         activePeriod,
+        cycleMood,
+        currentDetails,
+        studioLampOn,
+        toggleStudioLamp,
       }}
     >
       {children}

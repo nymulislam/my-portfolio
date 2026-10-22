@@ -6,88 +6,106 @@
   html {
     scroll-behavior: smooth;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    text-rendering: optimizeLegibility;
   }
 
   body {
-    transition: background-color 0.4s ease, color 0.4s ease;
+    transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
   }
 
-  /* Morning Mood */
+  ::selection {
+    background-color: rgba(154, 78, 36, 0.16);
+    color: inherit;
+  }
+
+  /* Morning Mood — Warm Sunlit Studio Paper */
   html.mood-morning body {
-    background-color: #FAF5EA;
-    color: #26211C;
+    background-color: #F6EFE2;
+    color: #2B241E;
   }
 
-  /* Afternoon Mood */
+  /* Afternoon Mood — Crisp Daylight Architect Paper */
   html.mood-afternoon body {
-    background-color: #FBF9F5;
-    color: #1C1917;
+    background-color: #F8F4EC;
+    color: #231E1A;
   }
 
-  /* Evening Mood (User reference screenshot) */
+  /* Evening Mood — Warm Sunset Parchment */
   html.mood-evening body {
-    background-color: #F4EAE0;
-    color: #231C17;
+    background-color: #EFE6D8;
+    color: #2B241E;
   }
 
-  /* Night Mood */
+  /* Night Mood — Deep Charcoal Late-Night Studio */
   html.mood-night body,
   html.dark body {
     background-color: #151311;
-    color: #ECE7DF;
+    color: #EDE6DC;
+    letter-spacing: 0.005em;
   }
 }
 
-/* Steam keyframe animation for hot tea */
-@keyframes steamRise {
+/* Soft rising vapor from studio mug */
+@keyframes mugSteam {
   0% {
-    transform: translateY(0) scaleX(1);
+    transform: translateY(4px) scaleX(0.9);
     opacity: 0;
   }
-  20% {
-    opacity: 0.6;
-  }
-  50% {
-    transform: translateY(-20px) scaleX(1.4) translateX(4px);
+  25% {
     opacity: 0.45;
   }
+  65% {
+    transform: translateY(-18px) scaleX(1.3) translateX(2px);
+    opacity: 0.25;
+  }
   100% {
-    transform: translateY(-45px) scaleX(2) translateX(-6px);
+    transform: translateY(-34px) scaleX(1.6) translateX(-3px);
     opacity: 0;
   }
 }
 
-.animate-steam-1 {
-  animation: steamRise 3.2s infinite ease-out;
+.animate-mug-steam-1 {
+  animation: mugSteam 3.8s infinite cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.animate-steam-2 {
-  animation: steamRise 3.6s infinite ease-out 1.2s;
+.animate-mug-steam-2 {
+  animation: mugSteam 4.4s infinite cubic-bezier(0.4, 0, 0.2, 1) 1.4s;
 }
 
-.animate-steam-3 {
-  animation: steamRise 4s infinite ease-out 2.2s;
-}
-
-/* Gentle swinging clock pendulum */
-@keyframes clockSwing {
+/* Subtle breathing window light rays */
+@keyframes windowRayBreath {
   0%, 100% {
-    transform: rotate(0.8deg);
+    opacity: 0.55;
+    transform: skewX(-18deg) scaleY(1);
   }
   50% {
-    transform: rotate(-0.8deg);
+    opacity: 0.8;
+    transform: skewX(-16deg) scaleY(1.03);
   }
 }
 
-.animate-clock-swing {
-  transform-origin: top center;
-  animation: clockSwing 5s ease-in-out infinite;
+.animate-window-rays {
+  animation: windowRayBreath 7s ease-in-out infinite;
 }
 
-/* Custom scrollbar */
+/* Subtle cursor blink for dev terminal */
+@keyframes cursorBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-cursor-blink {
+  animation: cursorBlink 1.1s step-end infinite;
+}
+
+/* Custom minimal scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }

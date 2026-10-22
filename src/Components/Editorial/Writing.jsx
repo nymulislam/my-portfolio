@@ -1,136 +1,139 @@
 import { useState } from "react";
-import { FiArrowRight, FiX } from "react-icons/fi";
+import { FiX } from "react-icons/fi";
+import { ARTICLES } from "../../data/portfolioData";
 
 const Writing = () => {
   const [activeArticle, setActiveArticle] = useState(null);
+  const [fontScale, setFontScale] = useState("normal");
 
-  const posts = [
-    {
-      id: "auth-code",
-      title: "How Does My Authenticator App Know The Code?",
-      date: "Jul 31, 2026",
-      summary:
-        "Time-based One-Time Passwords (TOTP) rely on HMAC-SHA1 algorithms and synchronized 30-second epoch time windows between client and server, requiring zero internet communication.",
-      content: [
-        "Every 30 seconds, millions of developers open Google Authenticator or 1Password to copy a 6-digit number. Have you ever wondered how the authenticator app knows the exact code without any network connection?",
-        "The answer lies in RFC 6238 (TOTP: Time-Based One-Time Password Algorithm). When you scan a QR code, the server shares a secret key (a Base32-encoded string). Both your phone and the server take the current Unix timestamp, divide it by 30 seconds, and feed that number into HMAC-SHA1 along with the shared secret.",
-        "Because time ticks identically on both your device and the server, both compute the exact same hash simultaneously. No telemetry, no push notifications, just pure mathematical synchronization.",
-      ],
-    },
-    {
-      id: "seat-race",
-      title: "Who Sold My Seat Twice?",
-      date: "Jul 18, 2026",
-      summary:
-        "Handling concurrent ticket booking transactions using database locks, optimistic concurrency control, and atomic inventory mutations.",
-      content: [
-        "In high-traffic ticketing systems, the greatest challenge isn't serving pages fast—it's preventing two users from purchasing the exact same cinema seat at the exact same millisecond.",
-        "Naive read-then-write code creates classic race conditions. By implementing database-level transactions with SELECT ... FOR UPDATE or atomic decrement conditionals in MongoDB (findOneAndUpdate with quantity > 0), we ensure that inventory locks are strictly enforced at the data layer.",
-      ],
-    },
-    {
-      id: "proxy-server",
-      title: "A tale of proxy server",
-      date: "Feb 14, 2024",
-      summary:
-        "Forward proxies vs reverse proxies, TLS termination, load balancing, and why modern edge infrastructure is built on proxy cascades.",
-      content: [
-        "To a client, a reverse proxy looks just like an ordinary web server. But behind that single IP lies load balancing, SSL/TLS termination, request caching, and health checks.",
-        "Understanding proxy routing is essential when deploying Next.js applications behind custom domains, configuring rate limiters, or handling WebSocket handshakes across container boundaries.",
-      ],
-    },
-    {
-      id: "bloom-filter",
-      title: "Probabilistic Data Structures: Bloom filter",
-      date: "Feb 7, 2024",
-      summary:
-        "Trading 100% certainty for memory efficiency: how bit arrays and multiple hash functions check set membership in constant time.",
-      content: [
-        "When you have billions of items (like cached URLs or username availability), storing them in a traditional hash set consumes gigabytes of expensive RAM.",
-        "A Bloom filter solves this with a simple bit array. It can definitively tell you if an element is NOT present, with an acceptable, mathematically predictable false positive rate for membership. It powers web crawlers, CDNs, and database read-amplification avoidance.",
-      ],
-    },
-    {
-      id: "schema-design",
-      title: "Understanding Before Implementation",
-      date: "Jan 12, 2024",
-      summary:
-        "Why spending time mapping entity boundaries, user workflows, and state transitions saves weeks of painful downstream refactoring.",
-      content: [
-        "The fastest way to slow down a software project is to begin writing code before understanding the fundamental problem. Clean code is not the result of speed; it is the natural byproduct of clear thinking.",
-        "When building full-stack products solo, taking 24 hours to model the document relationships and state machines on paper prevents countless schema migrations later.",
-      ],
-    },
-  ];
+  const currentIdx = activeArticle
+    ? ARTICLES.findIndex((a) => a.id === activeArticle.id)
+    : -1;
+
+  const handleNextArticle = () => {
+    if (currentIdx === -1) return;
+    const nextIdx = (currentIdx + 1) % ARTICLES.length;
+    setActiveArticle(ARTICLES[nextIdx]);
+  };
+
+  const handlePrevArticle = () => {
+    if (currentIdx === -1) return;
+    const prevIdx = (currentIdx - 1 + ARTICLES.length) % ARTICLES.length;
+    setActiveArticle(ARTICLES[prevIdx]);
+  };
 
   return (
-    <section className="py-12 border-t border-stone-200 dark:border-stone-800/80" id="writing">
-      <div className="max-w-2xl mx-auto px-6">
-        {/* Header */}
-        <div className="flex items-baseline justify-between mb-8">
-          <h2 className="font-serif text-2xl font-normal text-stone-900 dark:text-stone-100">
-            Writing
-          </h2>
-          <a
-            href="#writing"
-            className="text-xs font-mono text-amber-800 dark:text-amber-400 hover:underline inline-flex items-center gap-1"
-          >
-            <span>All posts</span>
-            <span>→</span>
-          </a>
-        </div>
-
-        {/* Posts List */}
-        <div className="divide-y divide-stone-200/70 dark:divide-stone-800/70">
-          {posts.map((post) => (
-            <div
-              key={post.id}
-              onClick={() => setActiveArticle(post)}
-              className="group py-5 flex items-baseline justify-between gap-4 cursor-pointer hover:opacity-85 transition-opacity"
+    <section className="py-3 sm:py-4" id="writing">
+      <div className="max-w-[880px] mx-auto px-4 sm:px-6">
+        <div className="border-t border-[#D2C3AE] dark:border-stone-800/80 pt-8 sm:pt-10">
+          {/* Section Header */}
+          <div className="flex items-baseline justify-between mb-5 sm:mb-6">
+            <h2 className="font-serif text-[24px] sm:text-[27px] font-normal text-[#231D18] dark:text-stone-50">
+              Writing
+            </h2>
+            <button
+              onClick={() => setActiveArticle(ARTICLES[0])}
+              className="text-[13.5px] font-mono font-medium text-[#9A4E24] dark:text-amber-400 hover:underline inline-flex items-center gap-1.5 cursor-pointer py-1"
             >
-              <div className="space-y-1">
-                <h3 className="font-serif text-lg text-stone-900 dark:text-stone-100 group-hover:text-amber-900 dark:group-hover:text-amber-400 transition-colors">
-                  {post.title}
-                </h3>
-                <span className="text-xs font-mono text-stone-500 dark:text-stone-400">
-                  {post.date}
+              <span>All posts ({ARTICLES.length})</span>
+              <span>→</span>
+            </button>
+          </div>
+
+          {/* Clean Editorial Essay List */}
+          <div className="divide-y divide-[#DFD2C0] dark:divide-stone-800/70">
+            {ARTICLES.map((post) => (
+              <article
+                key={post.id}
+                onClick={() => setActiveArticle(post)}
+                className="group py-4 sm:py-5 flex items-center justify-between gap-4 cursor-pointer"
+              >
+                <div className="space-y-1 min-w-0">
+                  <h3 className="font-serif text-[18px] sm:text-[19.5px] font-normal text-[#231D18] dark:text-stone-100 group-hover:text-[#9A4E24] dark:group-hover:text-amber-400 transition-colors leading-snug">
+                    {post.title}
+                  </h3>
+                  <div className="flex items-center gap-2 text-[12.5px] sm:text-[13px] text-[#52453A] dark:text-stone-300 tabular-nums">
+                    <span>{post.date}</span>
+                    <span aria-hidden="true">·</span>
+                    <span>{post.readTime}</span>
+                  </div>
+                </div>
+                <span className="text-[#9A4E24] dark:text-amber-400 group-hover:translate-x-1 transition-transform text-base shrink-0 p-1">
+                  →
                 </span>
-              </div>
-              <FiArrowRight className="text-stone-400 group-hover:text-amber-800 dark:group-hover:text-amber-400 group-hover:translate-x-1 transition-all shrink-0 text-sm mt-1" />
-            </div>
-          ))}
+              </article>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Article Reading Modal */}
+      {/* Distraction-Free Article Reader (Bottom Sheet on Mobile, Centered Modal on Tablet/Desktop) */}
       {activeArticle && (
-        <div className="fixed inset-0 z-50 bg-stone-900/40 dark:bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="max-w-xl w-full max-h-[85vh] overflow-y-auto rounded-2xl bg-[#FBF9F5] dark:bg-[#1E1C1A] border border-stone-300 dark:border-stone-700 p-6 sm:p-8 shadow-2xl space-y-6">
-            <div className="flex items-start justify-between gap-4 border-b border-stone-200 dark:border-stone-800 pb-4">
-              <div>
-                <span className="text-xs font-mono text-stone-500 dark:text-stone-400">
-                  {activeArticle.date}
-                </span>
-                <h2 className="font-serif text-2xl font-normal text-stone-900 dark:text-stone-50 mt-1">
+        <div
+          className="fixed inset-0 z-50 bg-stone-950/50 dark:bg-black/75 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4"
+          onClick={() => setActiveArticle(null)}
+        >
+          <div
+            className="max-w-xl w-full max-h-[88vh] sm:max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl bg-[#F6EFE2] dark:bg-[#1B1917] border-t sm:border border-[#D5C7B4] dark:border-stone-800 p-5 sm:p-8 shadow-2xl space-y-5 sm:space-y-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Sticky Top Bar inside Reader for easy Mobile Thumb Reach */}
+            <div className="sticky -top-5 sm:-top-8 -mx-5 sm:-mx-8 px-5 sm:px-8 py-3.5 bg-[#F6EFE2]/95 dark:bg-[#1B1917]/95 backdrop-blur-md flex items-start justify-between gap-3 border-b border-[#DCD0C0] dark:border-stone-800 z-10">
+              <div className="space-y-1 min-w-0">
+                <div className="flex items-center gap-2 text-xs font-mono text-[#5C4E41] dark:text-stone-400 tabular-nums">
+                  <span>{activeArticle.date}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>{activeArticle.readTime}</span>
+                </div>
+                <h2 className="font-serif text-lg sm:text-2xl font-normal text-[#231D18] dark:text-stone-50 leading-snug">
                   {activeArticle.title}
                 </h2>
               </div>
-              <button
-                onClick={() => setActiveArticle(null)}
-                className="p-1 rounded-md text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 transition-colors"
-                aria-label="Close article"
-              >
-                <FiX className="text-xl" />
-              </button>
+
+              <div className="flex items-center gap-1.5 shrink-0">
+                <button
+                  onClick={() =>
+                    setFontScale(fontScale === "normal" ? "lg" : fontScale === "lg" ? "sm" : "normal")
+                  }
+                  className="px-2.5 py-1.5 min-h-[36px] rounded-lg border border-[#D5C7B4] dark:border-stone-700 text-xs font-mono text-[#332B24] dark:text-stone-300 hover:bg-[#E6DAC8] dark:hover:bg-stone-800 cursor-pointer"
+                  title="Adjust reading text size"
+                >
+                  {fontScale === "lg" ? "A+" : fontScale === "sm" ? "A-" : "Aa"}
+                </button>
+                <button
+                  onClick={() => setActiveArticle(null)}
+                  className="p-2 min-h-[36px] min-w-[36px] flex items-center justify-center rounded-lg text-[#5C4E41] hover:text-[#231D18] dark:hover:text-stone-100 cursor-pointer"
+                  aria-label="Close article"
+                >
+                  <FiX className="text-lg" />
+                </button>
+              </div>
             </div>
 
-            <div className="space-y-4 text-stone-700 dark:text-stone-300 text-sm sm:text-base leading-relaxed">
+            {/* Key Takeaway Summary */}
+            <div className="p-3.5 rounded-xl bg-[#EAE0CE]/70 dark:bg-stone-900/80 border border-[#DCD0C0] dark:border-stone-800 text-xs sm:text-[14px] text-[#332B24] dark:text-stone-200 leading-relaxed">
+              <span className="font-mono font-medium text-[#9A4E24] dark:text-amber-400 mr-1.5">
+                Key idea:
+              </span>
+              {activeArticle.takeaway}
+            </div>
+
+            {/* Article Paragraphs */}
+            <div
+              className={`space-y-4 text-[#231D18] dark:text-stone-200 leading-[1.78] ${
+                fontScale === "lg"
+                  ? "text-base sm:text-[18px]"
+                  : fontScale === "sm"
+                  ? "text-xs sm:text-sm"
+                  : "text-[15px] sm:text-[16px]"
+              }`}
+            >
               {activeArticle.content.map((p, idx) => (
                 <p
                   key={idx}
                   className={
                     idx === 0
-                      ? "first-letter:text-4xl first-letter:font-serif first-letter:font-medium first-letter:float-left first-letter:mr-2.5 first-letter:text-stone-900 dark:first-letter:text-stone-100 first-letter:leading-none"
+                      ? "first-letter:text-3xl sm:first-letter:text-4xl first-letter:font-serif first-letter:font-normal first-letter:float-left first-letter:mr-2.5 first-letter:text-[#231D18] dark:first-letter:text-stone-50 first-letter:leading-none"
                       : ""
                   }
                 >
@@ -139,12 +142,29 @@ const Writing = () => {
               ))}
             </div>
 
-            <div className="pt-4 border-t border-stone-200 dark:border-stone-800 flex justify-end">
+            {/* Reader Footer with Prev, Next & Done */}
+            <div className="pt-4 border-t border-[#DCD0C0] dark:border-stone-800 flex items-center justify-between gap-2">
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={handlePrevArticle}
+                  className="py-2 px-2.5 rounded-lg text-xs font-mono text-[#52453A] dark:text-stone-400 hover:text-[#231D18] dark:hover:text-white cursor-pointer"
+                >
+                  ← Prev
+                </button>
+                <button
+                  onClick={handleNextArticle}
+                  className="py-2 px-2.5 rounded-lg text-xs font-mono text-[#9A4E24] dark:text-amber-400 hover:underline inline-flex items-center gap-1 cursor-pointer"
+                >
+                  <span>Next essay</span>
+                  <span>→</span>
+                </button>
+              </div>
+
               <button
                 onClick={() => setActiveArticle(null)}
-                className="px-4 py-2 rounded-lg bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 text-xs font-mono"
+                className="px-4 py-2 min-h-[38px] rounded-lg bg-[#231D18] dark:bg-stone-100 text-[#F6EFE2] dark:text-stone-900 text-xs font-mono cursor-pointer hover:opacity-90"
               >
-                Done Reading
+                Done
               </button>
             </div>
           </div>
