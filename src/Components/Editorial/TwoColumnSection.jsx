@@ -90,13 +90,13 @@ const TwoColumnSection = ({ onOpenResume }) => {
   return (
     <div className="space-y-10 sm:space-y-12">
       {/* ==================== SECTION 1: INTERACTIVE CASE STUDY CARDS ==================== */}
-      <section className="py-3 sm:py-4" id="projects">
+      <section className="py-3 sm:py-4 scroll-mt-24" id="projects">
         <div className="max-w-[880px] mx-auto px-4 sm:px-6">
-          <div className="border-t border-[#D2C3AE] dark:border-stone-800/80 pt-8 sm:pt-10 space-y-6">
+          <div className="border-t border-[#D2C3AE] dark:border-stone-800/90 pt-8 sm:pt-10 space-y-6">
             {/* Section Header with Global Architecture Toggle */}
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3">
               <div>
-                <h2 className="font-serif text-[24px] sm:text-[27px] font-normal text-[#231D18] dark:text-stone-50">
+                <h2 className="font-serif text-[24px] sm:text-[27px] font-normal text-[#231D18] dark:text-[#F3ECE2]">
                   Selected systems & case studies
                 </h2>
                 <p className="text-[13.5px] sm:text-[14.5px] text-[#52453A] dark:text-stone-300 mt-0.5">
@@ -106,7 +106,7 @@ const TwoColumnSection = ({ onOpenResume }) => {
 
               <button
                 onClick={toggleAllArch}
-                className="w-full sm:w-auto justify-center inline-flex items-center gap-1.5 px-3.5 py-2 sm:py-1.5 min-h-[38px] sm:min-h-0 rounded-lg border border-[#CBBBA4] dark:border-stone-700 bg-[#E8DEC9]/60 dark:bg-stone-900 text-[12px] font-mono font-medium text-[#332B24] dark:text-stone-200 hover:border-[#9A4E24] dark:hover:border-amber-400 transition-colors cursor-pointer shrink-0 whitespace-nowrap"
+                className="w-full sm:w-auto justify-center inline-flex items-center gap-1.5 px-3.5 py-2 sm:py-1.5 min-h-[38px] sm:min-h-0 rounded-lg border border-[#CBBBA4] dark:border-stone-700 bg-[#E8DEC9]/60 dark:bg-stone-900/80 text-[12px] font-mono font-medium text-[#332B24] dark:text-stone-200 hover:border-[#9A4E24] dark:hover:border-amber-400 transition-colors cursor-pointer shrink-0 whitespace-nowrap"
               >
                 <FiLayers className="text-[#9A4E24] dark:text-amber-400 text-xs" />
                 <span>{allArchOpen ? "Show all overviews" : "Inspect all architectures"}</span>
@@ -122,7 +122,7 @@ const TwoColumnSection = ({ onOpenResume }) => {
                 return (
                   <article
                     key={item.id}
-                    className="rounded-2xl border border-[#D2C3AE] dark:border-stone-800/90 bg-[#F6EFE2]/75 dark:bg-[#1A1816]/90 p-4 sm:p-5 flex flex-col justify-between space-y-4 transition-colors hover:border-[#B8A48C] dark:hover:border-stone-700"
+                    className="editorial-card-lift rounded-2xl border border-[#D2C3AE] dark:border-stone-800/90 bg-[#F6EFE2]/75 dark:bg-[#1A1816]/85 p-4 sm:p-5 flex flex-col justify-between space-y-4 hover:border-[#B8A48C] dark:hover:border-stone-700 hover:shadow-xs"
                   >
                     <div className="space-y-3.5">
                       {/* Zero-Overlap Card Header: Row 1 Full-Width Title, Row 2 Single-Line Metadata + Story/Arch Switcher */}
@@ -132,20 +132,20 @@ const TwoColumnSection = ({ onOpenResume }) => {
                           href={item.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="w-full flex items-center justify-between gap-2 font-serif text-[18.5px] sm:text-[20px] font-normal text-[#231D18] dark:text-stone-50 hover:text-[#9A4E24] dark:hover:text-amber-400 transition-colors group leading-snug"
+                          className="w-full flex items-center justify-between gap-2 font-serif text-[18.5px] sm:text-[20px] font-normal text-[#231D18] dark:text-[#F3ECE2] hover:text-[#9A4E24] dark:hover:text-amber-400 transition-colors group leading-snug"
                         >
                           <span className="break-words">{item.name}</span>
                           <FiArrowUpRight className="text-base text-[#5C4E41] dark:text-stone-400 group-hover:text-[#9A4E24] dark:group-hover:text-amber-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
                         </a>
 
                         {/* Row 2: Dedicated Sub-Bar with Role/Stack & Story | Arch Switcher on One Line */}
-                        <div className="flex items-center justify-between gap-2 pt-2 border-t border-[#DFD2C0] dark:border-stone-800">
+                        <div className="flex items-center justify-between gap-2 pt-2 border-t border-[#DFD2C0] dark:border-stone-800/80">
                           <div className="text-[12px] font-mono text-[#52453A] dark:text-stone-300 leading-snug min-w-0 flex-1 truncate">
                             {item.role} · {item.stack}
                           </div>
 
                           {/* Segmented Control: Story | Arch with Themed Tooltips */}
-                          <div className="flex items-center p-0.5 rounded-lg bg-[#E5D9C5]/90 dark:bg-stone-900 border border-[#CBBBA4]/80 dark:border-stone-800 shrink-0">
+                          <div className="flex items-center p-0.5 rounded-lg bg-[#E5D9C5]/90 dark:bg-stone-900/90 border border-[#CBBBA4]/80 dark:border-stone-800 shrink-0">
                             <Tooltip content="Human product overview" position="top" align="right">
                               <button
                                 onClick={() => toggleCardMode(item.id, "overview")}
@@ -169,7 +169,7 @@ const TwoColumnSection = ({ onOpenResume }) => {
                                 onClick={() => toggleCardMode(item.id, "architecture")}
                                 className={`px-2.5 py-1 min-h-[28px] sm:min-h-0 rounded-md text-[11.5px] font-mono transition-colors cursor-pointer flex items-center gap-1 whitespace-nowrap ${
                                   isArch
-                                    ? "bg-[#231D18] text-[#F6EFE2] dark:bg-amber-400/90 dark:text-stone-950 font-medium shadow-2xs"
+                                    ? "bg-[#231D18] text-[#F6EFE2] dark:bg-amber-400 dark:text-stone-950 font-medium shadow-2xs"
                                     : "text-[#52453A] dark:text-stone-400 hover:text-[#231D18] dark:hover:text-stone-200"
                                 }`}
                               >
@@ -183,8 +183,8 @@ const TwoColumnSection = ({ onOpenResume }) => {
 
                       {/* Conditional Body: 1-Sentence Overview (+ Read more) vs Architecture Pipeline */}
                       {!isArch ? (
-                        <div className="space-y-2.5 pt-0.5">
-                          <p className="text-[14.5px] sm:text-[15px] text-[#332B24] dark:text-stone-200 leading-[1.64]">
+                        <div key="story" className="animate-editorial-fade space-y-2.5 pt-0.5">
+                          <p className="text-[14.5px] sm:text-[15px] text-[#332B24] dark:text-[#E5DDD2] leading-[1.7]">
                             {item.shortSummary}{" "}
                             <button
                               type="button"
@@ -196,7 +196,7 @@ const TwoColumnSection = ({ onOpenResume }) => {
                           </p>
 
                           {isExpanded && (
-                            <div className="space-y-2 pl-3 border-l-2 border-[#D2C3AE] dark:border-stone-700 text-[13.5px] text-[#4A3E33] dark:text-stone-300 leading-relaxed">
+                            <div className="animate-editorial-fade space-y-2 pl-3 border-l-2 border-[#D2C3AE] dark:border-stone-700 text-[13.5px] text-[#4A3E33] dark:text-stone-300 leading-[1.68]">
                               <p>{item.expandedDetails}</p>
                               <div className="text-[12px] font-mono text-[#332B24] dark:text-stone-200">
                                 <span className="text-[#9A4E24] dark:text-amber-400 font-medium">
@@ -208,7 +208,7 @@ const TwoColumnSection = ({ onOpenResume }) => {
                           )}
                         </div>
                       ) : (
-                        <div className="rounded-xl border border-[#D2C3AE] dark:border-stone-800 bg-[#EAE0CE]/70 dark:bg-stone-900/90 p-3.5 space-y-2.5 font-mono text-[12px]">
+                        <div key="arch" className="animate-editorial-fade rounded-xl border border-[#D2C3AE] dark:border-stone-800/90 bg-[#EAE0CE]/70 dark:bg-[#141210]/90 p-3.5 space-y-2.5 font-mono text-[12px]">
                           <div className="text-[11px] text-[#5C4E41] dark:text-stone-400">
                             Request & Data Pipeline:
                           </div>
@@ -218,7 +218,7 @@ const TwoColumnSection = ({ onOpenResume }) => {
                             {item.architecture.pipeline.map((node, i) => (
                               <div
                                 key={node}
-                                className="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-lg bg-[#F6EFE2]/95 dark:bg-stone-800/90 border border-[#CBBBA4]/80 dark:border-stone-700/80"
+                                className="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-lg bg-[#F6EFE2]/95 dark:bg-[#1C1917] border border-[#CBBBA4]/80 dark:border-stone-800"
                               >
                                 <div className="flex items-center gap-2 min-w-0">
                                   <span className="text-[11px] text-[#9A4E24] dark:text-amber-400 tabular-nums shrink-0 font-medium">
@@ -239,7 +239,7 @@ const TwoColumnSection = ({ onOpenResume }) => {
                             ))}
                           </div>
 
-                          <div className="pt-1.5 border-t border-[#D2C3AE]/80 dark:border-stone-800 text-[#332B24] dark:text-stone-300 leading-relaxed">
+                          <div className="pt-1.5 border-t border-[#D2C3AE]/80 dark:border-stone-800/80 text-[#332B24] dark:text-stone-300 leading-relaxed">
                             <span className="text-[#9A4E24] dark:text-amber-400 font-medium">
                               Invariant:{" "}
                             </span>
@@ -262,7 +262,7 @@ const TwoColumnSection = ({ onOpenResume }) => {
                         </a>
                         <span
                           aria-hidden="true"
-                          className="text-[#B8A48C] dark:text-stone-700 shrink-0"
+                          className="text-[#B8A48C] dark:text-[#443C35] shrink-0"
                         >
                           ·
                         </span>
@@ -278,12 +278,12 @@ const TwoColumnSection = ({ onOpenResume }) => {
                                 href={item.repoUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-[#4A3E33] dark:text-stone-300 hover:text-[#231D18] dark:hover:text-stone-100 hover:underline py-1 truncate block"
+                                className="text-[#4A3E33] dark:text-[#C8BEB2] hover:text-[#231D18] dark:hover:text-[#F3ECE2] hover:underline py-1 truncate block"
                               >
                                 {item.repoLabel}
                               </a>
                             ) : (
-                              <span className="text-[12px] text-[#5C4E41] dark:text-stone-400 py-0.5 truncate block cursor-help border-b border-dashed border-[#B8A48C] dark:border-stone-600">
+                              <span className="text-[12px] text-[#5C4E41] dark:text-[#A89E93] py-0.5 truncate block cursor-help border-b border-dashed border-[#B8A48C] dark:border-[#4A4037]">
                                 {item.repoLabel}
                               </span>
                             )}
@@ -295,7 +295,7 @@ const TwoColumnSection = ({ onOpenResume }) => {
                         onClick={() =>
                           toggleCardMode(item.id, isArch ? "overview" : "architecture")
                         }
-                        className="text-[#52453A] dark:text-stone-300 hover:text-[#231D18] dark:hover:text-stone-100 cursor-pointer py-1 whitespace-nowrap shrink-0"
+                        className="text-[#52453A] dark:text-[#C8BEB2] hover:text-[#231D18] dark:hover:text-[#F3ECE2] cursor-pointer py-1 whitespace-nowrap shrink-0"
                       >
                         {isArch ? "← Story" : "Blueprint →"}
                       </button>
@@ -306,7 +306,7 @@ const TwoColumnSection = ({ onOpenResume }) => {
             </div>
 
             {/* Additional Archive & GitHub Link Row */}
-            <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-[13px] text-[#4A3E33] dark:text-stone-300">
+            <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-[13px] text-[#4A3E33] dark:text-[#C8BEB2]">
               <div className="leading-relaxed">
                 <span className="font-medium">Live deployments: </span>
                 {EARLIER_BUILDS.map((build, idx) => (
@@ -315,7 +315,7 @@ const TwoColumnSection = ({ onOpenResume }) => {
                       href={build.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="underline decoration-[#B8A48C] underline-offset-2 hover:text-[#231D18] dark:hover:text-white"
+                      className="underline decoration-[#B8A48C] dark:decoration-[#4A4037] underline-offset-2 hover:text-[#231D18] dark:hover:text-[#F3ECE2]"
                     >
                       {build.name}
                     </a>
@@ -340,15 +340,15 @@ const TwoColumnSection = ({ onOpenResume }) => {
       </section>
 
       {/* ==================== SECTION 2: EXPERIENCE & CAREER TIMELINE ==================== */}
-      <section className="py-3 sm:py-4" id="experience">
+      <section className="py-3 sm:py-4 scroll-mt-24" id="experience">
         <div className="max-w-[880px] mx-auto px-4 sm:px-6">
-          <div className="border-t border-[#D2C3AE] dark:border-stone-800/80 pt-8 sm:pt-10 space-y-5">
+          <div className="border-t border-[#D2C3AE] dark:border-[#2B2622] pt-8 sm:pt-10 space-y-5">
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
               <div className="space-y-1">
-                <h2 className="font-serif text-[24px] sm:text-[27px] font-normal text-[#231D18] dark:text-stone-50">
+                <h2 className="font-serif text-[24px] sm:text-[27px] font-normal text-[#231D18] dark:text-[#F3ECE2]">
                   Experience & career trajectory
                 </h2>
-                <p className="text-[13.5px] sm:text-[14.5px] text-[#52453A] dark:text-stone-300">
+                <p className="text-[13.5px] sm:text-[14.5px] text-[#52453A] dark:text-[#B8AEA2]">
                   Production engineering ownership, open-source builds, and formal education.
                 </p>
               </div>
@@ -364,7 +364,7 @@ const TwoColumnSection = ({ onOpenResume }) => {
               )}
             </div>
 
-            <div className="divide-y divide-[#DFD2C0] dark:divide-stone-800/80">
+            <div className="divide-y divide-[#DFD2C0] dark:divide-[#2B2622]">
               {EXPERIENCE_TIMELINE.map((exp) => {
                 const isExpOpen = !!expandedExp[exp.id];
                 return (
@@ -377,12 +377,12 @@ const TwoColumnSection = ({ onOpenResume }) => {
                       <div className="text-[13px] font-mono font-medium text-[#9A4E24] dark:text-amber-400 tabular-nums">
                         {exp.period}
                       </div>
-                      <div className="text-[13px] text-[#4A3E33] dark:text-stone-300">
-                        <span className="font-medium text-[#231D18] dark:text-stone-200">
+                      <div className="text-[13px] text-[#4A3E33] dark:text-[#C8BEB2]">
+                        <span className="font-medium text-[#231D18] dark:text-[#E6DFD5]">
                           {exp.organization}
                         </span>
                         <span aria-hidden="true"> · </span>
-                        <span className="text-[#5C4E41] dark:text-stone-400">
+                        <span className="text-[#5C4E41] dark:text-[#9C9184]">
                           {exp.location}
                         </span>
                       </div>
@@ -391,15 +391,15 @@ const TwoColumnSection = ({ onOpenResume }) => {
                     {/* Right Column: Role Title, Stack & Crisp 1-Sentence Summary + Expandable Highlights */}
                     <div className="md:col-span-8 space-y-2">
                       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-3">
-                        <h3 className="font-serif text-[19px] sm:text-[20px] font-normal text-[#231D18] dark:text-stone-50">
+                        <h3 className="font-serif text-[19px] sm:text-[20px] font-normal text-[#231D18] dark:text-[#F3ECE2]">
                           {exp.role}
                         </h3>
-                        <span className="text-[11.5px] font-mono text-[#5C4E41] dark:text-stone-400 shrink-0">
+                        <span className="text-[11.5px] font-mono text-[#5C4E41] dark:text-[#9C9184] shrink-0">
                           {exp.stack}
                         </span>
                       </div>
 
-                      <p className="text-[14.5px] sm:text-[15px] text-[#332B24] dark:text-stone-200 leading-[1.64]">
+                      <p className="text-[14.5px] sm:text-[15px] text-[#332B24] dark:text-[#DFD7CC] leading-[1.7]">
                         {exp.shortSummary || exp.summary}{" "}
                         <button
                           type="button"
@@ -411,7 +411,7 @@ const TwoColumnSection = ({ onOpenResume }) => {
                       </p>
 
                       {isExpOpen && (
-                        <ul className="space-y-1.5 pt-1 pl-3 border-l-2 border-[#D2C3AE] dark:border-stone-700 text-[13.5px] text-[#4A3E33] dark:text-stone-300 leading-relaxed list-disc list-inside">
+                        <ul className="animate-editorial-fade space-y-1.5 pt-1 pl-3 border-l-2 border-[#D2C3AE] dark:border-[#36302A] text-[13.5px] text-[#4A3E33] dark:text-[#C8BEB2] leading-[1.68] list-disc list-inside">
                           {exp.highlights.map((pt, idx) => (
                             <li key={idx}>{pt}</li>
                           ))}
@@ -427,14 +427,14 @@ const TwoColumnSection = ({ onOpenResume }) => {
       </section>
 
       {/* ==================== SECTION 3: SCALABLE FOUNDATIONS & ENGINEERING CRAFT ==================== */}
-      <section className="py-3 sm:py-4" id="about">
+      <section className="py-3 sm:py-4 scroll-mt-24" id="about">
         <div className="max-w-[880px] mx-auto px-4 sm:px-6">
-          <div className="border-t border-[#D2C3AE] dark:border-stone-800/80 pt-8 sm:pt-10 space-y-6">
+          <div className="border-t border-[#D2C3AE] dark:border-stone-800/90 pt-8 sm:pt-10 space-y-6">
             {/* Header & Category Filter Bar */}
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1.5 sm:gap-2">
                 <div className="space-y-1">
-                  <h2 className="font-serif text-[24px] sm:text-[27px] font-normal text-[#231D18] dark:text-stone-50">
+                  <h2 className="font-serif text-[24px] sm:text-[27px] font-normal text-[#231D18] dark:text-[#F3ECE2]">
                     Foundations & engineering craft
                   </h2>
                   <p className="text-[13.5px] sm:text-[14.5px] text-[#52453A] dark:text-stone-300">
@@ -467,8 +467,8 @@ const TwoColumnSection = ({ onOpenResume }) => {
                       }}
                       className={`px-3 py-1.5 min-h-[34px] sm:min-h-0 rounded-lg text-[12px] font-mono transition-colors cursor-pointer inline-flex items-center gap-1.5 whitespace-nowrap ${
                         isActive
-                          ? "bg-[#231D18] text-[#F6EFE2] dark:bg-stone-200 dark:text-stone-900 font-medium shadow-2xs"
-                          : "bg-[#E8DEC9]/65 dark:bg-stone-900/70 text-[#4A3E33] dark:text-stone-300 hover:bg-[#DDD0BC]/80 dark:hover:bg-stone-800 border border-[#CBBBA4]/80 dark:border-stone-800"
+                          ? "bg-[#231D18] text-[#F6EFE2] dark:bg-amber-400 dark:text-stone-950 font-medium shadow-2xs"
+                          : "bg-[#E8DEC9]/65 dark:bg-stone-900/75 text-[#4A3E33] dark:text-stone-300 hover:bg-[#DDD0BC]/80 dark:hover:bg-stone-800 border border-[#CBBBA4]/80 dark:border-stone-800"
                       }`}
                     >
                       <span className="sm:hidden">{cat.shortLabel || cat.label}</span>
@@ -476,7 +476,7 @@ const TwoColumnSection = ({ onOpenResume }) => {
                       <span
                         className={`text-[11px] tabular-nums ${
                           isActive
-                            ? "text-[#D8CBB8] dark:text-stone-600"
+                            ? "text-[#D8CBB8] dark:text-stone-800"
                             : "text-[#6E5E4F] dark:text-stone-400"
                         }`}
                       >
@@ -489,28 +489,31 @@ const TwoColumnSection = ({ onOpenResume }) => {
             </div>
 
             {/* 2-Column Bordered Editorial Foundations Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 items-stretch">
+            <div
+              key={activeCategory}
+              className="animate-editorial-fade grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 items-stretch"
+            >
               {visibleFoundations.map((item) => (
                 <article
                   key={item.id || item.index}
-                  className="rounded-2xl border border-[#D2C3AE] dark:border-stone-800/90 bg-[#F6EFE2]/75 dark:bg-[#1A1816]/90 p-4 sm:p-5 flex flex-col justify-between space-y-3 transition-colors hover:border-[#B8A48C] dark:hover:border-stone-700"
+                  className="editorial-card-lift rounded-2xl border border-[#D2C3AE] dark:border-stone-800/90 bg-[#F6EFE2]/75 dark:bg-[#1A1816]/85 p-4 sm:p-5 flex flex-col justify-between space-y-3 hover:border-[#B8A48C] dark:hover:border-stone-700 hover:shadow-xs"
                 >
                   {/* Top Metadata Bar: Index (Left) · Context/Stack (Right) */}
                   <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-[#DFD2C0] dark:border-stone-800/80 text-[12px] font-mono">
                     <span className="font-medium text-[#9A4E24] dark:text-amber-400 shrink-0">
                       {item.index}
                     </span>
-                    <span className="text-[#52453A] dark:text-stone-300 truncate text-right">
+                    <span className="text-[#52453A] dark:text-stone-400 truncate text-right">
                       {item.meta}
                     </span>
                   </div>
 
                   {/* Card Body: Serif Heading + Concise 2-Line Description */}
                   <div className="space-y-1.5 pt-0.5">
-                    <h3 className="font-serif text-[19px] sm:text-[20px] font-normal text-[#231D18] dark:text-stone-50 leading-snug">
+                    <h3 className="font-serif text-[19px] sm:text-[20px] font-normal text-[#231D18] dark:text-[#F3ECE2] leading-snug">
                       {item.title}
                     </h3>
-                    <p className="text-[14.5px] sm:text-[15px] text-[#332B24] dark:text-stone-200 leading-[1.62]">
+                    <p className="text-[14.5px] sm:text-[15px] text-[#332B24] dark:text-[#E5DDD2] leading-[1.68]">
                       {item.description}
                     </p>
                   </div>

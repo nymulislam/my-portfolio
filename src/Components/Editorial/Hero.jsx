@@ -55,7 +55,7 @@ const Hero = ({ onOpenResume }) => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center">
           {/* Left Column: Editorial Identity */}
           <div className="md:col-span-7 space-y-4">
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12.5px] sm:text-[13px] text-[#5C4E41] dark:text-stone-300 font-mono tabular-nums">
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12.5px] sm:text-[13px] text-[#5C4E41] dark:text-[#B8AEA2] font-mono tabular-nums">
               <span>{PROFILE.location}</span>
               {dhakaClock && (
                 <>
@@ -69,12 +69,12 @@ const Hero = ({ onOpenResume }) => {
               </span>
             </div>
 
-            <h1 className="font-serif text-[36px] xs:text-4xl sm:text-[52px] font-normal text-[#231D18] dark:text-stone-50 tracking-[-0.02em] leading-[1.08]">
+            <h1 className="font-serif text-[36px] xs:text-4xl sm:text-[52px] font-normal text-[#231D18] dark:text-[#F3ECE2] tracking-[-0.02em] leading-[1.08]">
               Hi, I’m {PROFILE.shortName}.
             </h1>
 
             <div className="space-y-2">
-              <p className="text-[15.5px] sm:text-[17px] text-[#332B24] dark:text-stone-200 leading-[1.65] font-normal">
+              <p className="text-[15.5px] sm:text-[17px] text-[#332B24] dark:text-[#DFD7CC] leading-[1.7] font-normal">
                 {PROFILE.shortBio}{" "}
                 <button
                   type="button"
@@ -86,7 +86,7 @@ const Hero = ({ onOpenResume }) => {
               </p>
 
               {bioExpanded && (
-                <p className="text-[14.5px] sm:text-[15.5px] text-[#4A3E33] dark:text-stone-300 leading-[1.65] pl-3 border-l-2 border-[#D2C3AE] dark:border-stone-700">
+                <p className="animate-editorial-fade text-[14.5px] sm:text-[15.5px] text-[#4A3E33] dark:text-[#C8BEB2] leading-[1.7] pl-3 border-l-2 border-[#D2C3AE] dark:border-[#38322C]">
                   {PROFILE.expandedBio}
                 </p>
               )}
@@ -94,8 +94,8 @@ const Hero = ({ onOpenResume }) => {
 
             {/* Quick Hiring Status & Single-Line Executive Action Bar */}
             <div className="pt-1 space-y-3">
-              <div className="text-[12.5px] sm:text-[13px] font-mono text-[#4A3E33] dark:text-stone-300 leading-relaxed">
-                <span className="font-medium text-[#231D18] dark:text-stone-100">{PROFILE.role}</span>
+              <div className="text-[12.5px] sm:text-[13px] font-mono text-[#4A3E33] dark:text-[#C8BEB2] leading-relaxed">
+                <span className="font-medium text-[#231D18] dark:text-[#F3ECE2]">{PROFILE.role}</span>
                 <span aria-hidden="true"> · </span>
                 <span className="text-[#9A4E24] dark:text-amber-400 font-medium">
                   Remote or Dhaka
@@ -106,7 +106,7 @@ const Hero = ({ onOpenResume }) => {
                 {onOpenResume && (
                   <button
                     onClick={onOpenResume}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2 min-h-[38px] rounded-lg bg-[#231D18] text-[#F6EFE2] dark:bg-stone-100 dark:text-stone-900 text-[12.5px] font-mono font-medium hover:opacity-90 transition-opacity cursor-pointer whitespace-nowrap"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 min-h-[38px] rounded-lg bg-[#231D18] text-[#F6EFE2] dark:bg-[#F3ECE2] dark:text-[#1C1917] text-[12.5px] font-mono font-medium hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer whitespace-nowrap"
                   >
                     <FiFileText className="text-xs shrink-0" />
                     <span>Preview CV / Resume</span>
@@ -114,7 +114,7 @@ const Hero = ({ onOpenResume }) => {
                 )}
                 <a
                   href="#projects"
-                  className="inline-flex items-center gap-1 px-3.5 py-2 min-h-[38px] rounded-lg border border-[#CBBBA4] dark:border-stone-700 bg-[#E8DEC9]/60 dark:bg-stone-900/80 text-[12.5px] font-mono text-[#332B24] dark:text-stone-200 hover:border-[#9A4E24] dark:hover:border-amber-400 transition-colors whitespace-nowrap"
+                  className="inline-flex items-center gap-1 px-3.5 py-2 min-h-[38px] rounded-lg border border-[#CBBBA4] dark:border-[#38322C] bg-[#E8DEC9]/60 dark:bg-[#221F1C] text-[12.5px] font-mono text-[#332B24] dark:text-[#DFD7CC] hover:border-[#9A4E24] dark:hover:border-amber-400 transition-colors whitespace-nowrap"
                 >
                   <span>Inspect systems ↓</span>
                 </a>
@@ -138,9 +138,9 @@ const Hero = ({ onOpenResume }) => {
         </div>
 
         {/* Full-Width Interactive Stack & Code Snippet Playground */}
-        <div className="rounded-2xl border border-[#D2C3AE] dark:border-stone-800 bg-[#E8DEC9]/50 dark:bg-[#1A1816]/95 shadow-xs">
+        <div className="rounded-2xl border border-[#D2C3AE] dark:border-stone-800/90 bg-[#E8DEC9]/50 dark:bg-[#1A1816]/85 shadow-xs">
           {/* Playground Header Tabs (Symmetrical 2x2 Grid on Mobile, Single-Line Row on Tablet/Desktop) */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 px-3.5 sm:px-4 py-2.5 rounded-t-2xl border-b border-[#D2C3AE] dark:border-stone-800 bg-[#EFE6D8]/70 dark:bg-stone-900/70">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 px-3.5 sm:px-4 py-2.5 rounded-t-2xl border-b border-[#D2C3AE] dark:border-stone-800/90 bg-[#EFE6D8]/70 dark:bg-[#1E1C19]/90">
             <div className="grid grid-cols-2 sm:flex sm:items-center gap-1.5 shrink-0">
               {STACK_PLAYGROUND.map((item, idx) => (
                 <button
@@ -149,10 +149,10 @@ const Hero = ({ onOpenResume }) => {
                     setActiveTab(idx);
                     setVerified(false);
                   }}
-                  className={`px-3 py-1.5 min-h-[34px] sm:min-h-0 rounded-lg text-[12px] font-mono transition-colors cursor-pointer whitespace-nowrap text-center ${
+                  className={`px-3 py-1.5 min-h-[34px] sm:min-h-0 rounded-lg text-[12px] font-mono transition-all duration-150 cursor-pointer whitespace-nowrap text-center ${
                     activeTab === idx
-                      ? "bg-[#231D18] text-[#F6EFE2] dark:bg-stone-200 dark:text-stone-900 font-medium"
-                      : "text-[#4A3E33] dark:text-stone-300 hover:bg-[#DDD0BC]/70 dark:hover:bg-stone-800 border border-[#D2C3AE]/70 dark:border-stone-800 sm:border-transparent"
+                      ? "bg-[#231D18] text-[#F6EFE2] dark:bg-amber-400 dark:text-stone-950 font-medium shadow-2xs"
+                      : "text-[#4A3E33] dark:text-stone-300 hover:bg-[#DDD0BC]/70 dark:hover:bg-stone-800/80 border border-[#D2C3AE]/70 dark:border-stone-800 sm:border-transparent"
                   }`}
                 >
                   <span className="sm:hidden">{item.label}</span>
@@ -161,7 +161,7 @@ const Hero = ({ onOpenResume }) => {
               ))}
             </div>
 
-            <div className="flex items-center justify-between sm:justify-end gap-2.5 pt-1 sm:pt-0 border-t sm:border-t-0 border-[#D2C3AE]/60 dark:border-stone-800/80 min-w-0">
+            <div className="flex items-center justify-between sm:justify-end gap-2.5 pt-1 sm:pt-0 border-t sm:border-t-0 border-[#D2C3AE]/60 dark:border-stone-800 min-w-0">
               <span className="text-[12px] font-mono text-[#5C4E41] dark:text-stone-400 truncate">
                 {currentItem.file}
               </span>
@@ -180,7 +180,7 @@ const Hero = ({ onOpenResume }) => {
                     onClick={handleCopyCode}
                     className="inline-flex items-center gap-1 px-2.5 py-1.5 sm:py-1 min-h-[32px] sm:min-h-0 rounded-md text-[11.5px] font-mono border border-[#C5B49E] dark:border-stone-700 text-[#332B24] dark:text-stone-200 hover:bg-[#DDD0BC]/70 dark:hover:bg-stone-800 cursor-pointer transition-colors"
                   >
-                    {copied ? <FiCheck className="text-emerald-600" /> : <FiCopy />}
+                    {copied ? <FiCheck className="text-emerald-600 dark:text-emerald-400" /> : <FiCopy />}
                     <span>{copied ? "Copied" : "Copy"}</span>
                   </button>
                 </Tooltip>
@@ -189,19 +189,19 @@ const Hero = ({ onOpenResume }) => {
           </div>
 
           {/* Code Block */}
-          <div className="p-4 sm:p-5 overflow-x-auto">
-            <pre className="text-[12.5px] sm:text-[13.5px] font-mono leading-[1.68] text-[#231D18] dark:text-stone-100">
+          <div key={currentItem.id} className="p-4 sm:p-5 overflow-x-auto animate-editorial-fade">
+            <pre className="text-[12.5px] sm:text-[13.5px] font-mono leading-[1.7] text-[#231D18] dark:text-[#E6DFD5]">
               <code>{currentItem.code}</code>
             </pre>
           </div>
 
           {/* Architectural Invariant Footer Bar */}
-          <div className="px-4 py-2.5 rounded-b-2xl border-t border-[#D2C3AE]/80 dark:border-stone-800/80 bg-[#F4ECE0]/60 dark:bg-stone-900/50 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-[12px] font-mono">
+          <div className="px-4 py-2.5 rounded-b-2xl border-t border-[#D2C3AE]/80 dark:border-stone-800/90 bg-[#F4ECE0]/60 dark:bg-[#161412]/90 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-[12px] font-mono">
             <span className="text-[#4A3E33] dark:text-stone-300 leading-relaxed">
               Architecture: {currentItem.architectureNote}
             </span>
             {verified && (
-              <span className="text-emerald-800 dark:text-emerald-400 font-medium leading-relaxed">
+              <span className="animate-editorial-fade text-emerald-800 dark:text-emerald-400 font-medium leading-relaxed">
                 {currentItem.verifyOutput}
               </span>
             )}

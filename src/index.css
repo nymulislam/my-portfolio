@@ -39,11 +39,11 @@
     color: #2B241E;
   }
 
-  /* Night Mood — Deep Charcoal Late-Night Studio */
+  /* Night Mood — Deep Warm Espresso Studio */
   html.mood-night body,
   html.dark body {
     background-color: #151311;
-    color: #EDE6DC;
+    color: #E7E0D6;
     letter-spacing: 0.005em;
   }
 }
@@ -103,6 +103,67 @@
 
 .animate-cursor-blink {
   animation: cursorBlink 1.1s step-end infinite;
+}
+
+/* Crisp hardware-accelerated micro-reveal for interactive tabs, story/arch switches & read-more toggles */
+@keyframes editorialMicroFade {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-editorial-fade {
+  animation: editorialMicroFade 180ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Slow ambient studio light breathing on GPU compositor */
+@keyframes studioAuraBreath {
+  0%, 100% {
+    opacity: 0.85;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04) translate3d(-1%, 1%, 0);
+  }
+}
+
+.animate-studio-aura {
+  animation: studioAuraBreath 14s ease-in-out infinite;
+}
+
+/* Subtle tactile card elevation on hover */
+.editorial-card-lift {
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.editorial-card-lift:hover {
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-mug-steam-1,
+  .animate-mug-steam-2,
+  .animate-window-rays,
+  .animate-studio-aura,
+  .animate-editorial-fade {
+    animation: none !important;
+  }
+  .editorial-card-lift,
+  .editorial-card-lift:hover {
+    transition: none !important;
+    transform: none !important;
+  }
 }
 
 /* Custom minimal scrollbar */

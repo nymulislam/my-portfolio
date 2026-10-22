@@ -55,24 +55,24 @@ const Footer = ({ onOpenCommand, onOpenResume }) => {
   };
 
   return (
-    <footer className="pt-4 sm:pt-6 pb-12 sm:pb-16" id="contact">
+    <footer className="pt-4 sm:pt-6 pb-12 sm:pb-16 scroll-mt-24" id="contact">
       <div className="max-w-[880px] mx-auto px-4 sm:px-6">
-        <div className="border-t border-[#D2C3AE] dark:border-stone-800/80 pt-8 space-y-6">
+        <div className="border-t border-[#D2C3AE] dark:border-[#2B2622] pt-8 space-y-6">
           {/* Primary Editorial Row */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             {/* Left: Say hello ↗ */}
             <button
               onClick={() => setModalOpen(true)}
-              className="text-[15px] font-medium text-[#231D18] dark:text-stone-100 hover:text-[#9A4E24] dark:hover:text-amber-400 inline-flex items-center gap-1.5 cursor-pointer self-start sm:self-auto transition-colors group py-1"
+              className="text-[15px] font-medium text-[#231D18] dark:text-[#F3ECE2] hover:text-[#9A4E24] dark:hover:text-amber-400 inline-flex items-center gap-1.5 cursor-pointer self-start sm:self-auto transition-colors group py-1"
             >
               <span>Say hello</span>
-              <span className="text-xs text-[#5C4E41] group-hover:text-[#9A4E24] dark:group-hover:text-amber-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+              <span className="text-xs text-[#5C4E41] dark:text-[#A89E93] group-hover:text-[#9A4E24] dark:group-hover:text-amber-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
                 ↗
               </span>
             </button>
 
             {/* Right: Clean Dev & Social Links */}
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 sm:gap-6 text-[13.5px] sm:text-[14px] text-[#3B3128] dark:text-stone-300">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 sm:gap-6 text-[13.5px] sm:text-[14px] text-[#3B3128] dark:text-[#D5CCC0]">
               <Tooltip content="Toggle developer console" position="top" align="center">
                 <button
                   onClick={() => setShowDevConsole(!showDevConsole)}
@@ -119,8 +119,8 @@ const Footer = ({ onOpenCommand, onOpenResume }) => {
 
           {/* Preserved Dev-Friendly Interactive Footer Workbench (880px Aligned Single-Line Output) */}
           {showDevConsole && (
-            <div className="rounded-xl border border-[#D2C3AE] dark:border-stone-800 bg-[#E8DEC9]/65 dark:bg-[#1B1917]/90 p-3.5 sm:p-4 text-[12.5px] font-mono space-y-2.5 transition-all">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#D2C3AE]/80 dark:border-stone-800 pb-2.5">
+            <div className="rounded-xl border border-[#D2C3AE] dark:border-stone-800/90 bg-[#E8DEC9]/65 dark:bg-[#1A1816]/85 p-3.5 sm:p-4 text-[12.5px] font-mono space-y-2.5 transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#D2C3AE]/80 dark:border-stone-800/80 pb-2.5">
                 <div className="flex items-center gap-2 shrink-0">
                   <span className="text-[#9A4E24] dark:text-amber-400 font-medium">~/naymul</span>
                   <span className="text-[#6E5E4F] dark:text-stone-400">git:(main)</span>
@@ -134,7 +134,7 @@ const Footer = ({ onOpenCommand, onOpenResume }) => {
                       onClick={() => setActiveCmd(key)}
                       className={`px-2.5 py-1 sm:py-0.5 rounded text-[11.5px] cursor-pointer transition-colors whitespace-nowrap ${
                         activeCmd === key
-                          ? "bg-[#231D18] text-[#F6EFE2] dark:bg-stone-200 dark:text-stone-900 font-medium"
+                          ? "bg-[#231D18] text-[#F6EFE2] dark:bg-amber-400 dark:text-stone-950 font-medium"
                           : "text-[#4A3E33] dark:text-stone-300 hover:bg-[#DDD0BC]/80 dark:hover:bg-stone-800"
                       }`}
                     >
@@ -168,7 +168,7 @@ const Footer = ({ onOpenCommand, onOpenResume }) => {
                     onClick={() => handleCopy(email, "Email")}
                     className="inline-flex items-center gap-1.5 px-2.5 py-1.5 sm:py-1 min-h-[32px] sm:min-h-0 rounded border border-[#C5B49E] dark:border-stone-700 text-[11.5px] text-[#332B24] dark:text-stone-200 hover:bg-[#DFD3C0] dark:hover:bg-stone-800 cursor-pointer transition-colors whitespace-nowrap"
                   >
-                    {copiedEmail ? <FiCheck className="text-emerald-600" /> : <FiCopy />}
+                    {copiedEmail ? <FiCheck className="text-emerald-600 dark:text-emerald-400" /> : <FiCopy />}
                     <span>{copiedEmail ? "Copied" : "Copy email"}</span>
                   </button>
                   {onOpenCommand && (
@@ -187,7 +187,7 @@ const Footer = ({ onOpenCommand, onOpenResume }) => {
           )}
 
           {/* Subtle Copyright */}
-          <div className="text-[12.5px] text-[#6E5E4F] dark:text-stone-400 font-normal">
+          <div className="text-[12.5px] text-[#6E5E4F] dark:text-[#9C9184] font-normal">
             &copy; {currentYear} {PROFILE.name}
           </div>
         </div>

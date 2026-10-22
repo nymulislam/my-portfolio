@@ -39,33 +39,53 @@ const MOOD_DETAILS = {
 
 const MOOD_ORDER = ["morning", "afternoon", "evening", "night"];
 
+const STORAGE_KEY = "portfolio_time_mood_v2";
+const LEGACY_STORAGE_KEY = "portfolio_time_mood";
+const VALID_MOODS = ["morning", "afternoon", "evening", "night", "auto"];
+
+const getSystemPeriod = () => {
+  const hour = new Date().getHours();
+  if (hour >= 5 && hour < 12) return "morning";
+  if (hour >= 12 && hour < 17) return "afternoon";
+  if (hour >= 17 && hour < 21) return "evening";
+  return "night";
+};
+
 export const TimeOfDayProvider = ({ children }) => {
   const [selectedMood, setSelectedMood] = useState(() => {
     if (typeof window !== "undefined") {
       try {
-        const stored = localStorage.getItem("portfolio_time_mood");
-        if (stored) return stored;
+        // Clear legacy key that previously wrote "evening" by default on first visit
+        localStorage.removeItem(LEGACY_STORAGE_KEY);
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored && VALID_MOODS.includes(stored)) {
+          return stored;
+        }
       } catch {
         // ignore storage errors
       }
     }
-    return "evening";
+    return "auto";
   });
 
-  const getSystemPeriod = () => {
-    const hour = new Date().getHours();
-    if (hour >= 5 && hour < 12) return "morning";
-    if (hour >= 12 && hour < 17) return "afternoon";
-    if (hour >= 17 && hour < 21) return "evening";
-    return "night";
-  };
+  const [systemPeriod, setSystemPeriod] = useState(() => getSystemPeriod());
+
+  // Keep system period updated every 60s when in "auto" mode
+  useEffect(() => {
+    if (selectedMood !== "auto") return;
+    setSystemPeriod(getSystemPeriod());
+    const interval = setInterval(() => {
+      setSystemPeriod(getSystemPeriod());
+    }, 60000);
+    return () => clearInterval(interval);
+  }, [selectedMood]);
 
   const activePeriod = useMemo(() => {
     if (selectedMood === "auto") {
-      return getSystemPeriod();
+      return systemPeriod;
     }
-    return MOOD_ORDER.includes(selectedMood) ? selectedMood : "evening";
-  }, [selectedMood]);
+    return MOOD_ORDER.includes(selectedMood) ? selectedMood : systemPeriod;
+  }, [selectedMood, systemPeriod]);
 
   const currentDetails = MOOD_DETAILS[activePeriod] || MOOD_DETAILS.evening;
 
@@ -96,7 +116,7 @@ export const TimeOfDayProvider = ({ children }) => {
     }
 
     try {
-      localStorage.setItem("portfolio_time_mood", selectedMood);
+      localStorage.setItem(STORAGE_KEY, selectedMood);
     } catch {
       // ignore in sandboxed environments
     }

@@ -24,12 +24,12 @@ const Writing = () => {
   };
 
   return (
-    <section className="py-3 sm:py-4" id="writing">
+    <section className="py-3 sm:py-4 scroll-mt-24" id="writing">
       <div className="max-w-[880px] mx-auto px-4 sm:px-6">
-        <div className="border-t border-[#D2C3AE] dark:border-stone-800/80 pt-8 sm:pt-10">
+        <div className="border-t border-[#D2C3AE] dark:border-[#2B2622] pt-8 sm:pt-10">
           {/* Section Header */}
           <div className="flex items-baseline justify-between mb-5 sm:mb-6">
-            <h2 className="font-serif text-[24px] sm:text-[27px] font-normal text-[#231D18] dark:text-stone-50">
+            <h2 className="font-serif text-[24px] sm:text-[27px] font-normal text-[#231D18] dark:text-[#F3ECE2]">
               Writing
             </h2>
             <button
@@ -42,7 +42,7 @@ const Writing = () => {
           </div>
 
           {/* Clean Editorial Essay List */}
-          <div className="divide-y divide-[#DFD2C0] dark:divide-stone-800/70">
+          <div className="divide-y divide-[#DFD2C0] dark:divide-[#2B2622]">
             {ARTICLES.map((post) => (
               <article
                 key={post.id}
@@ -50,10 +50,10 @@ const Writing = () => {
                 className="group py-4 sm:py-5 flex items-center justify-between gap-4 cursor-pointer"
               >
                 <div className="space-y-1 min-w-0">
-                  <h3 className="font-serif text-[18px] sm:text-[19.5px] font-normal text-[#231D18] dark:text-stone-100 group-hover:text-[#9A4E24] dark:group-hover:text-amber-400 transition-colors leading-snug">
+                  <h3 className="font-serif text-[18px] sm:text-[19.5px] font-normal text-[#231D18] dark:text-[#F3ECE2] group-hover:text-[#9A4E24] dark:group-hover:text-amber-400 transition-colors leading-snug">
                     {post.title}
                   </h3>
-                  <div className="flex items-center gap-2 text-[12.5px] sm:text-[13px] text-[#52453A] dark:text-stone-300 tabular-nums">
+                  <div className="flex items-center gap-2 text-[12.5px] sm:text-[13px] text-[#52453A] dark:text-[#B8AEA2] tabular-nums">
                     <span>{post.date}</span>
                     <span aria-hidden="true">·</span>
                     <span>{post.readTime}</span>
@@ -75,18 +75,19 @@ const Writing = () => {
           onClick={() => setActiveArticle(null)}
         >
           <div
-            className="max-w-xl w-full max-h-[88vh] sm:max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl bg-[#F6EFE2] dark:bg-[#1B1917] border-t sm:border border-[#D5C7B4] dark:border-stone-800 p-5 sm:p-8 shadow-2xl space-y-5 sm:space-y-6"
+            key={activeArticle.id}
+            className="animate-editorial-fade max-w-xl w-full max-h-[88vh] sm:max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl bg-[#F6EFE2] dark:bg-[#1E1C19] border-t sm:border border-[#D5C7B4] dark:border-[#332E29] p-5 sm:p-8 shadow-2xl space-y-5 sm:space-y-6"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Sticky Top Bar inside Reader for easy Mobile Thumb Reach */}
-            <div className="sticky -top-5 sm:-top-8 -mx-5 sm:-mx-8 px-5 sm:px-8 py-3.5 bg-[#F6EFE2]/95 dark:bg-[#1B1917]/95 backdrop-blur-md flex items-start justify-between gap-3 border-b border-[#DCD0C0] dark:border-stone-800 z-10">
+            <div className="sticky -top-5 sm:-top-8 -mx-5 sm:-mx-8 px-5 sm:px-8 py-3.5 bg-[#F6EFE2]/95 dark:bg-[#1E1C19]/95 backdrop-blur-md flex items-start justify-between gap-3 border-b border-[#DCD0C0] dark:border-[#2E2925] z-10">
               <div className="space-y-1 min-w-0">
-                <div className="flex items-center gap-2 text-xs font-mono text-[#5C4E41] dark:text-stone-400 tabular-nums">
+                <div className="flex items-center gap-2 text-xs font-mono text-[#5C4E41] dark:text-[#9C9184] tabular-nums">
                   <span>{activeArticle.date}</span>
                   <span aria-hidden="true">·</span>
                   <span>{activeArticle.readTime}</span>
                 </div>
-                <h2 className="font-serif text-lg sm:text-2xl font-normal text-[#231D18] dark:text-stone-50 leading-snug">
+                <h2 className="font-serif text-lg sm:text-2xl font-normal text-[#231D18] dark:text-[#F3ECE2] leading-snug">
                   {activeArticle.title}
                 </h2>
               </div>
@@ -97,14 +98,14 @@ const Writing = () => {
                     onClick={() =>
                       setFontScale(fontScale === "normal" ? "lg" : fontScale === "lg" ? "sm" : "normal")
                     }
-                    className="px-2.5 py-1.5 min-h-[36px] rounded-lg border border-[#D5C7B4] dark:border-stone-700 text-xs font-mono text-[#332B24] dark:text-stone-300 hover:bg-[#E6DAC8] dark:hover:bg-stone-800 cursor-pointer"
+                    className="px-2.5 py-1.5 min-h-[36px] rounded-lg border border-[#D5C7B4] dark:border-[#38322C] text-xs font-mono text-[#332B24] dark:text-[#DFD7CC] hover:bg-[#E6DAC8] dark:hover:bg-[#2A2622] cursor-pointer"
                   >
                     {fontScale === "lg" ? "A+" : fontScale === "sm" ? "A-" : "Aa"}
                   </button>
                 </Tooltip>
                 <button
                   onClick={() => setActiveArticle(null)}
-                  className="p-2 min-h-[36px] min-w-[36px] flex items-center justify-center rounded-lg text-[#5C4E41] hover:text-[#231D18] dark:hover:text-stone-100 cursor-pointer"
+                  className="p-2 min-h-[36px] min-w-[36px] flex items-center justify-center rounded-lg text-[#5C4E41] dark:text-[#9C9184] hover:text-[#231D18] dark:hover:text-[#F3ECE2] cursor-pointer"
                   aria-label="Close article"
                 >
                   <FiX className="text-lg" />
@@ -113,7 +114,7 @@ const Writing = () => {
             </div>
 
             {/* Key Takeaway Summary */}
-            <div className="p-3.5 rounded-xl bg-[#EAE0CE]/70 dark:bg-stone-900/80 border border-[#DCD0C0] dark:border-stone-800 text-xs sm:text-[14px] text-[#332B24] dark:text-stone-200 leading-relaxed">
+            <div className="p-3.5 rounded-xl bg-[#EAE0CE]/70 dark:bg-[#171513] border border-[#DCD0C0] dark:border-[#2E2925] text-xs sm:text-[14px] text-[#332B24] dark:text-[#DFD7CC] leading-relaxed">
               <span className="font-mono font-medium text-[#9A4E24] dark:text-amber-400 mr-1.5">
                 Key idea:
               </span>
@@ -122,7 +123,7 @@ const Writing = () => {
 
             {/* Article Paragraphs */}
             <div
-              className={`space-y-4 text-[#231D18] dark:text-stone-200 leading-[1.78] ${
+              className={`space-y-4 text-[#231D18] dark:text-[#DFD7CC] leading-[1.8] ${
                 fontScale === "lg"
                   ? "text-base sm:text-[18px]"
                   : fontScale === "sm"
@@ -135,7 +136,7 @@ const Writing = () => {
                   key={idx}
                   className={
                     idx === 0
-                      ? "first-letter:text-3xl sm:first-letter:text-4xl first-letter:font-serif first-letter:font-normal first-letter:float-left first-letter:mr-2.5 first-letter:text-[#231D18] dark:first-letter:text-stone-50 first-letter:leading-none"
+                      ? "first-letter:text-3xl sm:first-letter:text-4xl first-letter:font-serif first-letter:font-normal first-letter:float-left first-letter:mr-2.5 first-letter:text-[#231D18] dark:first-letter:text-[#F3ECE2] first-letter:leading-none"
                       : ""
                   }
                 >
@@ -145,11 +146,11 @@ const Writing = () => {
             </div>
 
             {/* Reader Footer with Prev, Next & Done */}
-            <div className="pt-4 border-t border-[#DCD0C0] dark:border-stone-800 flex items-center justify-between gap-2">
+            <div className="pt-4 border-t border-[#DCD0C0] dark:border-[#2E2925] flex items-center justify-between gap-2">
               <div className="flex items-center gap-3">
                 <button
                   onClick={handlePrevArticle}
-                  className="py-2 px-2.5 rounded-lg text-xs font-mono text-[#52453A] dark:text-stone-400 hover:text-[#231D18] dark:hover:text-white cursor-pointer"
+                  className="py-2 px-2.5 rounded-lg text-xs font-mono text-[#52453A] dark:text-[#9C9184] hover:text-[#231D18] dark:hover:text-[#F3ECE2] cursor-pointer"
                 >
                   ← Prev
                 </button>
@@ -164,7 +165,7 @@ const Writing = () => {
 
               <button
                 onClick={() => setActiveArticle(null)}
-                className="px-4 py-2 min-h-[38px] rounded-lg bg-[#231D18] dark:bg-stone-100 text-[#F6EFE2] dark:text-stone-900 text-xs font-mono cursor-pointer hover:opacity-90"
+                className="px-4 py-2 min-h-[38px] rounded-lg bg-[#231D18] dark:bg-[#F3ECE2] text-[#F6EFE2] dark:text-[#1C1917] text-xs font-mono cursor-pointer hover:opacity-90"
               >
                 Done
               </button>

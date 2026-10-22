@@ -7,6 +7,7 @@ import Writing from "./Components/Editorial/Writing";
 import Footer from "./Components/Editorial/Footer";
 import CommandPalette from "./Components/UI/CommandPalette";
 import ResumeModal from "./Components/UI/ResumeModal";
+import AmbientStudioBackdrop from "./Components/UI/AmbientStudioBackdrop";
 import { Toast } from "./Components/UI/Toast";
 import { PROFILE } from "./data/portfolioData";
 
@@ -46,11 +47,14 @@ function App() {
   return (
     <TimeOfDayProvider>
       <div className="relative min-h-screen overflow-x-clip transition-colors duration-500">
+        {/* Subtle Time-Reactive Studio Light Aura & Architectural Blueprint Grid */}
+        <AmbientStudioBackdrop />
+
         {/* 3-Zone Editorial Top Bar with Studio Light Switcher */}
         <Header />
 
         {/* Main Architect's Studio & Monograph Content */}
-        <main>
+        <main className="relative z-10">
           {/* Split Hero with Studio Desk Vignette, Quick Hiring Bar & Live Stack Playground */}
           <Hero onOpenResume={() => setResumeOpen(true)} />
 
@@ -62,10 +66,12 @@ function App() {
         </main>
 
         {/* Preserved Footer with Interactive Developer Console Workbench */}
-        <Footer
-          onOpenCommand={() => setCommandOpen(true)}
-          onOpenResume={() => setResumeOpen(true)}
-        />
+        <div className="relative z-10">
+          <Footer
+            onOpenCommand={() => setCommandOpen(true)}
+            onOpenResume={() => setResumeOpen(true)}
+          />
+        </div>
 
         {/* Quick Command & Studio Light Switcher Modal (⌘K) */}
         <CommandPalette
