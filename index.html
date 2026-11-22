@@ -10,10 +10,72 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <title>Naymul Islam — Software Engineer | Full Stack & AI Systems</title>
-  <meta name="description" content="Personal developer portfolio of Naymul Islam showcasing full-stack web & mobile applications built with Next.js, TypeScript, Supabase, BetterAuth, HeroUI, MERN, and Agentic AI." />
-  <meta property="og:title" content="Naymul Islam — Software Engineer" />
-  <meta property="og:description" content="Full-Stack Software Engineer specializing in Next.js, TypeScript, Supabase, BetterAuth, HeroUI, MERN stack, and Agentic AI systems." />
+  <title>Naymul Islam — Full-Stack &amp; AI Systems Engineer</title>
+  <meta name="description" content="Portfolio of Naymul Islam — Full-Stack & AI Systems Engineer building fast web and mobile systems with Next.js, TypeScript, Supabase, BetterAuth, HeroUI, React Native, MERN, and Agentic AI." />
+  <meta name="author" content="Naymul Islam" />
+  <meta name="theme-color" content="#FAF3E6" />
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("portfolio_time_mood_v2") || "auto";
+        var valid = ["morning", "afternoon", "evening", "night"];
+        var h = new Date().getHours();
+        var sys = h >= 5 && h < 12 ? "morning" : h >= 12 && h < 17 ? "afternoon" : h >= 17 && h < 19 ? "evening" : "night";
+        var period = valid.indexOf(stored) !== -1 ? stored : sys;
+        var root = document.documentElement;
+        root.classList.add("mood-" + period);
+        if (period === "night") root.classList.add("dark");
+        var colors = { morning: "#FAF3E6", afternoon: "#F4F5F1", evening: "#E9DAC5", night: "#141210" };
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta && colors[period]) meta.setAttribute("content", colors[period]);
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- OpenGraph / Social Sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Naymul Islam — Full-Stack & AI Systems Engineer" />
+  <meta property="og:description" content="40 repositories & 2 GitHub orgs (learnhikmah & balzo-app). Specializing in Next.js, TypeScript, Supabase, BetterAuth, HeroUI, React Native, MERN, and deterministic Agentic AI." />
+  <meta property="og:image" content="/og-cover.svg" />
+  <meta property="og:image:alt" content="Naymul Islam — Full-Stack & AI Systems Engineer Portfolio" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Naymul Islam — Full-Stack & AI Systems Engineer" />
+  <meta name="twitter:description" content="Full-Stack & AI Systems Engineer specializing in Next.js, TypeScript, Supabase, BetterAuth, React Native, MERN, and Agentic AI." />
+  <meta name="twitter:image" content="/og-cover.svg" />
+
+  <!-- Structured Data (JSON-LD) for Search & Recruiter Discovery -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Naymul Islam",
+      "jobTitle": "Full-Stack & AI Systems Engineer",
+      "email": "mailto:naymulislam241@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dhaka",
+        "addressCountry": "BD"
+      },
+      "sameAs": [
+        "https://github.com/nymulislam",
+        "https://linkedin.com/in/nymulislam",
+        "https://learnhikmah.com"
+      ],
+      "knowsAbout": [
+        "Next.js",
+        "TypeScript",
+        "React",
+        "React Native",
+        "Supabase",
+        "BetterAuth",
+        "Node.js",
+        "MongoDB",
+        "Agentic AI"
+      ]
+    }
+  </script>
 </head>
 
 <body>

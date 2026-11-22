@@ -4,7 +4,7 @@ import {
   EXPERIENCE_TIMELINE,
   CASE_STUDIES,
   EDUCATION_CREDENTIALS,
-} from "../data/portfolioData";
+} from "../data/portfolioData.js";
 
 /**
  * Normalizes unicode punctuation into clean ASCII for PDF Type1 standard fonts
@@ -161,7 +161,7 @@ export function buildResumePdfBytes() {
   );
   y -= 14;
 
-  // Clean Clickable Contact & Profile Hyperlinks Row (No raw long URLs)
+  // Clean Clickable Contact & Profile Hyperlinks Row (Sized safely within 505pt A4 width)
   let cx = marginX;
   const emailW = drawLink(
     PROFILE.email,
@@ -169,12 +169,12 @@ export function buildResumePdfBytes() {
     cx,
     y,
     "F1",
-    8.8,
+    8.6,
     [0.25, 0.21, 0.18]
   );
-  cx += emailW + 8;
-  drawText("|", cx, y, "F1", 8.8, [0.58, 0.51, 0.44]);
-  cx += 9;
+  cx += emailW + 7;
+  drawText("|", cx, y, "F1", 8.6, [0.58, 0.51, 0.44]);
+  cx += 8;
 
   const ghW = drawLink(
     `GitHub (${PROFILE.repoCount} Repos, ${PROFILE.orgCount} Orgs)`,
@@ -182,46 +182,46 @@ export function buildResumePdfBytes() {
     cx,
     y,
     "F2",
-    8.8,
+    8.6,
     [0.6, 0.31, 0.14]
   );
-  cx += ghW + 8;
-  drawText("|", cx, y, "F1", 8.8, [0.58, 0.51, 0.44]);
-  cx += 9;
+  cx += ghW + 7;
+  drawText("|", cx, y, "F1", 8.6, [0.58, 0.51, 0.44]);
+  cx += 8;
 
   const liW = drawLink(
-    "LinkedIn Profile",
+    "LinkedIn",
     PROFILE.linkedinUrl,
     cx,
     y,
     "F2",
-    8.8,
+    8.6,
     [0.6, 0.31, 0.14]
   );
-  cx += liW + 8;
-  drawText("|", cx, y, "F1", 8.8, [0.58, 0.51, 0.44]);
-  cx += 9;
+  cx += liW + 7;
+  drawText("|", cx, y, "F1", 8.6, [0.58, 0.51, 0.44]);
+  cx += 8;
 
   const lhW = drawLink(
-    "LearnHikmah Live",
+    "LearnHikmah",
     "https://learnhikmah.com",
     cx,
     y,
     "F1",
-    8.8,
+    8.6,
     [0.25, 0.21, 0.18]
   );
-  cx += lhW + 8;
-  drawText("|", cx, y, "F1", 8.8, [0.58, 0.51, 0.44]);
-  cx += 9;
+  cx += lhW + 7;
+  drawText("|", cx, y, "F1", 8.6, [0.58, 0.51, 0.44]);
+  cx += 8;
 
   drawLink(
-    "An-Nujum Foundation Live",
+    "An-Nujum Foundation",
     "https://an-nujum-foundation.vercel.app/",
     cx,
     y,
     "F1",
-    8.8,
+    8.6,
     [0.25, 0.21, 0.18]
   );
 
@@ -246,9 +246,15 @@ export function buildResumePdfBytes() {
   y -= 14;
 
   for (const group of RESUME_SNAPSHOT.skillGroups) {
-    drawText(`${group.category}:`, marginX, y, "F2", 9.0, [0.16, 0.14, 0.12]);
-    drawText(group.items, marginX + 102, y, "F1", 9.0, [0.24, 0.2, 0.17]);
-    y -= 14;
+    drawText(`${group.category}:`, marginX, y, "F2", 8.8, [0.16, 0.14, 0.12]);
+    const wrappedSkills = wrapText(group.items, 92);
+    wrappedSkills.forEach((line, lineIdx) => {
+      drawText(line, marginX + 94, y, "F1", 8.6, [0.24, 0.2, 0.17]);
+      if (lineIdx < wrappedSkills.length - 1) {
+        y -= 11;
+      }
+    });
+    y -= 13;
   }
 
   // ==================== 4. PROFESSIONAL EXPERIENCE ====================
@@ -333,7 +339,7 @@ export function buildResumePdfBytes() {
       drawLink(liveLabel, proj.url, sepX - liveW - 5, y, "F2", 8.5, [0.6, 0.31, 0.14]);
     } else {
       const liveLabel =
-        proj.id === "balzo-financial" ? "GitHub Org" : "Live Site";
+        proj.id === "balzo-financial" ? "GitHub Profile" : "Live Site";
       const liveW = estimateTextWidth(liveLabel, 8.5);
       drawLink(liveLabel, proj.url, rightX - liveW, y, "F2", 8.5, [0.6, 0.31, 0.14]);
     }

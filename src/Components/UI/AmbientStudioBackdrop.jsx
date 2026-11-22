@@ -12,35 +12,35 @@ const AmbientStudioBackdrop = () => {
   const atmosphereByMood = {
     morning: {
       skylight:
-        "radial-gradient(ellipse 95% 48% at 50% -10%, rgba(255, 247, 232, 0.72), rgba(242, 214, 174, 0.18) 55%, transparent 85%)",
+        "radial-gradient(ellipse 95% 48% at 50% -10%, rgba(255, 248, 228, 0.85), rgba(248, 212, 152, 0.22) 55%, transparent 85%)",
       windowAura:
-        "radial-gradient(circle at 78% 18%, rgba(232, 172, 98, 0.14), rgba(214, 145, 76, 0.04) 48%, transparent 74%)",
+        "radial-gradient(circle at 78% 18%, rgba(245, 178, 86, 0.2), rgba(226, 152, 68, 0.06) 48%, transparent 74%)",
       lowerWash:
-        "radial-gradient(circle at 16% 78%, rgba(212, 162, 108, 0.08), transparent 65%)",
+        "radial-gradient(circle at 16% 78%, rgba(224, 174, 112, 0.1), transparent 65%)",
     },
     afternoon: {
       skylight:
-        "radial-gradient(ellipse 95% 48% at 50% -10%, rgba(255, 252, 245, 0.78), rgba(235, 218, 192, 0.14) 55%, transparent 85%)",
+        "radial-gradient(ellipse 95% 48% at 50% -10%, rgba(255, 255, 255, 0.88), rgba(206, 228, 244, 0.18) 55%, transparent 85%)",
       windowAura:
-        "radial-gradient(circle at 74% 16%, rgba(218, 172, 118, 0.11), rgba(190, 148, 102, 0.03) 50%, transparent 74%)",
+        "radial-gradient(circle at 74% 16%, rgba(165, 206, 238, 0.16), rgba(186, 216, 238, 0.04) 50%, transparent 74%)",
       lowerWash:
-        "radial-gradient(circle at 20% 80%, rgba(196, 164, 126, 0.06), transparent 65%)",
+        "radial-gradient(circle at 20% 80%, rgba(184, 198, 206, 0.08), transparent 65%)",
     },
     evening: {
       skylight:
-        "radial-gradient(ellipse 95% 48% at 50% -10%, rgba(247, 224, 194, 0.45), rgba(208, 130, 74, 0.11) 55%, transparent 85%)",
+        "radial-gradient(ellipse 95% 48% at 50% -10%, rgba(248, 208, 162, 0.52), rgba(218, 118, 56, 0.16) 55%, transparent 85%)",
       windowAura:
-        "radial-gradient(circle at 80% 20%, rgba(204, 112, 54, 0.14), rgba(168, 86, 38, 0.05) 48%, transparent 75%)",
+        "radial-gradient(circle at 80% 18%, rgba(232, 112, 46, 0.22), rgba(184, 82, 30, 0.07) 48%, transparent 75%)",
       lowerWash:
-        "radial-gradient(circle at 18% 76%, rgba(186, 104, 54, 0.07), transparent 65%)",
+        "radial-gradient(circle at 18% 76%, rgba(196, 102, 46, 0.11), transparent 65%)",
     },
     night: {
       skylight:
-        "radial-gradient(ellipse 95% 45% at 50% -10%, rgba(251, 191, 36, 0.055), rgba(217, 119, 6, 0.02) 55%, transparent 82%)",
+        "radial-gradient(ellipse 95% 45% at 50% -10%, rgba(251, 191, 36, 0.06), rgba(217, 119, 6, 0.02) 55%, transparent 82%)",
       windowAura:
-        "radial-gradient(circle at 80% 18%, rgba(245, 158, 11, 0.075), rgba(180, 83, 9, 0.025) 48%, transparent 72%)",
+        "radial-gradient(circle at 80% 18%, rgba(245, 158, 11, 0.085), rgba(180, 83, 9, 0.025) 48%, transparent 72%)",
       lowerWash:
-        "radial-gradient(circle at 18% 82%, rgba(217, 119, 6, 0.035), transparent 65%)",
+        "radial-gradient(circle at 18% 82%, rgba(217, 119, 6, 0.04), transparent 65%)",
     },
   };
 

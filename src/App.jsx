@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { TimeOfDayProvider } from "./context/TimeOfDayContext";
 import Header from "./Components/Header/Header";
 import Hero from "./Components/Editorial/Hero";
@@ -7,14 +7,26 @@ import Writing from "./Components/Editorial/Writing";
 import Footer from "./Components/Editorial/Footer";
 import CommandPalette from "./Components/UI/CommandPalette";
 import ResumeModal from "./Components/UI/ResumeModal";
+import ContactModal from "./Components/UI/ContactModal";
 import AmbientStudioBackdrop from "./Components/UI/AmbientStudioBackdrop";
 import { Toast } from "./Components/UI/Toast";
 import { PROFILE } from "./data/portfolioData";
+import { downloadResumePdf } from "./utils/generateResumePdf";
 
 function App() {
   const [commandOpen, setCommandOpen] = useState(false);
   const [resumeOpen, setResumeOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
+  const toastTimerRef = useRef(null);
+
+  const showToast = (message, duration = 2600) => {
+    setToastMsg(message);
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current);
+    }
+    toastTimerRef.current = setTimeout(() => setToastMsg(""), duration);
+  };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -24,42 +36,61 @@ function App() {
       }
     };
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      if (toastTimerRef.current) {
+        clearTimeout(toastTimerRef.current);
+      }
+    };
   }, []);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(PROFILE.email);
-    setToastMsg("Email copied to clipboard");
-    setTimeout(() => setToastMsg(""), 2500);
+    showToast("Email copied to clipboard");
   };
 
   const handleCopyPhone = () => {
     navigator.clipboard.writeText(PROFILE.phone);
-    setToastMsg("WhatsApp number copied to clipboard");
-    setTimeout(() => setToastMsg(""), 2500);
+    showToast("WhatsApp number copied to clipboard");
   };
 
   const handleDownloadPdf = () => {
-    setToastMsg("Resume PDF downloaded (Naymul_Islam_Resume.pdf)");
-    setTimeout(() => setToastMsg(""), 2800);
+    showToast("Resume PDF downloaded (Naymul_Islam_Resume.pdf)", 2800);
+  };
+
+  const handleDirectDownloadPdf = () => {
+    downloadResumePdf();
+    handleDownloadPdf();
   };
 
   return (
     <TimeOfDayProvider>
       <div className="relative min-h-screen overflow-x-clip transition-colors duration-500">
-        {/* Subtle Time-Reactive Studio Light Aura & Architectural Blueprint Grid */}
+        {/* Subtle Time-Reactive Studio Light Aura */}
         <AmbientStudioBackdrop />
 
-        {/* 3-Zone Editorial Top Bar with Studio Light Switcher */}
-        <Header />
+        {/* 3-Zone Editorial Top Bar with Quick Hire Action & Studio Light Switcher */}
+        <Header
+          onOpenResume={() => setResumeOpen(true)}
+          onOpenContact={() => setContactOpen(true)}
+        />
 
         {/* Main Architect's Studio & Monograph Content */}
         <main className="relative z-10">
-          {/* Split Hero with Studio Desk Vignette, Quick Hiring Bar & Live Stack Playground */}
-          <Hero onOpenResume={() => setResumeOpen(true)} />
+          {/* Split Hero with Studio Desk Vignette, HR Action Bar, Proof Strip & Live Stack Playground */}
+          <Hero
+            onOpenResume={() => setResumeOpen(true)}
+            onDownloadPdf={handleDirectDownloadPdf}
+            onOpenContact={() => setContactOpen(true)}
+            onCopyEmail={handleCopyEmail}
+            onNotify={showToast}
+          />
 
-          {/* Interactive Case Study Cards, Experience Timeline & Scalable Foundations */}
-          <TwoColumnSection onOpenResume={() => setResumeOpen(true)} />
+          {/* Interactive Case Study Cards, Skills Matrix, Experience & Education, Foundations */}
+          <TwoColumnSection
+            onOpenResume={() => setResumeOpen(true)}
+            onDownloadPdf={handleDirectDownloadPdf}
+          />
 
           {/* Engineering Essays & Distraction-Free Reader */}
           <Writing />
@@ -70,6 +101,9 @@ function App() {
           <Footer
             onOpenCommand={() => setCommandOpen(true)}
             onOpenResume={() => setResumeOpen(true)}
+            onDownloadPdf={handleDirectDownloadPdf}
+            onOpenContact={() => setContactOpen(true)}
+            onCopyEmail={handleCopyEmail}
           />
         </div>
 
@@ -80,6 +114,8 @@ function App() {
           onCopyEmail={handleCopyEmail}
           onCopyPhone={handleCopyPhone}
           onOpenResume={() => setResumeOpen(true)}
+          onDownloadPdf={handleDirectDownloadPdf}
+          onOpenContact={() => setContactOpen(true)}
         />
 
         {/* Interactive Executive CV / Resume Preview Modal */}
@@ -88,6 +124,15 @@ function App() {
           onClose={() => setResumeOpen(false)}
           onCopyEmail={handleCopyEmail}
           onDownloadPdf={handleDownloadPdf}
+        />
+
+        {/* Global Direct Contact & Quick-Copy Modal */}
+        <ContactModal
+          isOpen={contactOpen}
+          onClose={() => setContactOpen(false)}
+          onCopyEmail={handleCopyEmail}
+          onCopyPhone={handleCopyPhone}
+          onNotify={showToast}
         />
 
         <Toast

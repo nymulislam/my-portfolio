@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTimeOfDay } from "../../context/TimeOfDayContext";
 import Tooltip from "../UI/Tooltip";
 
-const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
+const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey, embedded = false }) => {
   const { activePeriod, cycleMood, studioLampOn, toggleStudioLamp, currentDetails } = useTimeOfDay();
   const [hoverZone, setHoverZone] = useState(null);
 
@@ -16,9 +16,15 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
       : null;
 
   return (
-    <div className="relative w-full max-w-full md:max-w-[380px] mx-auto select-none">
+    <div className="relative w-full mx-auto select-none">
       {/* Main Studio Desk & Window Card */}
-      <div className="relative rounded-2xl border border-[#D2C3AE] dark:border-stone-800/90 bg-[#E8DEC9]/55 dark:bg-[#1A1816]/90 p-3 sm:p-3.5 shadow-xs">
+      <div
+        className={
+          embedded
+            ? "relative rounded-xl border border-[#D2C3AE]/85 dark:border-stone-800/90 bg-[#F6EFE2]/75 dark:bg-[#151311]/90 p-3 sm:p-3.5"
+            : "relative rounded-2xl border border-[#D2C3AE] dark:border-stone-800/90 bg-[#E8DEC9]/55 dark:bg-[#1A1816]/90 p-3 sm:p-3.5 shadow-sm"
+        }
+      >
         {/* Floating Editorial Tooltip Pill when hovering interactive SVG objects */}
         {hoverLabel && (
           <div className="pointer-events-none absolute top-2.5 left-1/2 -translate-x-1/2 z-20 px-2.5 py-1 rounded-lg bg-[#231D18] dark:bg-[#2B2520] text-[#F6EFE2] dark:text-stone-100 border border-[#524336] dark:border-stone-700 shadow-lg text-[11px] font-mono flex items-center gap-1.5 whitespace-nowrap">
@@ -92,7 +98,7 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
           {/* ==================== 1. FRAMED STUDIO WINDOW (Top Left - Tap/Click to Shift Time) ==================== */}
           <g
             className="cursor-pointer"
-            onClick={cycleMood}
+            onClick={(e) => cycleMood(e)}
             onMouseEnter={() => setHoverZone("window")}
             onMouseLeave={() => setHoverZone(null)}
           >
@@ -442,7 +448,8 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey }) => {
 
             <Tooltip content="Shift studio time of day" position="top" align="right" className="w-full">
               <button
-                onClick={cycleMood}
+                type="button"
+                onClick={(e) => cycleMood(e)}
                 className="w-full px-2.5 py-1.5 min-h-[32px] rounded-lg text-[11.5px] border border-[#C5B49E] dark:border-stone-700 text-[#332B24] dark:text-stone-200 hover:bg-[#DDD0BC]/70 dark:hover:bg-stone-800 cursor-pointer transition-colors whitespace-nowrap text-center"
               >
                 {currentDetails.label} ↻

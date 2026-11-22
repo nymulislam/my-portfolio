@@ -20,46 +20,148 @@
     color: inherit;
   }
 
-  /* Morning Mood — Warm Sunlit Studio Paper */
-  html.mood-morning body {
-    background-color: #F6EFE2;
-    color: #2B241E;
+  /* Default / Morning Mood — Fresh Sunlit Ivory Paper */
+  :root,
+  html.mood-morning {
+    --studio-bg: #FAF3E6;
+    --studio-ink: #2A221B;
+    --studio-surface: rgba(255, 251, 243, 0.85);
+    --studio-surface-muted: rgba(244, 232, 211, 0.62);
+    --studio-header-bg: rgba(250, 243, 230, 0.92);
+    --studio-border: #DFD0B8;
+    --studio-border-hover: #C2AD8E;
+    --studio-accent: #A6521E;
+    --studio-rail: rgba(214, 196, 169, 0.5);
+    --studio-chip-bg: rgba(246, 235, 216, 0.85);
+    --studio-chip-border: #E0D2BC;
   }
 
-  /* Afternoon Mood — Crisp Daylight Architect Paper */
-  html.mood-afternoon body {
-    background-color: #F8F4EC;
-    color: #231E1A;
+  /* Afternoon Mood — Crisp High-Daylight Alabaster Linen (Noticeably Cooler & Cleaner) */
+  html.mood-afternoon {
+    --studio-bg: #F4F5F1;
+    --studio-ink: #1F201D;
+    --studio-surface: rgba(253, 253, 251, 0.9);
+    --studio-surface-muted: rgba(235, 237, 231, 0.7);
+    --studio-header-bg: rgba(244, 245, 241, 0.92);
+    --studio-border: #D2D4CA;
+    --studio-border-hover: #B1B4A7;
+    --studio-accent: #874828;
+    --studio-rail: rgba(196, 199, 189, 0.5);
+    --studio-chip-bg: rgba(237, 239, 233, 0.88);
+    --studio-chip-border: #D5D7CE;
   }
 
-  /* Evening Mood — Warm Sunset Parchment */
-  html.mood-evening body {
-    background-color: #EFE6D8;
-    color: #2B241E;
+  /* Evening Mood — Rich Golden Hour / Dusk Amber Parchment */
+  html.mood-evening {
+    --studio-bg: #E9DAC5;
+    --studio-ink: #2B2119;
+    --studio-surface: rgba(245, 235, 220, 0.86);
+    --studio-surface-muted: rgba(224, 204, 177, 0.65);
+    --studio-header-bg: rgba(233, 218, 197, 0.92);
+    --studio-border: #C7B296;
+    --studio-border-hover: #AA9172;
+    --studio-accent: #9E3E16;
+    --studio-rail: rgba(188, 165, 136, 0.52);
+    --studio-chip-bg: rgba(235, 220, 198, 0.85);
+    --studio-chip-border: #CEB99D;
   }
 
-  /* Night Mood — Deep Warm Espresso Studio */
+  /* Night Mood — Deep Warm Lamp-Lit Espresso Studio */
+  html.mood-night,
+  html.dark {
+    --studio-bg: #141210;
+    --studio-ink: #E7E0D6;
+    --studio-surface: rgba(28, 25, 22, 0.88);
+    --studio-surface-muted: rgba(24, 21, 18, 0.86);
+    --studio-header-bg: rgba(20, 18, 16, 0.92);
+    --studio-border: #2E2823;
+    --studio-border-hover: #473E36;
+    --studio-accent: #FBBF24;
+    --studio-rail: rgba(56, 50, 44, 0.44);
+    --studio-chip-bg: #221E1B;
+    --studio-chip-border: #2E2823;
+  }
+
+  body {
+    background-color: var(--studio-bg);
+    color: var(--studio-ink);
+  }
+
   html.mood-night body,
   html.dark body {
-    background-color: #151311;
-    color: #E7E0D6;
     letter-spacing: 0.005em;
   }
 }
 
-/* Smooth GPU View Transitions API for Time-of-Day Mood Shifts (Night <-> Morning, etc.) */
-@keyframes studioViewCrossfade {
+@layer components {
+  .studio-container {
+    @apply max-w-[1280px] 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .studio-section {
+    @apply max-w-[1280px] 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12;
+  }
+
+  .studio-card {
+    background-color: var(--studio-surface);
+    border: 1px solid var(--studio-border);
+    @apply rounded-2xl hover:shadow-sm;
+  }
+
+  .studio-card:hover {
+    border-color: var(--studio-border-hover);
+  }
+
+  .studio-surface-muted {
+    background-color: var(--studio-surface-muted);
+    border-color: var(--studio-border);
+  }
+
+  .studio-header-scrolled {
+    background-color: var(--studio-header-bg);
+    border-bottom-color: var(--studio-border);
+  }
+
+  .studio-chip {
+    background-color: var(--studio-chip-bg);
+    border: 1px solid var(--studio-chip-border);
+    @apply px-2 py-0.5 rounded-md text-[11px] font-mono text-[#4A3E33] dark:text-stone-300 leading-tight;
+  }
+
+  .studio-eyebrow {
+    color: var(--studio-accent);
+    @apply text-[11px] font-mono uppercase tracking-[0.14em] font-medium;
+  }
+}
+
+/* Smooth GPU scroll-reveal transitions */
+.studio-reveal {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 560ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.studio-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* Cinematic GPU Radial Light-Wave View Transition for Time-of-Day Mood Shifts */
+@keyframes studioRadialWave {
   0% {
-    opacity: 0;
+    clip-path: circle(0px at var(--vt-x, 92%) var(--vt-y, 36px));
   }
   100% {
-    opacity: 1;
+    clip-path: circle(var(--vt-radius, 150vmax) at var(--vt-x, 92%) var(--vt-y, 36px));
   }
 }
 
 ::view-transition-group(root) {
-  animation-duration: 850ms;
-  animation-timing-function: cubic-bezier(0.45, 0.05, 0.25, 1);
+  animation-duration: 620ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 ::view-transition-old(root) {
@@ -70,7 +172,7 @@
 }
 
 ::view-transition-new(root) {
-  animation: studioViewCrossfade 850ms cubic-bezier(0.45, 0.05, 0.25, 1) forwards;
+  animation: studioRadialWave 620ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
   mix-blend-mode: normal;
   z-index: 2;
 }
@@ -99,13 +201,22 @@ html.mood-transitioning *::after {
   transition-delay: 0ms !important;
 }
 
-/* Rich Atmospheric Studio Modal Surfaces (Daylight Paper & Nocturnal Lamp-Lit Espresso) */
+/* Rich Atmospheric Studio Modal Surfaces (Time-of-Day Paper & Nocturnal Lamp-Lit Espresso) */
 .studio-modal-surface {
-  background-color: #F6EFE2;
+  background-color: var(--studio-bg);
   background-image:
-    radial-gradient(ellipse 75% 55% at 92% 4%, rgba(251, 191, 36, 0.16) 0%, transparent 65%),
-    linear-gradient(175deg, #F8F2E6 0%, #F4ECDD 55%, #EFE5D4 100%);
-  border-color: #D5C7B4;
+    radial-gradient(ellipse 75% 55% at 92% 4%, rgba(251, 191, 36, 0.14) 0%, transparent 65%);
+  border-color: var(--studio-border);
+}
+
+html.mood-afternoon .studio-modal-surface {
+  background-image:
+    radial-gradient(ellipse 75% 55% at 92% 4%, rgba(186, 230, 253, 0.16) 0%, transparent 65%);
+}
+
+html.mood-evening .studio-modal-surface {
+  background-image:
+    radial-gradient(ellipse 75% 55% at 92% 4%, rgba(234, 88, 12, 0.14) 0%, transparent 68%);
 }
 
 html.dark .studio-modal-surface {
@@ -298,6 +409,44 @@ html.dark .studio-modal-subcard:hover {
   transform: translateY(-2px);
 }
 
+/* Smooth infinite studio tech marquee with edge mask & hover pause */
+@keyframes studioMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.studio-marquee-mask {
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.studio-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: studioMarquee 34s linear infinite;
+  will-change: transform;
+}
+
+.studio-marquee-mask:hover .studio-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Subtle architectural drafting hairlines on wide & 4K viewports */
+.studio-frame-rails {
+  position: relative;
+}
+
+@media (min-width: 1280px) {
+  .studio-frame-rails {
+    border-left: 1px solid var(--studio-rail);
+    border-right: 1px solid var(--studio-rail);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -314,13 +463,19 @@ html.dark .studio-modal-subcard:hover {
   .animate-editorial-fade,
   .animate-modal-backdrop,
   .animate-modal-sheet,
-  .animate-mood-icon {
+  .animate-mood-icon,
+  .studio-marquee-track {
     animation: none !important;
   }
   .editorial-card-lift,
   .editorial-card-lift:hover {
     transition: none !important;
     transform: none !important;
+  }
+  .studio-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
 
@@ -334,6 +489,14 @@ html.dark .studio-modal-subcard:hover {
 ::-webkit-scrollbar-thumb {
   background: rgba(120, 113, 108, 0.25);
   border-radius: 9999px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 #a4-print-root {

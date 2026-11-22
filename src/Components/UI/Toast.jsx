@@ -4,17 +4,22 @@ export const Toast = ({ message, type = "success", isVisible, onClose }) => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-lg shadow-xl border bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 text-sm transition-all duration-300 animate-in fade-in slide-in-from-bottom-2">
+    <div
+      role="status"
+      aria-live="polite"
+      className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-[100] max-w-[calc(100vw-2rem)] flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-xl border border-[#CBBBA4] dark:border-amber-500/25 bg-[#231D18] dark:bg-[#F3ECE2] text-[#F6EFE2] dark:text-[#1C1917] text-xs sm:text-sm animate-editorial-fade"
+    >
       {type === "success" ? (
-        <FiCheck className="text-emerald-500 text-base shrink-0" />
+        <FiCheck className="text-emerald-400 dark:text-emerald-600 text-base shrink-0" />
       ) : (
-        <FiAlertCircle className="text-rose-500 text-base shrink-0" />
+        <FiAlertCircle className="text-rose-400 dark:text-rose-600 text-base shrink-0" />
       )}
-      <span className="font-medium">{message}</span>
+      <span className="font-medium leading-snug">{message}</span>
       <button
+        type="button"
         onClick={onClose}
-        className="ml-2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition-colors text-xs"
-        aria-label="Close"
+        className="ml-1.5 opacity-70 hover:opacity-100 transition-opacity text-xs cursor-pointer shrink-0 p-0.5"
+        aria-label="Dismiss notification"
       >
         ✕
       </button>
