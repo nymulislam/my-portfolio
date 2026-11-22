@@ -19,7 +19,7 @@ import { PROFILE, STACK_PLAYGROUND, CASE_STUDIES } from "../../data/portfolioDat
 import { smoothScrollToId } from "../../utils/smoothScroll";
 
 const ICON_BTN_CLASS =
-  "inline-flex items-center justify-center w-9 h-9 rounded-lg border border-[#D2C3AE] dark:border-[#332E29] bg-[#EFE6D8]/65 dark:bg-[#1E1B18] text-[#332B24] dark:text-stone-300 hover:border-[#9A4E24] dark:hover:border-amber-400 hover:text-[#9A4E24] dark:hover:text-amber-400 transition-colors cursor-pointer";
+  "inline-flex items-center justify-center w-9 h-9 rounded-lg border border-[#D2C3AE] dark:border-[#332E29] bg-[#EFE6D8]/65 dark:bg-[#1E1B18] text-[#332B24] dark:text-stone-300 hover:border-[#9A4E24] dark:hover:border-amber-400 hover:text-[#9A4E24] dark:hover:text-amber-400 hover:-translate-y-0.5 active:scale-[0.96] transition-all duration-200 cursor-pointer";
 
 const Hero = ({ onOpenResume, onDownloadPdf, onOpenContact, onCopyEmail, onNotify }) => {
   const { currentDetails } = useTimeOfDay();
@@ -79,7 +79,7 @@ const Hero = ({ onOpenResume, onDownloadPdf, onOpenContact, onCopyEmail, onNotif
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center">
           {/* Left Column (7/12) */}
           <div className="lg:col-span-7 space-y-5 sm:space-y-6">
-            <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[12px] sm:text-[13px] text-[#5C4E41] dark:text-[#B8AEA2] font-mono tabular-nums">
+            <div className="animate-hero-in flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[12px] sm:text-[13px] text-[#5C4E41] dark:text-[#B8AEA2] font-mono tabular-nums">
               <span>{PROFILE.location}</span>
               {dhakaClock && (
                 <>
@@ -91,17 +91,20 @@ const Hero = ({ onOpenResume, onDownloadPdf, onOpenContact, onCopyEmail, onNotif
               <span className="text-[#9A4E24] dark:text-amber-400 font-medium">{currentDetails.skyNote}</span>
             </div>
 
-            <h1 className="font-serif text-[36px] xs:text-[42px] sm:text-[54px] lg:text-[58px] 2xl:text-[64px] font-normal text-[#231D18] dark:text-[#F3ECE2] tracking-[-0.025em] leading-[1.06]">
+            <h1
+              style={{ animationDelay: "70ms" }}
+              className="animate-hero-in font-serif text-[36px] xs:text-[42px] sm:text-[54px] lg:text-[58px] 2xl:text-[64px] font-normal text-[#231D18] dark:text-[#F3ECE2] tracking-[-0.025em] leading-[1.06]"
+            >
               Hi, I’m {PROFILE.shortName}.
               <span className="block mt-1 text-[28px] xs:text-[32px] sm:text-[42px] lg:text-[46px] 2xl:text-[50px] text-[#3B3128] dark:text-[#DFD7CC] leading-[1.12]">
                 I architect fast{" "}
-                <span className="italic text-[#9A4E24] dark:text-amber-400 underline decoration-[#9A4E24]/35 dark:decoration-amber-400/35 underline-offset-[6px] decoration-2">
+                <span className="italic text-[#9A4E24] dark:text-amber-400 studio-underline-draw">
                   full-stack &amp; AI systems.
                 </span>
               </span>
             </h1>
 
-            <div className="space-y-2.5 max-w-[64ch]">
+            <div style={{ animationDelay: "130ms" }} className="animate-hero-in space-y-2 max-w-[64ch]">
               <p className="text-[15.5px] sm:text-[17px] text-[#332B24] dark:text-[#DFD7CC] leading-[1.72]">
                 {PROFILE.shortBio}{" "}
                 <button
@@ -112,21 +115,23 @@ const Hero = ({ onOpenResume, onDownloadPdf, onOpenContact, onCopyEmail, onNotif
                   {bioExpanded ? "Show less ↑" : "Read more ↓"}
                 </button>
               </p>
-              {bioExpanded && (
-                <p className="animate-editorial-fade text-[14.5px] sm:text-[15.5px] text-[#4A3E33] dark:text-[#C8BEB2] leading-[1.72] pl-3.5 border-l-2 border-[#D2C3AE] dark:border-[#38322C]">
-                  {PROFILE.expandedBio}
-                </p>
-              )}
+              <div className={`studio-accordion ${bioExpanded ? "is-open" : ""}`} aria-hidden={!bioExpanded}>
+                <div>
+                  <p className="pt-1 text-[14.5px] sm:text-[15.5px] text-[#4A3E33] dark:text-[#C8BEB2] leading-[1.72] pl-3.5 border-l-2 border-[#D2C3AE] dark:border-[#38322C]">
+                    {PROFILE.expandedBio}
+                  </p>
+                </div>
+              </div>
             </div>
 
             {/* Executive Actions */}
-            <div className="flex flex-wrap items-center gap-2.5 pt-1">
+            <div style={{ animationDelay: "190ms" }} className="animate-hero-in flex flex-wrap items-center gap-2.5 pt-1">
               {onDownloadPdf && (
                 <Tooltip content="Save 1-page ATS-friendly A4 PDF" position="top" align="left">
                   <button
                     type="button"
                     onClick={onDownloadPdf}
-                    className="inline-flex items-center gap-2 px-4 py-2.5 min-h-[42px] rounded-xl bg-[#231D18] text-[#F6EFE2] dark:bg-[#F3ECE2] dark:text-[#1C1917] text-[13px] font-mono font-medium hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer whitespace-nowrap shadow-sm"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 min-h-[42px] rounded-xl bg-[#231D18] text-[#F6EFE2] dark:bg-[#F3ECE2] dark:text-[#1C1917] text-[13px] font-mono font-medium hover:opacity-90 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 cursor-pointer whitespace-nowrap shadow-sm"
                   >
                     <FiDownload className="text-xs shrink-0" />
                     <span>Download CV (PDF)</span>
@@ -139,7 +144,7 @@ const Hero = ({ onOpenResume, onDownloadPdf, onOpenContact, onCopyEmail, onNotif
                   <button
                     type="button"
                     onClick={onOpenResume}
-                    className="inline-flex items-center gap-2 px-4 py-2.5 min-h-[42px] rounded-xl border border-[#CBBBA4] dark:border-[#38322C] bg-[#EFE6D8]/75 dark:bg-[#221F1C] text-[13px] font-mono font-medium text-[#231D18] dark:text-[#DFD7CC] hover:border-[#9A4E24] dark:hover:border-amber-400 transition-colors cursor-pointer whitespace-nowrap"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 min-h-[42px] rounded-xl border border-[#CBBBA4] dark:border-[#38322C] bg-[#EFE6D8]/75 dark:bg-[#221F1C] text-[13px] font-mono font-medium text-[#231D18] dark:text-[#DFD7CC] hover:border-[#9A4E24] dark:hover:border-amber-400 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 cursor-pointer whitespace-nowrap"
                   >
                     <FiFileText className="text-xs text-[#9A4E24] dark:text-amber-400 shrink-0" />
                     <span>Preview CV</span>
@@ -150,14 +155,18 @@ const Hero = ({ onOpenResume, onDownloadPdf, onOpenContact, onCopyEmail, onNotif
               <a
                 href="#projects"
                 onClick={jumpToProjects}
-                className="inline-flex items-center gap-1.5 px-3 py-2 min-h-[42px] text-[13px] font-mono font-medium text-[#9A4E24] dark:text-amber-400 hover:underline whitespace-nowrap"
+                className="group inline-flex items-center gap-1.5 px-3 py-2 min-h-[42px] text-[13px] font-mono font-medium text-[#9A4E24] dark:text-amber-400 hover:underline whitespace-nowrap"
               >
-                <span>Explore systems ↓</span>
+                <span>Explore systems</span>
+                <span className="transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
               </a>
             </div>
 
             {/* Hairline-Divided Proof Strip */}
-            <div className="pt-4 border-t border-[#D8CBB8]/85 dark:border-[#2B2622] grid grid-cols-3 gap-4 sm:gap-6 max-w-xl">
+            <div
+              style={{ animationDelay: "240ms" }}
+              className="animate-hero-in pt-4 border-t border-[#D8CBB8]/85 dark:border-[#2B2622] grid grid-cols-3 gap-4 sm:gap-6 max-w-xl"
+            >
               {heroMetrics.map((m, idx) => (
                 <div
                   key={m.label}
@@ -203,7 +212,7 @@ const Hero = ({ onOpenResume, onDownloadPdf, onOpenContact, onCopyEmail, onNotif
           </div>
 
           {/* Right Column (5/12): Elevated Studio Showcase Card */}
-          <div className="lg:col-span-5">
+          <div style={{ animationDelay: "140ms" }} className="animate-hero-in lg:col-span-5">
             <div className="rounded-2xl border studio-surface-muted p-3.5 sm:p-4 shadow-sm space-y-3.5">
               <div className="flex items-center justify-between gap-2 px-1 text-[12px] font-mono">
                 <span className="text-[#231D18] dark:text-[#F3ECE2] font-medium">Architect’s Studio Desk</span>

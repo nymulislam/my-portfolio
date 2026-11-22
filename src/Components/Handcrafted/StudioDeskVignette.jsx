@@ -126,10 +126,10 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey, embedded = false }
               <rect x="18" y="10" width="148" height="104" rx="4" fill="url(#skyNight)" />
               <circle cx="56" cy="40" r="8" fill="#FDE68A" />
               <circle cx="60" cy="38" r="7" fill="#121520" />
-              <circle cx="105" cy="32" r="1.2" fill="#FFFFFF" opacity="0.9" />
-              <circle cx="132" cy="48" r="1.4" fill="#FDE68A" opacity="0.85" />
-              <circle cx="88" cy="62" r="1" fill="#FFFFFF" opacity="0.75" />
-              <circle cx="122" cy="72" r="1.1" fill="#FFFFFF" opacity="0.8" />
+              <circle cx="105" cy="32" r="1.2" fill="#FFFFFF" className="animate-star-twinkle-1" />
+              <circle cx="132" cy="48" r="1.4" fill="#FDE68A" className="animate-star-twinkle-2" />
+              <circle cx="88" cy="62" r="1" fill="#FFFFFF" className="animate-star-twinkle-2" />
+              <circle cx="122" cy="72" r="1.1" fill="#FFFFFF" className="animate-star-twinkle-1" />
             </g>
 
             {/* Window Frame Border */}
@@ -355,6 +355,7 @@ const StudioDeskVignette = ({ activeKeyIndex = 0, onCycleKey, embedded = false }
                     width="9"
                     height="5"
                     rx="1"
+                    className="transition-all duration-200"
                     style={{
                       fill: isHighlighted
                         ? "#D97706"

@@ -15,7 +15,6 @@ const TimeOfDayContext = createContext();
 const MOOD_DETAILS = {
   morning: {
     label: "Morning",
-    bangla: "সকাল",
     windowCaption: "Morning sunbeams · Espresso & keys",
     devAtmosphere: "Morning sun · System design & fresh coffee",
     skyNote: "Morning studio light",
@@ -24,7 +23,6 @@ const MOOD_DETAILS = {
   },
   afternoon: {
     label: "Afternoon",
-    bangla: "দুপুর",
     windowCaption: "Crisp daylight · Deep architecture",
     devAtmosphere: "Bright daylight · Deep work & shipping features",
     skyNote: "Crisp afternoon light",
@@ -33,7 +31,6 @@ const MOOD_DETAILS = {
   },
   evening: {
     label: "Evening",
-    bangla: "সন্ধ্যা",
     windowCaption: "Golden sunset · Warm desk lamp",
     devAtmosphere: "Golden hour · Architecture review & evening tea",
     skyNote: "Golden hour studio",
@@ -42,7 +39,6 @@ const MOOD_DETAILS = {
   },
   night: {
     label: "Night",
-    bangla: "রাত",
     windowCaption: "Starlit window · Backlit keys",
     devAtmosphere: "Quiet night · Warm desk lamp & late-night builds",
     skyNote: "Late-night studio focus",

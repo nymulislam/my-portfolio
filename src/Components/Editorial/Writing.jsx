@@ -51,8 +51,12 @@ const Writing = () => {
                   <button
                     type="button"
                     onClick={() => setActiveArticle(post)}
-                    className="group w-full py-4 sm:py-5 first:pt-0 flex items-start sm:items-center justify-between gap-4 cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9A4E24] dark:focus-visible:ring-amber-400 rounded-lg"
+                    className="group relative w-full py-4 sm:py-5 first:pt-0 pl-0 hover:pl-3 transition-[padding] duration-200 flex items-start sm:items-center justify-between gap-4 cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#9A4E24] dark:focus-visible:ring-amber-400 rounded-lg"
                   >
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute left-0 top-3 bottom-3 w-[2px] rounded-full bg-[#9A4E24] dark:bg-amber-400 scale-y-0 origin-center group-hover:scale-y-100 transition-transform duration-200"
+                    />
                     <div className="space-y-1 min-w-0">
                       <h3 className="font-serif text-[18.5px] sm:text-[20.5px] font-normal text-[#231D18] dark:text-[#F3ECE2] group-hover:text-[#9A4E24] dark:group-hover:text-amber-400 transition-colors leading-snug">
                         {post.title}

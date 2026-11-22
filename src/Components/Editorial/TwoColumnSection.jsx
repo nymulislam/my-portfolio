@@ -156,11 +156,13 @@ const TwoColumnSection = ({ onOpenResume, onDownloadPdf }) => {
                               {isExpanded ? "Show less ↑" : "Read more ↓"}
                             </button>
                           </p>
-                          {isExpanded && (
-                            <p className="animate-editorial-fade pl-3 border-l-2 border-[#D2C3AE] dark:border-stone-700 text-[13.5px] text-[#4A3E33] dark:text-stone-300 leading-[1.66]">
-                              {item.expandedDetails}
-                            </p>
-                          )}
+                          <div className={`studio-accordion ${isExpanded ? "is-open" : ""}`} aria-hidden={!isExpanded}>
+                            <div>
+                              <p className="pl-3 border-l-2 border-[#D2C3AE] dark:border-stone-700 text-[13.5px] text-[#4A3E33] dark:text-stone-300 leading-[1.66]">
+                                {item.expandedDetails}
+                              </p>
+                            </div>
+                          </div>
                           <div className="rounded-lg border border-[#DFD2C0] dark:border-stone-800/90 bg-[#EFE6D8]/60 dark:bg-[#151311]/90 px-3 py-2 text-[12px] font-mono text-[#332B24] dark:text-stone-200 leading-relaxed">
                             <span className="text-[#9A4E24] dark:text-amber-400 font-medium">Outcome: </span>
                             {item.impact}
@@ -171,7 +173,11 @@ const TwoColumnSection = ({ onOpenResume, onDownloadPdf }) => {
                           <div className="text-[11px] text-[#5C4E41] dark:text-stone-400">Request &amp; Data Pipeline:</div>
                           <div className="space-y-1.5 text-[#231D18] dark:text-stone-200">
                             {item.architecture.pipeline.map((node, i) => (
-                              <div key={node} className="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-lg bg-[#F6EFE2]/95 dark:bg-[#1C1917] border border-[#CBBBA4]/80 dark:border-stone-800">
+                              <div
+                                key={node}
+                                style={{ animationDelay: `${i * 55}ms` }}
+                                className="animate-pipeline-step flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-lg bg-[#F6EFE2]/95 dark:bg-[#1C1917] border border-[#CBBBA4]/80 dark:border-stone-800"
+                              >
                                 <div className="flex items-center gap-2 min-w-0">
                                   <span className="text-[11px] text-[#9A4E24] dark:text-amber-400 tabular-nums shrink-0 font-medium">0{i + 1}.</span>
                                   <span className="break-words">{node}</span>
@@ -277,7 +283,7 @@ const TwoColumnSection = ({ onOpenResume, onDownloadPdf }) => {
                       </div>
                       <div className="flex flex-wrap gap-1.5">
                         {tags.map((skill) => (
-                          <span key={skill} className="px-2.5 py-1 rounded-lg border border-[#D8CBB8] dark:border-stone-800 bg-[#EFE6D8]/75 dark:bg-[#221E1B] text-[12px] font-mono text-[#231D18] dark:text-stone-200 leading-tight">
+                          <span key={skill} className="studio-chip px-2.5 py-1 rounded-lg text-[12px] text-[#231D18] dark:text-stone-200">
                             {skill}
                           </span>
                         ))}
@@ -393,11 +399,13 @@ const TwoColumnSection = ({ onOpenResume, onDownloadPdf }) => {
                           </button>
                         </p>
 
-                        {isExpOpen && (
-                          <ul className="animate-editorial-fade space-y-1.5 pt-1 pl-3 border-l-2 border-[#D2C3AE] dark:border-[#36302A] text-[13.5px] text-[#4A3E33] dark:text-[#C8BEB2] leading-[1.68] list-disc list-inside">
-                            {exp.highlights.map((pt, i) => <li key={i}>{pt}</li>)}
-                          </ul>
-                        )}
+                        <div className={`studio-accordion ${isExpOpen ? "is-open" : ""}`} aria-hidden={!isExpOpen}>
+                          <div>
+                            <ul className="space-y-1.5 pt-1 pl-3 border-l-2 border-[#D2C3AE] dark:border-[#36302A] text-[13.5px] text-[#4A3E33] dark:text-[#C8BEB2] leading-[1.68] list-disc list-inside">
+                              {exp.highlights.map((pt, i) => <li key={i}>{pt}</li>)}
+                            </ul>
+                          </div>
+                        </div>
                       </div>
                     </Reveal>
                   );

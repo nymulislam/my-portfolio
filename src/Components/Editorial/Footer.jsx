@@ -62,73 +62,75 @@ const Footer = ({ onOpenCommand, onOpenResume, onDownloadPdf, onOpenContact, onC
           </div>
         </Reveal>
 
-        {showDevConsole && (
-          <Reveal delay={60} className="rounded-xl border studio-surface-muted p-3.5 sm:p-4 text-[12.5px] font-mono space-y-2.5 transition-all">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#D2C3AE]/80 dark:border-stone-800/80 pb-2.5">
-              <div className="flex items-center gap-2 shrink-0">
-                <span className="text-[#9A4E24] dark:text-amber-400 font-medium">~/naymul</span>
-                <span className="text-[#6E5E4F] dark:text-stone-400">git:(main)</span>
-              </div>
+        <div className={`studio-accordion ${showDevConsole ? "is-open" : ""}`} aria-hidden={!showDevConsole}>
+          <div>
+            <Reveal delay={60} className="rounded-xl border studio-surface-muted p-3.5 sm:p-4 text-[12.5px] font-mono space-y-2.5 transition-all">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#D2C3AE]/80 dark:border-stone-800/80 pb-2.5">
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-[#9A4E24] dark:text-amber-400 font-medium">~/naymul</span>
+                  <span className="text-[#6E5E4F] dark:text-stone-400">git:(main)</span>
+                </div>
 
-              <div className="flex flex-wrap items-center gap-1.5">
-                {Object.keys(DEV_COMMANDS).map((key) => (
-                  <button
-                    type="button"
-                    key={key}
-                    onClick={() => setActiveCmd(key)}
-                    className={`px-2.5 py-1 sm:py-0.5 rounded text-[11.5px] cursor-pointer transition-colors whitespace-nowrap ${
-                      activeCmd === key
-                        ? "bg-[#231D18] text-[#F6EFE2] dark:bg-amber-400 dark:text-stone-950 font-medium"
-                        : "text-[#4A3E33] dark:text-stone-300 hover:bg-[#DDD0BC]/80 dark:hover:bg-stone-800"
-                    }`}
-                  >
-                    --{key}
-                  </button>
-                ))}
-                <Tooltip content="Cycle ambient time of day" position="top" align="right">
-                  <button
-                    type="button"
-                    onClick={(e) => cycleMood(e)}
-                    className="px-2.5 py-1 sm:py-0.5 rounded text-[11.5px] text-[#9A4E24] dark:text-amber-400 font-medium hover:bg-[#DDD0BC]/80 dark:hover:bg-stone-800 cursor-pointer transition-colors whitespace-nowrap"
-                  >
-                    --mood={activePeriod}
-                  </button>
-                </Tooltip>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-0.5 text-[12px] sm:text-[12.5px]">
-              <div className="text-[#231D18] dark:text-stone-200 leading-relaxed break-words">
-                <span className="text-[#9A4E24] dark:text-amber-400 font-medium mr-2">$ {DEV_COMMANDS[activeCmd].cmd}</span>
-                <span className="opacity-60 mr-2">→</span>
-                <span>{DEV_COMMANDS[activeCmd].output}</span>
-                <span className="inline-block w-1.5 h-3.5 bg-[#9A4E24] dark:bg-amber-400 ml-1.5 align-middle animate-cursor-blink" />
-              </div>
-
-              <div className="flex items-center gap-2 shrink-0 self-start sm:self-auto">
-                <button
-                  type="button"
-                  onClick={handleCopy}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 sm:py-1 min-h-[32px] sm:min-h-0 rounded border border-[#C5B49E] dark:border-stone-700 text-[11.5px] text-[#332B24] dark:text-stone-200 hover:bg-[#DFD3C0] dark:hover:bg-stone-800 cursor-pointer transition-colors whitespace-nowrap"
-                >
-                  {copiedEmail ? <FiCheck className="text-emerald-600 dark:text-emerald-400" /> : <FiCopy />}
-                  <span>{copiedEmail ? "Copied" : "Copy email"}</span>
-                </button>
-                {onOpenCommand && (
-                  <Tooltip content="Open Command Palette (⌘K)" position="top" align="right">
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {Object.keys(DEV_COMMANDS).map((key) => (
                     <button
                       type="button"
-                      onClick={onOpenCommand}
-                      className="inline-flex items-center gap-1 px-2.5 py-1.5 sm:py-1 min-h-[32px] sm:min-h-0 rounded border border-[#C5B49E] dark:border-stone-700 text-[11.5px] text-[#332B24] dark:text-stone-200 hover:bg-[#DFD3C0] dark:hover:bg-stone-800 cursor-pointer transition-colors whitespace-nowrap"
+                      key={key}
+                      onClick={() => setActiveCmd(key)}
+                      className={`px-2.5 py-1 sm:py-0.5 rounded text-[11.5px] cursor-pointer transition-all duration-150 whitespace-nowrap ${
+                        activeCmd === key
+                          ? "bg-[#231D18] text-[#F6EFE2] dark:bg-amber-400 dark:text-stone-950 font-medium shadow-sm"
+                          : "text-[#4A3E33] dark:text-stone-300 hover:bg-[#DDD0BC]/80 dark:hover:bg-stone-800"
+                      }`}
                     >
-                      <span>⌘K</span>
+                      --{key}
+                    </button>
+                  ))}
+                  <Tooltip content="Cycle ambient time of day" position="top" align="right">
+                    <button
+                      type="button"
+                      onClick={(e) => cycleMood(e)}
+                      className="px-2.5 py-1 sm:py-0.5 rounded text-[11.5px] text-[#9A4E24] dark:text-amber-400 font-medium hover:bg-[#DDD0BC]/80 dark:hover:bg-stone-800 cursor-pointer transition-colors whitespace-nowrap"
+                    >
+                      --mood={activePeriod}
                     </button>
                   </Tooltip>
-                )}
+                </div>
               </div>
-            </div>
-          </Reveal>
-        )}
+
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-0.5 text-[12px] sm:text-[12.5px]">
+                <div key={activeCmd} className="animate-editorial-fade text-[#231D18] dark:text-stone-200 leading-relaxed break-words">
+                  <span className="text-[#9A4E24] dark:text-amber-400 font-medium mr-2">$ {DEV_COMMANDS[activeCmd].cmd}</span>
+                  <span className="opacity-60 mr-2">→</span>
+                  <span>{DEV_COMMANDS[activeCmd].output}</span>
+                  <span className="inline-block w-1.5 h-3.5 bg-[#9A4E24] dark:bg-amber-400 ml-1.5 align-middle animate-cursor-blink" />
+                </div>
+
+                <div className="flex items-center gap-2 shrink-0 self-start sm:self-auto">
+                  <button
+                    type="button"
+                    onClick={handleCopy}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 sm:py-1 min-h-[32px] sm:min-h-0 rounded border border-[#C5B49E] dark:border-stone-700 text-[11.5px] text-[#332B24] dark:text-stone-200 hover:bg-[#DFD3C0] dark:hover:bg-stone-800 cursor-pointer transition-colors whitespace-nowrap"
+                  >
+                    {copiedEmail ? <FiCheck className="text-emerald-600 dark:text-emerald-400" /> : <FiCopy />}
+                    <span>{copiedEmail ? "Copied" : "Copy email"}</span>
+                  </button>
+                  {onOpenCommand && (
+                    <Tooltip content="Open Command Palette (⌘K)" position="top" align="right">
+                      <button
+                        type="button"
+                        onClick={onOpenCommand}
+                        className="inline-flex items-center gap-1 px-2.5 py-1.5 sm:py-1 min-h-[32px] sm:min-h-0 rounded border border-[#C5B49E] dark:border-stone-700 text-[11.5px] text-[#332B24] dark:text-stone-200 hover:bg-[#DFD3C0] dark:hover:bg-stone-800 cursor-pointer transition-colors whitespace-nowrap"
+                      >
+                        <span>⌘K</span>
+                      </button>
+                    </Tooltip>
+                  )}
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
 
         <div className="pt-4 border-t border-[#D2C3AE] dark:border-[#2B2622] flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-[13px] sm:text-[13.5px]">
           <div className="text-[#6E5E4F] dark:text-[#9C9184]">
