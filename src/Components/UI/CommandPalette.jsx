@@ -1,7 +1,8 @@
 import { flushSync } from "react-dom";
 import {
   FiX,
-  FiSun,
+  FiClock,
+  FiMonitor,
   FiMoon,
   FiArrowRight,
   FiCopy,
@@ -21,11 +22,12 @@ const ROW_CLASS =
   "w-full flex items-center justify-between px-3 py-2.5 sm:py-2 min-h-[40px] sm:min-h-0 rounded-lg text-left text-[#4A3F35] dark:text-stone-300 hover:bg-[#EAE0CE]/60 dark:hover:bg-stone-800/50 transition-colors cursor-pointer";
 
 const MOODS = [
-  { key: "morning", label: "Morning — Sunbeams & Espresso", icon: <WiSunrise className="text-lg text-amber-500 shrink-0" /> },
-  { key: "afternoon", label: "Afternoon — Daylight & Deep Work", icon: <WiDaySunny className="text-lg text-orange-500 shrink-0" /> },
-  { key: "evening", label: "Evening — Golden Sunset & Desk Lamp", icon: <WiSunset className="text-lg text-rose-500 shrink-0" /> },
-  { key: "night", label: "Night — Starlit Window & Backlit Keys", icon: <FiMoon className="text-sm text-indigo-400 shrink-0" /> },
-  { key: "auto", label: "Auto — Sync with System Clock", icon: <FiSun className="text-sm text-stone-500 shrink-0" /> },
+  { key: "auto", label: "Auto — Time of day", icon: <FiClock className="text-sm text-stone-500 shrink-0" /> },
+  { key: "system", label: "System — Device setting", icon: <FiMonitor className="text-sm text-stone-500 shrink-0" /> },
+  { key: "morning", label: "Morning — Light & Sunbeams", icon: <WiSunrise className="text-lg text-amber-500 shrink-0" /> },
+  { key: "afternoon", label: "Afternoon — Warm Daylight", icon: <WiDaySunny className="text-lg text-orange-500 shrink-0" /> },
+  { key: "evening", label: "Evening — Sepia & Desk Lamp", icon: <WiSunset className="text-lg text-rose-500 shrink-0" /> },
+  { key: "night", label: "Night — Dark & Backlit Keys", icon: <FiMoon className="text-sm text-indigo-400 shrink-0" /> },
 ];
 
 const JUMP_LINKS = [

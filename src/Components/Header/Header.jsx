@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback, useLayoutEffect } from "react";
 import { flushSync } from "react-dom";
-import { FiSun, FiMoon, FiFileText } from "react-icons/fi";
+import { FiClock, FiMonitor, FiMoon, FiFileText, FiCheck } from "react-icons/fi";
 import { WiSunset, WiSunrise, WiDaySunny } from "react-icons/wi";
 import { useTimeOfDay } from "../../context/TimeOfDayContext";
 import { PROFILE } from "../../data/portfolioData";
@@ -16,11 +16,12 @@ const NAV_LINKS = [
 ];
 
 const MOOD_OPTIONS = [
-  { key: "auto", label: "Auto", sublabel: "Local time", icon: <FiSun className="text-sm text-[#9A4E24] dark:text-amber-400" /> },
-  { key: "morning", label: "Morning", sublabel: "5am–12pm", icon: <WiSunrise className="text-lg text-amber-600 dark:text-amber-400" /> },
-  { key: "afternoon", label: "Afternoon", sublabel: "12–5pm", icon: <WiDaySunny className="text-lg text-orange-500 dark:text-amber-400" /> },
-  { key: "evening", label: "Evening", sublabel: "5–7pm", icon: <WiSunset className="text-lg text-[#8C583A] dark:text-amber-400" /> },
-  { key: "night", label: "Night", sublabel: "7pm–5am", icon: <FiMoon className="text-sm text-indigo-400" /> },
+  { key: "auto", label: "Auto", sublabel: "Time of day", icon: <FiClock className="text-[16px]" /> },
+  { key: "system", label: "System", sublabel: "Device setting", icon: <FiMonitor className="text-[16px]" /> },
+  { key: "morning", label: "Morning", sublabel: "Light", icon: <WiSunrise className="text-[20px]" /> },
+  { key: "afternoon", label: "Afternoon", sublabel: "Warm", icon: <WiDaySunny className="text-[20px]" /> },
+  { key: "evening", label: "Evening", sublabel: "Sepia", icon: <WiSunset className="text-[20px]" /> },
+  { key: "night", label: "Night", sublabel: "Dark", icon: <FiMoon className="text-[15px]" /> },
 ];
 
 const PERIOD_ICON = {
@@ -157,6 +158,8 @@ const Header = ({ onOpenResume, onOpenContact }) => {
   const moodTooltipText =
     selectedMood === "auto"
       ? `Studio Light · Auto (${currentDetails.label})`
+      : selectedMood === "system"
+      ? `Studio Light · System (${currentDetails.label})`
       : `Studio Light · ${currentDetails.label}`;
 
   return (
@@ -273,17 +276,11 @@ const Header = ({ onOpenResume, onOpenContact }) => {
 
               <div
                 aria-hidden={!dropdownOpen}
-                className={`absolute right-0 mt-2 w-56 rounded-xl border border-[#D2C3AE] dark:border-[#332E29] bg-[#F6EFE2] dark:bg-[#1E1B18] shadow-xl p-1.5 z-50 text-xs origin-top-right transition-[opacity,transform,visibility] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                className={`absolute right-0 mt-2.5 w-56 rounded-2xl border border-[#D2C3AE] dark:border-[#332E29] bg-[#FBF6EC] dark:bg-[#1B1917] shadow-2xl p-2 z-50 origin-top-right transition-[opacity,transform,visibility] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                   dropdownOpen ? "visible opacity-100 scale-100 translate-y-0 pointer-events-auto" : "invisible opacity-0 scale-95 -translate-y-1.5 pointer-events-none"
                 }`}
               >
-                <div className="px-2.5 py-1.5 text-[11px] font-mono text-[#6E5E4F] dark:text-[#A89E93] flex items-center justify-between">
-                  <span>Studio Light</span>
-                  <span className="text-[10px] opacity-75">
-                    {selectedMood === "auto" ? `Auto · ${currentDetails.label}` : currentDetails.label}
-                  </span>
-                </div>
-                <div className="space-y-0.5">
+                <div className="space-y-1">
                   {MOOD_OPTIONS.map((opt) => {
                     const isSelected = selectedMood === opt.key;
                     return (
@@ -292,20 +289,38 @@ const Header = ({ onOpenResume, onOpenContact }) => {
                         key={opt.key}
                         tabIndex={dropdownOpen ? 0 : -1}
                         onClick={(e) => handleSelectMood(opt.key, e)}
-                        className={`group/mood w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-all duration-150 cursor-pointer active:scale-[0.98] ${
+                        className={`group/mood w-full flex items-center justify-between gap-3 px-3 py-2 rounded-xl text-left transition-all duration-150 cursor-pointer active:scale-[0.98] ${
                           isSelected
-                            ? "bg-[#E5D9C5] dark:bg-[#2B2622] text-[#231D18] dark:text-[#F3ECE2] font-medium shadow-sm"
-                            : "text-[#3B3128] dark:text-[#D5CCC0] hover:bg-[#EAE0CE]/70 dark:hover:bg-[#26221E] hover:translate-x-0.5"
+                            ? "bg-[#ECE2D0] dark:bg-[#282420] text-[#9A4E24] dark:text-amber-300 shadow-sm"
+                            : "text-[#2B241E] dark:text-[#E5DDD2] hover:bg-[#EFE6D7]/80 dark:hover:bg-[#23201C]"
                         }`}
                       >
-                        <div className="flex items-center gap-2.5">
-                          <span className="inline-flex items-center transition-transform duration-200 group-hover/mood:scale-110 group-hover/mood:rotate-6">{opt.icon}</span>
-                          <span>{opt.label}</span>
+                        <div className="flex items-center gap-3 min-w-0">
+                          <span
+                            className={`w-5 inline-flex items-center justify-center shrink-0 transition-transform duration-200 group-hover/mood:scale-110 ${
+                              isSelected
+                                ? "text-[#9A4E24] dark:text-amber-300"
+                                : "text-[#6E5E4F] dark:text-stone-400"
+                            }`}
+                          >
+                            {opt.icon}
+                          </span>
+                          <div className="flex flex-col leading-tight min-w-0">
+                            <span className="text-[13px] font-medium truncate">{opt.label}</span>
+                            <span
+                              className={`text-[11.5px] mt-0.5 truncate ${
+                                isSelected
+                                  ? "text-[#9A4E24]/85 dark:text-amber-200/80"
+                                  : "text-[#6E5E4F] dark:text-stone-400"
+                              }`}
+                            >
+                              {opt.sublabel}
+                            </span>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-1.5 shrink-0">
-                          <span className="font-mono text-[10.5px] text-[#6E5E4F] dark:text-[#A89E93]">{opt.sublabel}</span>
-                          {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-[#9A4E24] dark:bg-amber-400 shrink-0" />}
-                        </div>
+                        {isSelected && (
+                          <FiCheck className="text-[14px] text-[#9A4E24] dark:text-amber-300 shrink-0" />
+                        )}
                       </button>
                     );
                   })}

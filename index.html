@@ -21,7 +21,11 @@
         var valid = ["morning", "afternoon", "evening", "night"];
         var h = new Date().getHours();
         var sys = h >= 5 && h < 12 ? "morning" : h >= 12 && h < 17 ? "afternoon" : h >= 17 && h < 19 ? "evening" : "night";
-        var period = valid.indexOf(stored) !== -1 ? stored : sys;
+        var period = valid.indexOf(stored) !== -1
+          ? stored
+          : stored === "system"
+          ? (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "night" : "morning")
+          : sys;
         var root = document.documentElement;
         root.classList.add("mood-" + period);
         if (period === "night") root.classList.add("dark");

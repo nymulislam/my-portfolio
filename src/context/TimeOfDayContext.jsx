@@ -50,7 +50,7 @@ const MOOD_DETAILS = {
 const MOOD_ORDER = ["morning", "afternoon", "evening", "night"];
 const STORAGE_KEY = "portfolio_time_mood_v2";
 const LEGACY_STORAGE_KEY = "portfolio_time_mood";
-const VALID_MOODS = [...MOOD_ORDER, "auto"];
+const VALID_MOODS = [...MOOD_ORDER, "auto", "system"];
 
 /**
  * Accurate natural daylight schedule (visitor local clock):
@@ -59,7 +59,7 @@ const VALID_MOODS = [...MOOD_ORDER, "auto"];
  * Evening:   17:00 – 18:59 (Golden Hour / Dusk)
  * Night:     19:00 – 04:59
  */
-const getSystemPeriod = () => {
+const getClockPeriod = () => {
   const hour = new Date().getHours();
   if (hour >= 5 && hour < 12) return "morning";
   if (hour >= 12 && hour < 17) return "afternoon";
@@ -67,8 +67,18 @@ const getSystemPeriod = () => {
   return "night";
 };
 
-const resolvePeriod = (mood, sysPeriod) =>
-  mood === "auto" ? sysPeriod : MOOD_ORDER.includes(mood) ? mood : sysPeriod;
+const getDevicePeriod = () => {
+  if (typeof window !== "undefined" && window.matchMedia?.("(prefers-color-scheme: dark)").matches) {
+    return "night";
+  }
+  return "morning";
+};
+
+const resolvePeriod = (mood, clockPeriod, devicePeriod) => {
+  if (mood === "auto") return clockPeriod;
+  if (mood === "system") return devicePeriod;
+  return MOOD_ORDER.includes(mood) ? mood : clockPeriod;
+};
 
 const applyRootMoodClasses = (period, moodToStore) => {
   if (typeof document === "undefined") return;
@@ -128,12 +138,13 @@ export const TimeOfDayProvider = ({ children }) => {
     return "auto";
   });
 
-  const [systemPeriod, setSystemPeriod] = useState(() => getSystemPeriod());
+  const [clockPeriod, setClockPeriod] = useState(() => getClockPeriod());
+  const [devicePeriod, setDevicePeriod] = useState(() => getDevicePeriod());
   const transitionTimerRef = useRef(null);
 
   const activePeriod = useMemo(
-    () => resolvePeriod(selectedMood, systemPeriod),
-    [selectedMood, systemPeriod]
+    () => resolvePeriod(selectedMood, clockPeriod, devicePeriod),
+    [selectedMood, clockPeriod, devicePeriod]
   );
 
   const currentDetails = MOOD_DETAILS[activePeriod] || MOOD_DETAILS.evening;
@@ -145,10 +156,11 @@ export const TimeOfDayProvider = ({ children }) => {
   }, [activePeriod, selectedMood]);
 
   // Cinematic GPU Radial Light-Wave transition for all mood changes
-  const runMoodTransition = useCallback((nextMood, nextPeriod, nextSys, originEvent) => {
+  const runMoodTransition = useCallback((nextMood, nextPeriod, nextClock, nextDevice, originEvent) => {
     if (typeof document === "undefined") {
       setSelectedMoodState(nextMood);
-      setSystemPeriod(nextSys);
+      setClockPeriod(nextClock);
+      setDevicePeriod(nextDevice);
       setStudioLampOn(MOOD_DETAILS[nextPeriod]?.defaultLamp ?? true);
       return;
     }
@@ -160,7 +172,8 @@ export const TimeOfDayProvider = ({ children }) => {
 
     if (prefersReducedMotion) {
       setSelectedMoodState(nextMood);
-      setSystemPeriod(nextSys);
+      setClockPeriod(nextClock);
+      setDevicePeriod(nextDevice);
       setStudioLampOn(MOOD_DETAILS[nextPeriod]?.defaultLamp ?? true);
       applyRootMoodClasses(nextPeriod, nextMood);
       return;
@@ -174,7 +187,8 @@ export const TimeOfDayProvider = ({ children }) => {
           root.classList.add("vt-mood-switching");
           flushSync(() => {
             setSelectedMoodState(nextMood);
-            setSystemPeriod(nextSys);
+            setClockPeriod(nextClock);
+            setDevicePeriod(nextDevice);
             setStudioLampOn(MOOD_DETAILS[nextPeriod]?.defaultLamp ?? true);
           });
           applyRootMoodClasses(nextPeriod, nextMood);
@@ -194,7 +208,8 @@ export const TimeOfDayProvider = ({ children }) => {
     root.classList.add("mood-transitioning");
     clearTimeout(transitionTimerRef.current);
     setSelectedMoodState(nextMood);
-    setSystemPeriod(nextSys);
+    setClockPeriod(nextClock);
+    setDevicePeriod(nextDevice);
     setStudioLampOn(MOOD_DETAILS[nextPeriod]?.defaultLamp ?? true);
     applyRootMoodClasses(nextPeriod, nextMood);
 
@@ -205,30 +220,47 @@ export const TimeOfDayProvider = ({ children }) => {
 
   const setSelectedMood = useCallback(
     (nextMood, originEvent) => {
-      const currentSys = getSystemPeriod();
-      const nextPeriod = resolvePeriod(nextMood, currentSys);
+      const latestClock = getClockPeriod();
+      const latestDevice = getDevicePeriod();
+      const nextPeriod = resolvePeriod(nextMood, latestClock, latestDevice);
       if (nextPeriod === activePeriod) {
         setSelectedMoodState(nextMood);
+        setClockPeriod(latestClock);
+        setDevicePeriod(latestDevice);
         applyRootMoodClasses(nextPeriod, nextMood);
         return;
       }
-      runMoodTransition(nextMood, nextPeriod, currentSys, originEvent);
+      runMoodTransition(nextMood, nextPeriod, latestClock, latestDevice, originEvent);
     },
     [activePeriod, runMoodTransition]
   );
 
-  // Smoothly transition automatically when the visitor's clock crosses a time-of-day boundary in Auto mode
+  // Smoothly transition automatically when the visitor's clock crosses a boundary in Auto mode
   useEffect(() => {
     if (selectedMood !== "auto") return;
     const checkClock = () => {
-      const latest = getSystemPeriod();
+      const latest = getClockPeriod();
       if (latest !== activePeriod) {
-        runMoodTransition("auto", latest, latest, null);
+        runMoodTransition("auto", latest, latest, devicePeriod, null);
       }
     };
     const interval = setInterval(checkClock, 60000);
     return () => clearInterval(interval);
-  }, [selectedMood, activePeriod, runMoodTransition]);
+  }, [selectedMood, activePeriod, devicePeriod, runMoodTransition]);
+
+  // Smoothly react to live OS Light/Dark changes in System mode
+  useEffect(() => {
+    if (selectedMood !== "system" || typeof window === "undefined" || !window.matchMedia) return;
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const onSchemeChange = () => {
+      const latest = mq.matches ? "night" : "morning";
+      if (latest !== activePeriod) {
+        runMoodTransition("system", latest, clockPeriod, latest, null);
+      }
+    };
+    mq.addEventListener?.("change", onSchemeChange);
+    return () => mq.removeEventListener?.("change", onSchemeChange);
+  }, [selectedMood, activePeriod, clockPeriod, runMoodTransition]);
 
   const toggleStudioLamp = useCallback(() => {
     setStudioLampOn((prev) => !prev);
